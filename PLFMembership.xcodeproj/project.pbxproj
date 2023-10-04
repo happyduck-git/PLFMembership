@@ -13,6 +13,18 @@
 		932EE3AD2AC3D33000D2E132 /* AlchemyTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3AC2AC3D33000D2E132 /* AlchemyTransfer.swift */; };
 		932EE3B02AC4186E00D2E132 /* web3.swift in Frameworks */ = {isa = PBXBuildFile; productRef = 932EE3AF2AC4186E00D2E132 /* web3.swift */; };
 		932EE3B22AC41AAC00D2E132 /* Web3Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3B12AC41AAC00D2E132 /* Web3Manager.swift */; };
+		932EE3B82ACCE52200D2E132 /* CoffeeNFTFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3B52ACCE52200D2E132 /* CoffeeNFTFunctions.swift */; };
+		932EE3B92ACCE52200D2E132 /* CoffeeNFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3B62ACCE52200D2E132 /* CoffeeNFT.swift */; };
+		932EE3BA2ACCE52200D2E132 /* CoffeeNFTResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3B72ACCE52200D2E132 /* CoffeeNFTResponses.swift */; };
+		932EE3CD2ACD03D700D2E132 /* OwnedNFTs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3CC2ACD03D700D2E132 /* OwnedNFTs.swift */; };
+		932EE3CF2ACD2C7E00D2E132 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3CE2ACD2C7E00D2E132 /* UserProfileView.swift */; };
+		932EE3D12ACD2D0D00D2E132 /* PassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3D02ACD2D0D00D2E132 /* PassThroughView.swift */; };
+		932EE3D42ACD36B200D2E132 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 932EE3D32ACD36B200D2E132 /* Nuke */; };
+		932EE3D62ACD41B600D2E132 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3D52ACD41B600D2E132 /* UIStackView+Extensions.swift */; };
+		932EE3D82ACD4ABB00D2E132 /* NFTCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3D72ACD4ABB00D2E132 /* NFTCollectionViewCell.swift */; };
+		932EE3DA2ACD51B700D2E132 /* RightArrowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3D92ACD51B700D2E132 /* RightArrowButton.swift */; };
+		932EE3DC2ACD51EA00D2E132 /* PLFColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3DB2ACD51EA00D2E132 /* PLFColor.swift */; };
+		932EE3DE2ACD586300D2E132 /* MyNFTDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3DD2ACD586300D2E132 /* MyNFTDetailViewController.swift */; };
 		93AE4FF92ABC2E15008327B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AE4FF82ABC2E15008327B4 /* AppDelegate.swift */; };
 		93AE4FFB2ABC2E15008327B4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AE4FFA2ABC2E15008327B4 /* SceneDelegate.swift */; };
 		93AE4FFD2ABC2E15008327B4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AE4FFC2ABC2E15008327B4 /* MainViewController.swift */; };
@@ -71,6 +83,17 @@
 		932EE3A92AC3BAA600D2E132 /* NetworkServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceManager.swift; sourceTree = "<group>"; };
 		932EE3AC2AC3D33000D2E132 /* AlchemyTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlchemyTransfer.swift; sourceTree = "<group>"; };
 		932EE3B12AC41AAC00D2E132 /* Web3Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Manager.swift; sourceTree = "<group>"; };
+		932EE3B52ACCE52200D2E132 /* CoffeeNFTFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoffeeNFTFunctions.swift; sourceTree = "<group>"; };
+		932EE3B62ACCE52200D2E132 /* CoffeeNFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoffeeNFT.swift; sourceTree = "<group>"; };
+		932EE3B72ACCE52200D2E132 /* CoffeeNFTResponses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoffeeNFTResponses.swift; sourceTree = "<group>"; };
+		932EE3CC2ACD03D700D2E132 /* OwnedNFTs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnedNFTs.swift; sourceTree = "<group>"; };
+		932EE3CE2ACD2C7E00D2E132 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		932EE3D02ACD2D0D00D2E132 /* PassThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassThroughView.swift; sourceTree = "<group>"; };
+		932EE3D52ACD41B600D2E132 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
+		932EE3D72ACD4ABB00D2E132 /* NFTCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCollectionViewCell.swift; sourceTree = "<group>"; };
+		932EE3D92ACD51B700D2E132 /* RightArrowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightArrowButton.swift; sourceTree = "<group>"; };
+		932EE3DB2ACD51EA00D2E132 /* PLFColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLFColor.swift; sourceTree = "<group>"; };
+		932EE3DD2ACD586300D2E132 /* MyNFTDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNFTDetailViewController.swift; sourceTree = "<group>"; };
 		93AE4FF52ABC2E15008327B4 /* PLFMembership.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PLFMembership.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AE4FF82ABC2E15008327B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93AE4FFA2ABC2E15008327B4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +150,7 @@
 				93AE501C2ABC2EE8008327B4 /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
 				93AE50162ABC2EE8008327B4 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				93AE50122ABC2EE8008327B4 /* FirebaseCrashlytics in Frameworks */,
+				932EE3D42ACD36B200D2E132 /* Nuke in Frameworks */,
 				93AE50142ABC2EE8008327B4 /* FirebaseFirestore in Frameworks */,
 				93AE501A2ABC2EE8008327B4 /* FirebaseInAppMessaging-Beta in Frameworks */,
 				932EE3B02AC4186E00D2E132 /* web3.swift in Frameworks */,
@@ -156,13 +180,33 @@
 			isa = PBXGroup;
 			children = (
 				932EE3AC2AC3D33000D2E132 /* AlchemyTransfer.swift */,
+				932EE3CC2ACD03D700D2E132 /* OwnedNFTs.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		932EE3B32ACCE49800D2E132 /* CustomAbi */ = {
+			isa = PBXGroup;
+			children = (
+				932EE3B42ACCE52200D2E132 /* CoffeeNFT */,
+			);
+			path = CustomAbi;
+			sourceTree = "<group>";
+		};
+		932EE3B42ACCE52200D2E132 /* CoffeeNFT */ = {
+			isa = PBXGroup;
+			children = (
+				932EE3B52ACCE52200D2E132 /* CoffeeNFTFunctions.swift */,
+				932EE3B62ACCE52200D2E132 /* CoffeeNFT.swift */,
+				932EE3B72ACCE52200D2E132 /* CoffeeNFTResponses.swift */,
+			);
+			path = CoffeeNFT;
 			sourceTree = "<group>";
 		};
 		93AE4FEC2ABC2E15008327B4 = {
 			isa = PBXGroup;
 			children = (
+				932EE3B32ACCE49800D2E132 /* CustomAbi */,
 				93AE4FF72ABC2E15008327B4 /* PLFMembership */,
 				932EE39E2AC3B3E000D2E132 /* PLFMembershipTests */,
 				93AE4FF62ABC2E15008327B4 /* Products */,
@@ -182,9 +226,9 @@
 		93AE4FF72ABC2E15008327B4 /* PLFMembership */ = {
 			isa = PBXGroup;
 			children = (
+				93AE502E2AC154E6008327B4 /* Extensions */,
 				932EE3AB2AC3D31000D2E132 /* Models */,
 				93AE505B2AC2C95D008327B4 /* Managers */,
-				93AE502E2AC154E6008327B4 /* Extensions */,
 				93AE50282AC151A2008327B4 /* Utilities */,
 				93AE50242AC14E24008327B4 /* ViewControllers */,
 				93AE50232ABC2FC4008327B4 /* PLFMembership.entitlements */,
@@ -226,6 +270,8 @@
 				93AE50292AC151AF008327B4 /* Constants.swift */,
 				93AE503F2AC26692008327B4 /* PLFLogger.swift */,
 				93AE505E2AC2CC1B008327B4 /* EnvironmentConfig.swift */,
+				932EE3D02ACD2D0D00D2E132 /* PassThroughView.swift */,
+				932EE3DB2ACD51EA00D2E132 /* PLFColor.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -240,6 +286,7 @@
 				93AE50512AC2BF29008327B4 /* UICollectionReusableView+Extension.swift */,
 				93AE50532AC2BF4B008327B4 /* UITableViewCell+Extension.swift */,
 				93AE50552AC2BFF4008327B4 /* UIView+Extension.swift */,
+				932EE3D52ACD41B600D2E132 /* UIStackView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -258,6 +305,7 @@
 			children = (
 				93AE4FFC2ABC2E15008327B4 /* MainViewController.swift */,
 				93AE50442AC29CB2008327B4 /* MainViewViewModel.swift */,
+				932EE3CE2ACD2C7E00D2E132 /* UserProfileView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -278,6 +326,9 @@
 			isa = PBXGroup;
 			children = (
 				93AE50582AC2C85B008327B4 /* MyNFTsViewController.swift */,
+				932EE3D72ACD4ABB00D2E132 /* NFTCollectionViewCell.swift */,
+				932EE3D92ACD51B700D2E132 /* RightArrowButton.swift */,
+				932EE3DD2ACD586300D2E132 /* MyNFTDetailViewController.swift */,
 			);
 			path = MyNFTs;
 			sourceTree = "<group>";
@@ -343,6 +394,7 @@
 				93AE502C2AC152F8008327B4 /* SnapKit */,
 				93AE50322AC164BD008327B4 /* metamask-ios-sdk */,
 				932EE3AF2AC4186E00D2E132 /* web3.swift */,
+				932EE3D32ACD36B200D2E132 /* Nuke */,
 			);
 			productName = PLFMembership;
 			productReference = 93AE4FF52ABC2E15008327B4 /* PLFMembership.app */;
@@ -381,6 +433,7 @@
 				93AE502B2AC152F8008327B4 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				93AE50312AC164BD008327B4 /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */,
 				932EE3AE2AC4186E00D2E132 /* XCRemoteSwiftPackageReference "web3.swift" */,
+				932EE3D22ACD36B100D2E132 /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = 93AE4FF62ABC2E15008327B4 /* Products */;
 			projectDirPath = "";
@@ -426,13 +479,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				93AE50562AC2BFF4008327B4 /* UIView+Extension.swift in Sources */,
+				932EE3D82ACD4ABB00D2E132 /* NFTCollectionViewCell.swift in Sources */,
 				93AE50402AC26692008327B4 /* PLFLogger.swift in Sources */,
 				93AE50482AC2A79D008327B4 /* SideMenuPresentationManager.swift in Sources */,
 				93AE503A2AC167FE008327B4 /* UIControl+Extensions.swift in Sources */,
 				93AE50452AC29CB2008327B4 /* MainViewViewModel.swift in Sources */,
 				93AE505D2AC2C99C008327B4 /* AlchemyServiceManager.swift in Sources */,
 				93AE502A2AC151AF008327B4 /* Constants.swift in Sources */,
+				932EE3CF2ACD2C7E00D2E132 /* UserProfileView.swift in Sources */,
 				93AE503E2AC16A4E008327B4 /* BaseViewController.swift in Sources */,
+				932EE3D12ACD2D0D00D2E132 /* PassThroughView.swift in Sources */,
 				93AE503C2AC169C3008327B4 /* UIViewController+Extensions.swift in Sources */,
 				93AE50542AC2BF4B008327B4 /* UITableViewCell+Extension.swift in Sources */,
 				93AE50522AC2BF29008327B4 /* UICollectionReusableView+Extension.swift in Sources */,
@@ -440,19 +496,27 @@
 				93AE50592AC2C85B008327B4 /* MyNFTsViewController.swift in Sources */,
 				93AE50382AC167A1008327B4 /* UIButton+Extensions.swift in Sources */,
 				932EE3AA2AC3BAA600D2E132 /* NetworkServiceManager.swift in Sources */,
+				932EE3BA2ACCE52200D2E132 /* CoffeeNFTResponses.swift in Sources */,
 				93AE50422AC299EB008327B4 /* LoginViewViewModel.swift in Sources */,
 				932EE3B22AC41AAC00D2E132 /* Web3Manager.swift in Sources */,
+				932EE3DE2ACD586300D2E132 /* MyNFTDetailViewController.swift in Sources */,
 				932EE3AD2AC3D33000D2E132 /* AlchemyTransfer.swift in Sources */,
 				93AE504A2AC2A823008327B4 /* SideMenuPresentationController.swift in Sources */,
 				93AE50302AC154FC008327B4 /* UIColor+Extensions.swift in Sources */,
 				93AE50272AC15024008327B4 /* LoginViewController.swift in Sources */,
+				932EE3CD2ACD03D700D2E132 /* OwnedNFTs.swift in Sources */,
 				93AE50502AC2A9AA008327B4 /* SideMenuViewViewModel.swift in Sources */,
 				93AE4FFD2ABC2E15008327B4 /* MainViewController.swift in Sources */,
 				93AE50362AC166B5008327B4 /* LoadingViewController.swift in Sources */,
 				93AE4FF92ABC2E15008327B4 /* AppDelegate.swift in Sources */,
 				93AE505F2AC2CC1B008327B4 /* EnvironmentConfig.swift in Sources */,
+				932EE3B92ACCE52200D2E132 /* CoffeeNFT.swift in Sources */,
 				93AE504E2AC2A8C7008327B4 /* SideMenuViewController.swift in Sources */,
+				932EE3DA2ACD51B700D2E132 /* RightArrowButton.swift in Sources */,
+				932EE3DC2ACD51EA00D2E132 /* PLFColor.swift in Sources */,
+				932EE3D62ACD41B600D2E132 /* UIStackView+Extensions.swift in Sources */,
 				93AE4FFB2ABC2E15008327B4 /* SceneDelegate.swift in Sources */,
+				932EE3B82ACCE52200D2E132 /* CoffeeNFTFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,6 +795,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		932EE3D22ACD36B100D2E132 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
+			};
+		};
 		93AE500E2ABC2EE8008327B4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -767,6 +839,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 932EE3AE2AC4186E00D2E132 /* XCRemoteSwiftPackageReference "web3.swift" */;
 			productName = web3.swift;
+		};
+		932EE3D32ACD36B200D2E132 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 932EE3D22ACD36B100D2E132 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
 		};
 		93AE500F2ABC2EE8008327B4 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

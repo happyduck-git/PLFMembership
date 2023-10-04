@@ -23,6 +23,16 @@ final class LoginViewController: BaseViewController {
     // MARK: - UI Elements
     private let loadingVC = LoadingViewController()
     
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "After (Platfarm) Mint"
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 30, weight: .heavy)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var metaMaskLoginBtn: UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: ImageAssets.metamaskLogo), for: .normal)
@@ -107,7 +117,7 @@ extension LoginViewController {
                     
                     if $0 {
                         let vm = MainViewViewModel()
-                        let vc = MainViewController()
+                        let vc = MainViewController(vm: vm)
                         
                         self.show(vc, sender: self)
                         
@@ -127,11 +137,19 @@ extension LoginViewController {
 // MARK: - Set UI & Layout
 extension LoginViewController {
     private func setUI() {
-        self.view.addSubview(self.metaMaskLoginBtn)
+        self.view.addSubviews(self.titleLabel,
+                              self.metaMaskLoginBtn)
     }
     
     private func setLayout() {
-        metaMaskLoginBtn.snp.makeConstraints {
+        
+        self.titleLabel.snp.makeConstraints {
+            $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(100)
+            $0.leading.equalTo(self.view.safeAreaLayoutGuide).offset(5)
+            $0.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-5)
+        }
+        
+        self.metaMaskLoginBtn.snp.makeConstraints {
             $0.centerX.equalTo(self.view)
             $0.width.equalTo(self.view).offset(-100)
             $0.height.equalTo(60)
@@ -145,8 +163,7 @@ extension LoginViewController {
 extension LoginViewController {
     
     private func saveWalletAddress(address: String?) {
-        let key = "wallet-address"
-        UserDefaults.standard.set(address, forKey: key)
+        UserDefaults.standard.set(address, forKey: UserDefaultsConst.walletAddress)
     }
     
     private func showWalletConnectiontFailedAlert() {

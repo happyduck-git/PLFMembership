@@ -11,6 +11,10 @@ struct ImageAssets {
     static let metamaskLogo: String = "metamask"
     static let starFill: String = "star_fill"
     static let hamburgerMenu: String = "hamburger_menu"
+    static let clock: String = "clock"
+    static let g3Logo: String = "g3_logo"
+    static let g3LogoBig: String = "g3_logo_big"
+    static let arrowRight: String = "arrowright"
 }
 
 struct UIConstant {
@@ -28,4 +32,12 @@ struct SideMenuConstants {
 
 struct MainConstants {
     static let userAddress: String = "0x04dBF23edb725fe9C859908D76E9Ccf38BC80a13" // for debug
+}
+
+struct MyNftsConstants {
+    static let ownedCoupons: String = "보유한 쿠폰 보기"
+}
+
+struct UserDefaultsConst {
+    static let walletAddress: String = "wallet-address"
 }

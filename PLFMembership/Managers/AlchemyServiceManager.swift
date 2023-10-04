@@ -38,6 +38,40 @@ final actor AlchemyServiceManager {
     
 }
 
+// Get NFT Data Related
+extension AlchemyServiceManager {
+    
+    /// Request NFT request
+    /// - Returns: Owned NFTs
+    func requestOwnedNFTs(ownerAddress: String,
+                          contractAddresses: String) async throws -> OwnedNFTs {
+      
+        let urlRequest = try self.buildUrlRequest(method: .get,
+                                                  chain: .polygon,
+                                                  network: .mumbai,
+                                                  api: .nftList,
+                                                  queryParameters: [
+                                                    URLQueryItem(name: "owner", value: ownerAddress),
+                                                    URLQueryItem(name: "contractAddresses[]", value: contractAddresses),
+                                                    URLQueryItem(name: "withMetadata", value: "true"),
+                                                    URLQueryItem(name: "pageSize", value: "100")
+                                                  ])
+        
+        do {
+            return try await NetworkServiceManager.execute(
+                expecting: OwnedNFTs.self,
+                request: urlRequest
+            )
+        }
+        catch {
+            PLFLogger.logger.error("Error requesting Alchemy Service -- \(String(describing: error))")
+            throw AlchemyServiceError.wrongRequest
+        }
+    }
+    
+}
+
+// NFT Transfer Related
 extension AlchemyServiceManager {
     
     /// Request SBT Token Transfer History
@@ -144,8 +178,7 @@ extension AlchemyServiceManager {
                                  requestBody: [String: Any] = [:])
     throws -> URLRequest {
         
-        let urlString = self.builUrlString(method: method,
-                                           chain: chain,
+        let urlString = self.builUrlString(chain: chain,
                                            network: network,
                                            api: api,
                                            requests: requests,
@@ -162,13 +195,17 @@ extension AlchemyServiceManager {
         
         urlRequest.addValue(acceptKey, forHTTPHeaderField: headerFieldContentTypeKey)
         
-        urlRequest.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
+        switch method {
+        case .get:
+            break
+        case .post:
+            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
+        }
         
         return urlRequest
     }
     
-    func builUrlString(method: HTTPMethod,
-                       chain: Chain,
+    func builUrlString(chain: Chain,
                        network: Network,
                        api: AlchemyAPI,
                        requests: [String: String] = [:],

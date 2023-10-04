@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         */
         
         // For Debug
-        let vc = MainViewController()
+        let vc = MainViewController(vm: MainViewViewModel())
         
         window?.rootViewController = UINavigationController(rootViewController: vc)
         window?.makeKeyAndVisible()
