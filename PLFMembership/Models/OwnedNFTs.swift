@@ -40,6 +40,7 @@ struct NFTMetadata: Codable {
     let description: String?
     let attributes: [NFTAttribute]?
     let tokenId: Int?
+    let contractMetadata: ContractMetadata?
 }
 
 struct NFTAttribute: Codable {
@@ -47,3 +48,8 @@ struct NFTAttribute: Codable {
     let traitType: String
 }
 
+struct ContractMetadata: Codable {
+    let name: String
+    let symbol: String
+    let tokenType: String
+}

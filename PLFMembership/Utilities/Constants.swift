@@ -35,7 +35,9 @@ struct MainConstants {
 }
 
 struct MyNftsConstants {
+    static let totalNumber: String = "총 %d개"
     static let ownedCoupons: String = "보유한 쿠폰 보기"
+    static let sbt: String = "SBT"
 }
 
 struct UserDefaultsConst {

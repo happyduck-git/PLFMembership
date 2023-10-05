@@ -20,7 +20,13 @@ struct AlchemyTransfer: Decodable {
  
     struct Transfer: Decodable {
         let category: String
+        let from: String
+        let to: String
         let erc721TokenId: String?
+        let metadata: TransferMetadata
     }
     
+    struct TransferMetadata: Decodable {
+        let blockTimestamp: String
+    }
 }

@@ -25,20 +25,21 @@ final class NFTCollectionViewCell: UICollectionViewCell {
         let stack = UIStackView()
         stack.alignment = .leading
         stack.axis = .vertical
+        stack.spacing = 5.0
         stack.distribution = .fillProportionally
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     
     private let nftType: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .regular)
         label.textColor = .darkGray
         return label
     }()
     
     private let title: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = .black
         return label
@@ -59,11 +60,11 @@ final class NFTCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Configure
 extension NFTCollectionViewCell {
-    func configure(with metadata: NFTMetadata) {
-        self.nftType.text = metadata.name ?? "Nft Type"
-        self.title.text = metadata.description ?? "Title"
+    func configure(with nft: OwnedNFT) {
+        self.nftType.text = nft.metadata.name ?? "Nft Type"
+        self.title.text = nft.metadata.description ?? "Title"
         
-        guard let imageUrlString = metadata.image,
+        guard let imageUrlString = nft.metadata.image,
               let imageUrl = URL(string: imageUrlString) else {
             
             self.nftImageView.image = UIImage(named: ImageAssets.g3LogoBig)
@@ -85,8 +86,8 @@ extension NFTCollectionViewCell {
 // MARK: - Set UI
 extension NFTCollectionViewCell {
     private func setUI() {
-        self.addSubviews(self.nftImageView,
-                         self.titleStack)
+        self.contentView.addSubviews(self.nftImageView,
+                                     self.titleStack)
         
         self.titleStack.addArrangedSubviews(self.nftType,
                                             self.title)
@@ -100,7 +101,7 @@ extension NFTCollectionViewCell {
         
         self.titleStack.snp.makeConstraints {
             $0.top.equalTo(self.nftImageView.snp.bottom).offset(12)
-            $0.leading.trailing.equalTo(self.nftImageView.snp.leading)
+            $0.leading.trailing.equalTo(self.nftImageView)
             $0.bottom.equalTo(self.contentView.snp.bottom).offset(-10)
         }
     }

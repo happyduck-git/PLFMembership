@@ -1,17 +1,17 @@
 //
-//  MyNFTsViewController.swift
+//  MyCouponsViewController.swift
 //  PLFMembership
 //
-//  Created by Platfarm on 2023/09/26.
+//  Created by Platfarm on 2023/10/05.
 //
 
 import UIKit
 import Combine
 
-final class MyNFTsViewController: BaseViewController {
+final class MyCouponsViewController: BaseViewController {
     
     // MARK: - View Model
-    private let vm: MyNFTsViewViewModel
+    private let vm: MyCouponsViewViewModel
     
     // MARK: - Combine
     private var bindings = Set<AnyCancellable>()
@@ -35,17 +35,15 @@ final class MyNFTsViewController: BaseViewController {
         return collection
     }()
     
-    private lazy var showCouponsButton: RightArrowButton = {
-        let btn = RightArrowButton()
-        btn.clipsToBounds = true
-        btn.layer.cornerRadius = 8.0
-        btn.addTarget(self, action: #selector(showCouponsBtnTapped), for: .touchUpInside)
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        return btn
+    private let infoContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = PLFColor.gray01
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     // MARK: - Init
-    init(vm: MyNFTsViewViewModel) {
+    init(vm: MyCouponsViewViewModel) {
         self.vm = vm
         super.init(nibName: nil, bundle: nil)
     }
@@ -59,11 +57,11 @@ final class MyNFTsViewController: BaseViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = .white
-
+        
+        self.setDelegate()
         self.setUI()
         self.setLayout()
         self.setNavigationBar()
-        self.setDelegate()
         
         self.bind()
     }
@@ -71,23 +69,22 @@ final class MyNFTsViewController: BaseViewController {
 }
 
 // MARK: - Binding with VM
-extension MyNFTsViewController {
+extension MyCouponsViewController {
     
     private func bind() {
         func bindViewToViewModel() {
             
         }
         func bindViewModelToView() {
-            self.vm.$idCardNft
+            self.vm.$couponNft
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] in
                     guard let `self` = self else { return }
-      
+                    
                     self.numberOfNftsLabel.text = String(format: MyNftsConstants.totalNumber, $0.count)
                     self.nftCollection.reloadData()
                 }
                 .store(in: &bindings)
-
         }
         
         bindViewToViewModel()
@@ -96,18 +93,8 @@ extension MyNFTsViewController {
     
 }
 
-extension MyNFTsViewController {
-    @objc
-    private func showCouponsBtnTapped() {
-        let vm = MyCouponsViewViewModel()
-        let vc = MyCouponsViewController(vm: vm)
-        
-        self.show(vc, sender: self)
-    }
-}
-
 // MARK: - Set UI
-extension MyNFTsViewController {
+extension MyCouponsViewController {
     
     private func setDelegate() {
         self.nftCollection.delegate = self
@@ -117,7 +104,7 @@ extension MyNFTsViewController {
     private func setUI() {
         self.view.addSubviews(self.numberOfNftsLabel,
                               self.nftCollection,
-                              self.showCouponsButton)
+                              self.infoContainer)
     }
     
     private func setLayout() {
@@ -132,25 +119,24 @@ extension MyNFTsViewController {
             $0.leading.trailing.equalTo(self.numberOfNftsLabel)
         }
         
-        self.showCouponsButton.snp.makeConstraints {
+        self.infoContainer.snp.makeConstraints {
             $0.top.equalTo(self.nftCollection.snp.bottom).offset(10)
-            $0.leading.trailing.equalTo(self.nftCollection)
-            $0.height.equalTo(48)
-            $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
+            $0.leading.trailing.bottom.equalTo(self.view)
+            $0.height.equalTo(150)
         }
     }
     
     private func setNavigationBar() {
-        self.parent?.title = "나의 NFT"
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.title = "보유 쿠폰"
+        self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
 }
 
-extension MyNFTsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension MyCouponsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.vm.idCardNft.count
+        return self.vm.couponNft.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -158,21 +144,21 @@ extension MyNFTsViewController: UICollectionViewDelegate, UICollectionViewDataSo
             fatalError()
         }
         
-        let nft = self.vm.idCardNft[indexPath.item]
+        let nft = self.vm.couponNft[indexPath.item]
         cell.configure(with: nft)
         
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vm = MyNFTDetailViewViewModel(nft: self.vm.idCardNft[indexPath.item])
-        let vc = MyNFTDetailViewController(vm: vm)
-        
-        self.show(vc, sender: self)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return CGSize(width: 164, height: 214)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vm = MyCouponDetailViewViewModel(nft: self.vm.couponNft[indexPath.item])
+        let vc = MyCouponDetailViewController(vm: vm)
+        
+        self.show(vc, sender: self)
     }
 }

@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import BigInt
-import web3
 import SnapKit
 import Combine
 import Nuke
@@ -52,8 +50,7 @@ final class MainViewController: BaseViewController {
     init(vm: MainViewViewModel) {
         self.vm = vm
         super.init(nibName: nil, bundle: nil)
-        
-        self.title = "Main"
+
     }
     
     required init?(coder: NSCoder) {
@@ -90,7 +87,7 @@ extension MainViewController {
             self.vm.$idCardNft
                 .receive(on: DispatchQueue.main)
                 .sink { nfts in
-                    guard let nft = nfts.first,
+                    guard let nft = nfts.first, // TODO: ID card nft가 first가 아닐 수 있으므로 다른 구분 방식 VM에 적용 필요.
                           let imageUrlString = nft.metadata.image,
                           let imageUrl = URL(string: imageUrlString),
                           let attributes = nft.metadata.attributes
@@ -105,12 +102,11 @@ extension MainViewController {
                             
                             // UserProfileView
                             var position: String = ""
-                            var department: String = "Mobile" // temp
-                            var username: String = "GG" // temp
+                            let department: String = "Mobile" // temp
+                            let username: String = "GG" // temp
                             var joined: String = ""
                             
                             attributes.forEach {
-                                print("Trait type: \($0.traitType)")
                                 let traitType = AttributeTraitType(rawValue: $0.traitType)
                                 switch traitType {
                                 case .position:
@@ -204,7 +200,11 @@ extension MainViewController {
     
     @objc
     private func goToTxHistory() {
-        // TODO: Open Tx History View Controller
+        
+        let vm = TxHistoryViewViewModel()
+        let vc = TxHistoryViewController(vm: vm)
+        
+        self.show(vc, sender: self)
         
     }
 }
@@ -222,7 +222,8 @@ extension MainViewController: SideMenuViewControllerDelegate {
             break
         
         case 1:
-            let vc = MyNFTsViewController()
+            let vm = MyNFTsViewViewModel(mainViewModel: self.vm)
+            let vc = MyNFTsViewController(vm: vm)
             self.addChildViewController(vc)
         
         default:
@@ -257,29 +258,5 @@ extension MainViewController {
 
         imageView.addSubview(blurEffectView)
     }
-    
-    /// Get Coffee Coupon Infomation.
-    /// - Parameter tokenId: Token id of the coffee coupon nft.
-    private func getCoffeeCoupon(tokenId: Int64) async throws {
-        do {
-            let urlString = await AlchemyServiceManager.shared.builUrlString(chain: .polygon,
-                                                                       network: .mumbai,
-                                                                       api: .transfers)
-            guard let url = URL(string: urlString) else {
-                PLFLogger.logger.error("Error converting url string to url.)")
-                return
-            }
-            let client = EthereumHttpClient(url: url)
-            let contract = CoffeeNFTContract(contract: "0x876076465BbbfD4929B9C2EF39E797B806A983f3", client: client)
-            
-            let result = try await contract.getCoffeeCoupon(tokenId: BigUInt(tokenId))
-          
-            PLFLogger.logger.info("Coupon Result: \(String(describing: result))")
-            
-        }
-        catch {
-            PLFLogger.logger.error("Error get coffee function -- \(String(describing: error))")
-        }
-        
-    }
+   
 }

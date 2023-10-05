@@ -30,6 +30,9 @@ final actor AlchemyServiceManager {
         static let category = "category"
         static let contractAddresses = "contractAddresses"
         static let getTransferMethod = "alchemy_getAssetTransfers"
+        static let withMetadata = "withMetadata"
+        static let toAddress = "toAddress"
+        static let fromAddress = "fromAddress"
         static let erc721 = "erc721"
         static let latest = "latest"
         static let initalBlock = "0x0"
@@ -78,21 +81,24 @@ extension AlchemyServiceManager {
     /// - Returns: AlchemyTransfer type object of SBT.
     func requestSBTTransfers() async throws -> AlchemyTransfer {
         
-        let urlRequest = try self.buildUrlRequest(method: .post,
-                                                  chain: .polygon,
-                                                  network: .mumbai,
-                                                  api: .transfers,
-                                                  requestBody: [TransferBodyParam.id: TransferBodyParam.idValue,
-                                                                TransferBodyParam.method: TransferBodyParam.getTransferMethod,
-                                                                TransferBodyParam.params: [
-                                                                    TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
-                                                                    TransferBodyParam.toBlock: TransferBodyParam.latest,
-                                                                    TransferBodyParam.category: [TransferBodyParam.erc721],
-                                                                    TransferBodyParam.contractAddresses: [EnvironmentConfig.sbtContractAddress]
-                                                                ] as [String : Any]
-                                                               ])
-        
         do {
+            let urlRequest = try self.buildUrlRequest(method: .post,
+                                                      chain: .polygon,
+                                                      network: .mumbai,
+                                                      api: .transfers,
+                                                      requestBody: [TransferBodyParam.id: TransferBodyParam.idValue,
+                                                                    TransferBodyParam.method: TransferBodyParam.getTransferMethod,
+                                                                    TransferBodyParam.params: [
+                                                                        TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
+                                                                        TransferBodyParam.toBlock: TransferBodyParam.latest,
+                                                                        TransferBodyParam.withMetadata: true,
+                                                                        TransferBodyParam.toAddress: MainConstants.userAddress,
+//                                                                        "fromAddress": MainConstants.userAddress,
+                                                                        TransferBodyParam.category: [TransferBodyParam.erc721],
+                                                                        TransferBodyParam.contractAddresses: [EnvironmentConfig.sbtContractAddress]
+                                                                    ] as [String : Any]
+                                                                   ])
+            
             return try await NetworkServiceManager.execute(
                 expecting: AlchemyTransfer.self,
                 request: urlRequest
