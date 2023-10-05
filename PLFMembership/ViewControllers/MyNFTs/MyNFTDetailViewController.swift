@@ -27,6 +27,7 @@ final class MyNFTDetailViewController: BaseScrollViewController {
         imageView.backgroundColor = .white
         imageView.layer.cornerRadius = 8.0
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.borderWidth = 3.0
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -40,7 +41,7 @@ final class MyNFTDetailViewController: BaseScrollViewController {
     
     private let badge: TitleBadgeView = {
         let view = TitleBadgeView()
-        view.backgroundColor = PLFColor.gray02
+        view.backgroundColor = PLFColor.gray01
         view.title.text = MyNftsConstants.sbt
         
         view.clipsToBounds = true
@@ -54,6 +55,13 @@ final class MyNFTDetailViewController: BaseScrollViewController {
         label.font = .systemFont(ofSize: 24, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    private let dividerView: UIView = {
+       let view = UIView()
+        view.backgroundColor = PLFColor.gray01
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private let detailsContainer: UIView = {
@@ -75,8 +83,8 @@ final class MyNFTDetailViewController: BaseScrollViewController {
     private let detailStack: UIStackView = {
        let stack = UIStackView()
         stack.axis = .vertical
-       
-        stack.distribution = .fill
+        stack.distribution = .equalSpacing
+        stack.spacing = 5.0
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -100,11 +108,17 @@ final class MyNFTDetailViewController: BaseScrollViewController {
         self.setLayout()
         self.configure()
         
+        self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.badge.layer.cornerRadius = self.badge.frame.height / 2
+        
+        DispatchQueue.main.async {
+            self.nftImageView.setGradientBorder()
+        }
+        
     }
 
 }
@@ -117,7 +131,6 @@ extension MyNFTDetailViewController {
         self.vm.detailInfoList.forEach { info in
             
             let view = TraitDetailView()
-            view.translatesAutoresizingMaskIntoConstraints = false
             
             var value: String = ""
             
@@ -125,19 +138,33 @@ extension MyNFTDetailViewController {
             case .tokenId:
                 value = "\(vm.nft.metadata.tokenId ?? 0)"
             case .contractAddress:                
-                value = vm.nft.contract.address
+                value = String(vm.nft.contract.address.prefix(10))
             case .tokenStandard:
                 value = vm.nft.metadata.contractMetadata?.tokenType ?? "ERC-721"
             case .chain:
-                value = "Polygon"
+                value = "Polygon" // temp
             case .attributes:
-                value = "\(vm.nft.metadata.attributes ?? [])"
+                value = " "
+                view.makeTitleTextBold()
             }
             
-            
             view.configure(title: info.rawValue, value: value)
-            
             self.detailStack.addArrangedSubview(view)
+            
+            if info == .attributes {
+                vm.nft.metadata.attributes?.forEach({ ele in
+                    let view = TraitDetailView()
+                    view.configure(title: ele.traitType, value: ele.value)
+                    
+                    self.detailStack.addArrangedSubview(view)
+                })
+                
+                let divider = UIView()
+                divider.backgroundColor = .gray
+                divider.frame.size = CGSize(width: 200, height: 10.0)
+                self.detailStack.addArrangedSubview(divider)
+            }
+            
         }
         
         let imageUrlString = vm.nft.metadata.image ?? "no-image"
@@ -156,6 +183,7 @@ extension MyNFTDetailViewController {
     private func setUI() {
         self.view.addSubviews(self.nftBgView,
                               self.titleContainer,
+                              self.dividerView,
                               self.detailsContainer)
         
         self.nftBgView.addSubview(self.nftImageView)
@@ -198,6 +226,12 @@ extension MyNFTDetailViewController {
             $0.bottom.equalTo(self.titleContainer).offset(-20)
         }
         
+        self.dividerView.snp.makeConstraints {
+            $0.top.equalTo(self.titleContainer.snp.bottom)
+            $0.leading.trailing.equalTo(self.titleContainer)
+            $0.bottom.equalTo(self.detailsContainer.snp.top)
+        }
+        
         self.detailsContainer.snp.makeConstraints {
             $0.top.equalTo(self.titleContainer.snp.bottom).offset(8)
             $0.leading.trailing.bottom.equalTo(self.canvasView)
@@ -215,3 +249,12 @@ extension MyNFTDetailViewController {
         }
     }
 }
+
+//#Preview {
+//    
+//    return MyNFTDetailViewController(vm: MyNFTDetailViewViewModel(nft: OwnedNFT(contract: Contract(address: "0x0000000"),
+//                        id: NFTId(tokenId: "0x0000000"), title: "Title", description: "Description", metadata: NFTMetadata(image: nil, name: "Name", description: "desrip", attributes: [NFTAttribute(value: "a", traitType: "trait-a"), NFTAttribute(value: "a", traitType: "trait-a"),NFTAttribute(value: "a", traitType: "trait-a")], tokenId: 1, contractMetadata: ContractMetadata(name: "ContractName", symbol: "ContractSymbol",  tokenType: "Tokentype"))
+//                                                                               )
+//    )
+//    )
+//}

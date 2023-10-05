@@ -173,6 +173,8 @@ extension MyNFTsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: 164, height: 214)
+        let width = (self.nftCollection.frame.width - 20) / 2
+        let height = (self.nftCollection.frame.height - 10) / 2
+        return CGSize(width: width, height: height)
     }
 }

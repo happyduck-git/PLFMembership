@@ -11,11 +11,11 @@ import Combine
 import CoreImage.CIFilterBuiltins
 
 
-final class MyCouponDetailViewController: BaseViewController {
-
+final class MyCouponDetailViewController: BaseScrollViewController {
+    
     // MARK: - View Model
     private let vm: MyCouponDetailViewViewModel
- 
+    
     // MARK: - Combine
     private var bindings = Set<AnyCancellable>()
     
@@ -34,7 +34,7 @@ final class MyCouponDetailViewController: BaseViewController {
     
     private let badge: TitleBadgeView = {
         let view = TitleBadgeView()
-        view.backgroundColor = PLFColor.gray02
+        view.backgroundColor = PLFColor.gray01
         view.title.text = MyNftsConstants.sbt
         
         view.clipsToBounds = true
@@ -45,6 +45,7 @@ final class MyCouponDetailViewController: BaseViewController {
     private let nftNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
+        label.numberOfLines = 2
         label.font = .systemFont(ofSize: 24, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -65,21 +66,32 @@ final class MyCouponDetailViewController: BaseViewController {
     }()
     
     private let detailTitle: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "상세 정보"
         label.textColor = PLFColor.darkGray
-        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.font = .systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let detailStack: UIStackView = {
-       let stack = UIStackView()
+        let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = 5.0
         stack.distribution = .equalSpacing
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
+    }()
+    
+    private let usedButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("사용 완료", for: .normal)
+        btn.setTitleColor(.black, for: .normal)
+        btn.backgroundColor = PLFColor.mint03
+        btn.clipsToBounds = true
+        btn.layer.cornerRadius = 8.0
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
     }()
     
     // MARK: - Init
@@ -103,7 +115,7 @@ final class MyCouponDetailViewController: BaseViewController {
         
         self.bind()
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.badge.layer.cornerRadius = self.badge.frame.height / 2
@@ -201,33 +213,35 @@ extension MyCouponDetailViewController {
         Task {
             self.nftImageView.image = try await ImagePipeline.shared.image(for: imageUrl)
         }
-
+        
     }
 }
 
 extension MyCouponDetailViewController {
     private func setUI() {
-        self.view.addSubviews(self.nftImageView,
-                              self.badge,
-                              self.nftNameLabel,
-                              self.barcodeImageView,
-                              self.detailsContainer)
+        self.canvasView.addSubviews(self.nftImageView,
+                                    self.badge,
+                                    self.nftNameLabel,
+                                    self.barcodeImageView,
+                                    self.detailsContainer,
+                                    self.usedButton)
         
         self.detailsContainer.addSubviews(self.detailTitle,
                                           self.detailStack)
     }
     
     private func setLayout() {
-
+        
         self.nftImageView.snp.makeConstraints {
-            $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(24)
-            $0.leading.equalTo(self.view.safeAreaLayoutGuide).offset(20)
+            $0.top.equalTo(self.canvasView).offset(24)
+            $0.leading.equalTo(self.canvasView).offset(20)
             $0.height.width.equalTo(160)
         }
         
         self.badge.snp.makeConstraints {
             $0.top.equalTo(self.nftImageView)
             $0.leading.equalTo(self.nftImageView.snp.trailing).offset(20)
+            $0.width.greaterThanOrEqualTo(60)
         }
         
         self.nftNameLabel.snp.makeConstraints {
@@ -238,14 +252,14 @@ extension MyCouponDetailViewController {
         
         self.barcodeImageView.snp.makeConstraints {
             $0.top.equalTo(self.nftImageView.snp.bottom).offset(24)
-            $0.centerX.equalTo(self.view.snp.centerX)
+            $0.centerX.equalTo(self.canvasView.snp.centerX)
             $0.height.equalTo(150)
             $0.width.equalTo(210)
         }
         
         self.detailsContainer.snp.makeConstraints {
             $0.top.equalTo(self.barcodeImageView.snp.bottom).offset(8)
-            $0.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalTo(self.canvasView)
         }
         
         self.detailTitle.snp.makeConstraints {
@@ -258,6 +272,14 @@ extension MyCouponDetailViewController {
             $0.top.equalTo(self.detailTitle.snp.bottom).offset(20)
             $0.leading.equalTo(self.detailsContainer).offset(20)
             $0.trailing.bottom.equalTo(self.detailsContainer).offset(-20)
+        }
+        
+        self.usedButton.snp.makeConstraints {
+            $0.top.equalTo(self.detailsContainer.snp.bottom).offset(20)
+            $0.leading.equalTo(self.canvasView.snp.leading).offset(20)
+            $0.trailing.equalTo(self.canvasView.snp.trailing).offset(-20)
+            $0.height.equalTo(50)
+            $0.bottom.equalTo(self.canvasView.snp.bottom).offset(-20)
         }
     }
 }

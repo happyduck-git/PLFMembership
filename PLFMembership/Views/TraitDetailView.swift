@@ -10,6 +10,15 @@ import UIKit
 final class TraitDetailView: UIView {
     
     // MARK: - UI Elements
+    private let stack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .equalSpacing
+        stack.spacing = 10.0
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
     private let title: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
@@ -53,24 +62,24 @@ extension TraitDetailView {
     func configureValue(value: String) {
         self.value.text = value
     }
+    
+    func makeTitleTextBold() {
+        self.title.font = .boldSystemFont(ofSize: 18)
+    }
 }
 
 // MARK: - Set UI
 extension TraitDetailView {
     
     private func setUI() {
-        self.addSubviews(self.title,
-                         self.value)
+        self.addSubview(self.stack)
+        self.stack.addArrangedSubviews(self.title,
+                                       self.value)
     }
     
     private func setLayout() {
-        self.title.snp.makeConstraints {
-            $0.top.leading.bottom.equalTo(self)
-        }
-        
-        self.value.snp.makeConstraints {
-            $0.leading.equalTo(self.title.snp.trailing).offset(10)
-            $0.top.bottom.trailing.equalTo(self)
+        self.stack.snp.makeConstraints {
+            $0.top.leading.bottom.trailing.equalTo(self)
         }
     }
     

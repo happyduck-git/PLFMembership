@@ -14,6 +14,7 @@ final class TitleBadgeView: UIView {
     let title: UILabel = {
         let label = UILabel()
         label.textColor = .black
+        label.textAlignment = .center
         label.font = .systemFont(ofSize: 14, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

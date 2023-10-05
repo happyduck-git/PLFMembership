@@ -41,6 +41,7 @@ final class NFTCollectionViewCell: UICollectionViewCell {
     private let title: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.numberOfLines = 2
         label.textColor = .black
         return label
     }()

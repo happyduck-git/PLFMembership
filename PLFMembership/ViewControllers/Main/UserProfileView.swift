@@ -102,6 +102,15 @@ final class UserProfileView: UIView {
         label.text = "TEST"
         return label
     }()
+    
+    //MARK: - Life Cycle
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        DispatchQueue.main.async {
+            self.profileContainer.setGradientBorder()
+        }
+    }
 }
 
 // MARK: - Configure

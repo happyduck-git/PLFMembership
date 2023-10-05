@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24AED3D62ACF0ED000B0D75A /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AED3D52ACF0ED000B0D75A /* UIImage+Extension.swift */; };
 		930D4C432ACE8BCB002A49DD /* CoffeeCoupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930D4C422ACE8BCB002A49DD /* CoffeeCoupon.swift */; };
 		932EE3A02AC3B3E000D2E132 /* AlChemyServiceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE39F2AC3B3E000D2E132 /* AlChemyServiceManagerTests.swift */; };
 		932EE3A82AC3B50500D2E132 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 932EE3A72AC3B50500D2E132 /* FirebaseMessaging */; };
@@ -91,6 +92,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		24AED3D52ACF0ED000B0D75A /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		930D4C422ACE8BCB002A49DD /* CoffeeCoupon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeCoupon.swift; sourceTree = "<group>"; };
 		932EE39D2AC3B3E000D2E132 /* PLFMembershipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PLFMembershipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		932EE39F2AC3B3E000D2E132 /* AlChemyServiceManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlChemyServiceManagerTests.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				93AE50532AC2BF4B008327B4 /* UITableViewCell+Extension.swift */,
 				93AE50552AC2BFF4008327B4 /* UIView+Extension.swift */,
 				932EE3D52ACD41B600D2E132 /* UIStackView+Extensions.swift */,
+				24AED3D52ACF0ED000B0D75A /* UIImage+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				932EE3B22AC41AAC00D2E132 /* Web3Manager.swift in Sources */,
 				930D4C432ACE8BCB002A49DD /* CoffeeCoupon.swift in Sources */,
 				932EE3DE2ACD586300D2E132 /* MyNFTDetailViewController.swift in Sources */,
+				24AED3D62ACF0ED000B0D75A /* UIImage+Extension.swift in Sources */,
 				932EE3AD2AC3D33000D2E132 /* AlchemyTransfer.swift in Sources */,
 				93AE504A2AC2A823008327B4 /* SideMenuPresentationController.swift in Sources */,
 				93AE50302AC154FC008327B4 /* UIColor+Extensions.swift in Sources */,
