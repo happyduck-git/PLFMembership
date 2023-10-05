@@ -31,7 +31,6 @@ final actor AlchemyServiceManager {
         static let contractAddresses = "contractAddresses"
         static let getTransferMethod = "alchemy_getAssetTransfers"
         static let withMetadata = "withMetadata"
-        static let toAddress = "toAddress"
         static let fromAddress = "fromAddress"
         static let erc721 = "erc721"
         static let latest = "latest"
@@ -98,6 +97,7 @@ extension AlchemyServiceManager {
                                                                         TransferBodyParam.contractAddresses: [EnvironmentConfig.sbtContractAddress]
                                                                     ] as [String : Any]
                                                                    ])
+            
             
             return try await NetworkServiceManager.execute(
                 expecting: AlchemyTransfer.self,
