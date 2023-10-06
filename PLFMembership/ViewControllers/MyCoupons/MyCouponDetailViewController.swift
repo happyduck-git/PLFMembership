@@ -113,6 +113,8 @@ final class MyCouponDetailViewController: BaseScrollViewController {
         self.setLayout()
         self.configure()
         
+        self.baseDelegate = self
+        
         self.bind()
     }
     
@@ -128,13 +130,14 @@ extension MyCouponDetailViewController {
     private func bind() {
         func bindViewToViewModel() {
             self.usedButton.tapPublisher
+                .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in
                     guard let `self` = self else { return }
-                    Task {
-                        let tokenId = Int64(self.vm.nft.id.tokenId.dropFirst(2), radix: 16) ?? 0
-                        let result = await self.vm.reclaimCoupon(tokenId: tokenId)
-                        print("Result: \(result)")
-                    }
+                    
+                    self.showAlert(alertTitle: "사용 완료 보내기",
+                                   alertMessage: "쿠폰 사용 완료 하시겠습니까?",
+                                   alertStyle: .alert,
+                                   actionTitle: "확인", actionStyle: .cancel)
                     
                 }
                 .store(in: &bindings)
@@ -313,3 +316,18 @@ extension MyCouponDetailViewController {
     
 }
 
+extension MyCouponDetailViewController: BaseViewControllerDelegate {
+    func cancelTapped() {
+        
+        Task {
+            let tokenId = Int64(self.vm.nft.id.tokenId.dropFirst(2), radix: 16) ?? 0
+            let result = await self.vm.reclaimCoupon(tokenId: tokenId)
+            print("Result: \(result)")
+        }
+      
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+    }
+}

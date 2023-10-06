@@ -8,8 +8,14 @@
 import UIKit
 import SnapKit
 
+protocol BaseViewControllerDelegate: AnyObject {
+    func cancelTapped()
+}
+
 class BaseViewController: UIViewController {
 
+    weak var baseDelegate: BaseViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,7 +41,11 @@ extension BaseViewController {
         let action = UIAlertAction(
             title: actionTitle,
             style: actionStyle
-        )
+        ) { [weak self] _ in
+            guard let `self` = self else { return }
+            
+            self.baseDelegate?.cancelTapped()
+        }
         
         alert.addAction(action)
         

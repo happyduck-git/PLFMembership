@@ -31,15 +31,15 @@ extension TxHistoryViewViewModel {
         Task {
             do {
                 async let sbtTransfers = self.alchemyManager.requestSBTTransfers()
-                async let couponTransfers = self.alchemyManager.requestCouponTransfers()
+//                async let couponTransfers = self.alchemyManager.requestCouponTransfers()
+
+                async let couponTransfers = self.alchemyManager.requestCouponTransfersCombined()
                 
                 self.nftTransferHistoryList = try await sbtTransfers.result.transfers
-                self.couponTransferHistoryList = try await couponTransfers.result.transfers
-                print("CouponsTx: \(self.couponTransferHistoryList)")
+//                self.couponTransferHistoryList = try await couponTransfers.result.transfers
+ 
+                self.couponTransferHistoryList = try await couponTransfers
                 
-                
-                let combvined = try await self.alchemyManager.requestCouponTransfersCombined()
-                print("Results combined \(combvined.count): \(combvined)")
                 
 //                await withTaskGroup(of: TransferInfo.self, body: { tg in
 //                    tg.addTask {

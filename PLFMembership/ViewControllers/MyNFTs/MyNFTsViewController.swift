@@ -17,6 +17,15 @@ final class MyNFTsViewController: BaseViewController {
     private var bindings = Set<AnyCancellable>()
     
     // MARK: - UI Elements
+    private let viewTitle: UILabel = {
+        let label = UILabel()
+        label.text = SideMenuConstants.myNfts
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private let numberOfNftsLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
@@ -62,7 +71,6 @@ final class MyNFTsViewController: BaseViewController {
 
         self.setUI()
         self.setLayout()
-        self.setNavigationBar()
         self.setDelegate()
         
         self.bind()
@@ -115,14 +123,21 @@ extension MyNFTsViewController {
     }
     
     private func setUI() {
-        self.view.addSubviews(self.numberOfNftsLabel,
+        self.view.addSubviews(self.viewTitle,
+                              self.numberOfNftsLabel,
                               self.nftCollection,
                               self.showCouponsButton)
     }
     
     private func setLayout() {
-        self.numberOfNftsLabel.snp.makeConstraints {
+        self.viewTitle.snp.makeConstraints {
             $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+            $0.leading.equalTo(self.view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
+        }
+        
+        self.numberOfNftsLabel.snp.makeConstraints {
+            $0.top.equalTo(self.viewTitle.snp.bottom).offset(10)
             $0.leading.equalTo(self.view.safeAreaLayoutGuide).offset(20)
             $0.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
         }
@@ -138,11 +153,6 @@ extension MyNFTsViewController {
             $0.height.equalTo(48)
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
         }
-    }
-    
-    private func setNavigationBar() {
-        self.parent?.title = "나의 NFT"
-        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
 }

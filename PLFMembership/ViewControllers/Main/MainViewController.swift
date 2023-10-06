@@ -72,6 +72,12 @@ final class MainViewController: BaseViewController {
         self.bind()
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.title = nil
+    }
 
 }
 
@@ -112,7 +118,8 @@ extension MainViewController {
                                 case .position:
                                     position = $0.value
                                 case .yearOfEntry:
-                                    joined = $0.value
+                                    
+                                    joined = self.vm.yearsAndMonthsPassed(from: $0.value) ?? "0개월"
                                 default:
                                     break
                                 }

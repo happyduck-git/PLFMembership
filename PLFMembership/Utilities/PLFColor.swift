@@ -21,6 +21,7 @@ struct PLFColor {
 
     static let mint03 = UIColor(hex: 0x59E3E3)
     static let mint04 = UIColor(hex: 0x00A4AE)
+    static let mint05 = UIColor(hex: 0x076F75)
     
     static let backgroundMint = UIColor(hex: 0xBDE8E5)
     static let backgroundBlue = UIColor(hex: 0xBDD7F6)

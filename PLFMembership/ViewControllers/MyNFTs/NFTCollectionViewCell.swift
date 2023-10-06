@@ -67,10 +67,11 @@ extension NFTCollectionViewCell {
         var name: String = ""
         nft.metadata.attributes?.forEach({ att in
             if AttributeTraitType(rawValue: att.traitType) == .name {
-                
+                name = att.value
             }
         })
-        self.title.text = nft.metadata.description ?? "Title"
+        
+        self.title.text = name
         
         guard let imageUrlString = nft.metadata.image,
               let imageUrl = URL(string: imageUrlString) else {

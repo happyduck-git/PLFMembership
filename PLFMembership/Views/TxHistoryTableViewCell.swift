@@ -10,14 +10,18 @@ import Combine
 
 enum TransferType: String {
     case mint
-    case transfer
+    case transferFrom
+    case transferTo
     
     var bgColor: UIColor {
         switch self {
         case .mint:
             return PLFColor.backgroundMint
-        case .transfer:
-            return PLFColor.backgroundBlue
+        case .transferFrom:
+//            return PLFColor.backgroundBlue
+            return .systemYellow
+        case .transferTo:
+            return PLFColor.backgroundMint
         }
     }
     
@@ -25,7 +29,7 @@ enum TransferType: String {
         switch self {
         case .mint:
             return ImageAssets.sparkles
-        case .transfer:
+        case .transferFrom, .transferTo:
             return ImageAssets.arrowBiDirection
         }
     }
@@ -76,6 +80,7 @@ final class TxHistoryTableViewCell: UITableViewCell {
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.backgroundColor = .white
         
         self.makeStackViews()
         self.setUI()
@@ -92,7 +97,7 @@ final class TxHistoryTableViewCell: UITableViewCell {
         
         self.contentView.clipsToBounds = true
         self.contentView.layer.cornerRadius = 10.0
-        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15))
+        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     }
 }
 
@@ -115,6 +120,9 @@ extension TxHistoryTableViewCell {
         }
     }
     
+    override func prepareForReuse() {
+        self.contentView.backgroundColor = .white
+    }
 }
 
 // MARK: - Configure
@@ -122,11 +130,18 @@ extension TxHistoryTableViewCell {
     func configure(with transfer: Transfer) {
         
         var type: TransferType = .mint
-        
+        print("Transfer from: \(transfer.from)")
+        print("Transfer to: \(transfer.to)")
+      
         if transfer.from == "0x0000000000000000000000000000000000000000" {
+            print("Mint")
             type = .mint
-        } else {
-            type = .transfer
+        } else if transfer.from == MainConstants.userAddress {
+            print("From: ")
+            type = .transferFrom
+        } else if transfer.to == MainConstants.userAddress {
+            print("To: ")
+            type = .transferTo
         }
         
         self.contentView.backgroundColor = type.bgColor
@@ -147,7 +162,7 @@ extension TxHistoryTableViewCell {
             case 4:
                 value = transfer.erc721TokenId ?? "0x000"
             case 5:
-                value = transfer.metadata.blockTimestamp
+                value = self.convertDateToString(dateString: transfer.metadata.blockTimestamp) 
             default:
                 break
             }
@@ -155,6 +170,35 @@ extension TxHistoryTableViewCell {
         }
 
     }
+}
+
+extension TxHistoryTableViewCell {
+   
+    private func convertDateToString(dateString: String) -> String {
+        
+        let dateFormatter = DateFormatter()
+
+        // Set the format of the input date string
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+
+        // Convert the string to a Date object
+        if let date = dateFormatter.date(from: dateString) {
+            // Set the desired output format
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+            
+            // Convert the Date object back to a string in the desired format
+            let formattedDate = dateFormatter.string(from: date)
+            print(formattedDate)  // Outputs: 2023.10.06
+            return formattedDate
+            
+        } else {
+            print("Invalid date string")
+            return "2xxxx.xx.xx"
+        }
+    }
+
+    
+
 }
 
 extension TxHistoryTableViewCell {
@@ -170,7 +214,7 @@ extension TxHistoryTableViewCell {
             default:
                 let view = TraitDetailView()
                 view.tag = tag
-                view.configure(title: item.rawValue, value: "vv")
+                view.configure(title: item.rawValue, value: String())
                 
                 self.infoViews.append(view)
                 self.leftStack.addArrangedSubview(view)
@@ -182,7 +226,7 @@ extension TxHistoryTableViewCell {
         self.rightColumnItems.forEach { item in
             let view = TraitDetailView()
             view.tag = tag
-            view.configure(title: item.rawValue, value: "vv")
+            view.configure(title: item.rawValue, value: String())
             
             self.infoViews.append(view)
             self.rightStack.addArrangedSubview(view)

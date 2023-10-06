@@ -42,6 +42,28 @@ final class MyCouponsViewController: BaseViewController {
         return view
     }()
     
+    private let iconImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(resource: .bell)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    private let infoTitle: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.text = "쿠폰 사용 안내"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let infoDesc: TraitDetailView = {
+       let view = TraitDetailView()
+        view.configure(title: "사용방법", value: "쿠폰 사용 후 \"사용완료\" 버튼을 눌러주세요.")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     // MARK: - Init
     init(vm: MyCouponsViewViewModel) {
         self.vm = vm

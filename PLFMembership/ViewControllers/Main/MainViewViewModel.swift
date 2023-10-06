@@ -41,3 +41,30 @@ extension MainViewViewModel {
 
     }
 }
+
+extension MainViewViewModel {
+    func yearsAndMonthsPassed(from dateString: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        guard let startDate = dateFormatter.date(from: dateString) else {
+            return nil // Invalid date string
+        }
+
+        let calendar = Calendar.current
+
+        // Calculate the difference in years and months
+        let dateComponents = calendar.dateComponents([.year, .month], from: startDate, to: Date())
+
+        let years = dateComponents.year ?? 0
+        let months = dateComponents.month ?? 0
+
+        if years == 0 {
+            return "\(months)개월"
+        } else {
+            return "\(years)년 \(months)개월"
+        }
+        
+    }
+
+}

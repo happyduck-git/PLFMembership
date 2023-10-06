@@ -53,7 +53,7 @@ final class MyCouponDetailViewViewModel {
         self.nft = nft
         
         Task {
-            self.coupon = await self.getCoffeeCoupon(tokenId: Int64(nft.id.tokenId.dropFirst(2), radix: 16) ?? 0)
+            self.coupon = await self.getCoffeeCoupon(tokenId: Int64(nft.id.tokenId.dropFirst(2)) ?? 0)
         }
     }
 }
@@ -62,7 +62,7 @@ extension MyCouponDetailViewViewModel {
     
     func reclaimCoupon(tokenId: Int64) async -> Bool {
         do {
-            let results = try await nftServiceManager.reclaimCoupon(from: UserDefaultsConst.walletAddress,
+            let results = try await nftServiceManager.reclaimCoupon(from: MainConstants.userAddress,
                                                                     tokenId: tokenId)
             print("Transfer status code: \(results.statusCode)")
             return results.success

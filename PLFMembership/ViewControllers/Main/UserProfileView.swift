@@ -122,9 +122,11 @@ extension UserProfileView {
                    joined: String) {
         
         self.profileImage.image = image
-        self.jobLabel.text = position + " / " + department
+        self.jobLabel.text = position
         self.usernameLabel.text = username
-        self.joinedLabel.text = "Platfarm과 함께한지 " + joined
+        
+        let attributedString = colorAfterPrefix(in: "Platfarm과 함께한지 " + joined, with: PLFColor.mint05)
+        self.joinedLabel.attributedText = attributedString
     }
 }
 
@@ -165,28 +167,24 @@ extension UserProfileView {
             $0.trailing.equalTo(self.profileImage).offset(-16)
             $0.bottom.equalTo(self.profileContainer.snp.bottom).offset(-20)
         }
-//
-//        self.jobLabel.snp.makeConstraints {
-//            $0.top.equalTo(self.profileImage.snp.bottom).offset(20)
-//            $0.leading.equalTo(self.profileImage).offset(16)
-//            $0.trailing.equalTo(self.profileImage).offset(-16)
-//        }
-//
-//        self.usernameLabel.snp.makeConstraints {
-//            $0.top.equalTo(self.jobLabel.snp.bottom).offset(8)
-//            $0.leading.equalTo(self.jobLabel.snp.leading)
-//            $0.trailing.equalTo(self.jobLabel.snp.trailing)
-//        }
-//
-//        self.joinedLabel.snp.makeConstraints {
-//            $0.top.equalTo(self.usernameLabel.snp.bottom).offset(8)
-//            $0.leading.equalTo(self.jobLabel.snp.leading)
-//            $0.trailing.equalTo(self.jobLabel.snp.trailing)
-//            $0.bottom.equalTo(self.profileContainer.snp.bottom).offset(-20)
-//        }
-        
+
         self.jobLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         self.joinedLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+    }
+}
+
+extension UserProfileView {
+    func colorAfterPrefix(in text: String, with color: UIColor) -> NSAttributedString {
+        let prefix = "Platfarm과 함께한지 "
+        
+        let attributedString = NSMutableAttributedString(string: text)
+        
+        if let range = text.range(of: prefix) {
+            let colorRange = NSRange(range.upperBound..<text.endIndex, in: text)
+            attributedString.addAttribute(.foregroundColor, value: color, range: colorRange)
+        }
+        
+        return attributedString
     }
 }
 
