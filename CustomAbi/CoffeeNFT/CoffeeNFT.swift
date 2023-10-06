@@ -54,7 +54,7 @@ open class CoffeeNFT: CoffeeNFTProtocol {
     return data.value
 }
   public func isApprovedForAll(contractAddress: EthereumAddress , owner: EthereumAddress, `operator`: EthereumAddress) async throws -> Bool {
-    let function = CoffeeNFTFunctions.isApprovedForAll(contract: contractAddress , owner: owner, `operator`: `operator`)
+      let function = CoffeeNFTFunctions.isApprovedForAll(contract: contractAddress , owner: owner, operator: `operator`)
     let data = try await function.call(withClient: client, responseType: CoffeeNFTResponses.isApprovedForAllResponse.self)
     return data.value
 }
@@ -148,7 +148,7 @@ open class CoffeeNFTContract {
    }
    
   public func isApprovedForAll(owner: EthereumAddress, `operator`: EthereumAddress) async throws -> Bool{
-      return try await (CoffeeNFTCall?.isApprovedForAll(contractAddress: contract, owner: owner, `operator`: `operator`))!
+      return try await (CoffeeNFTCall?.isApprovedForAll(contractAddress: contract, owner: owner, operator: `operator`))!
    }
    
   public func locked(tokenId: BigUInt) async throws -> Bool{
@@ -239,7 +239,7 @@ extension CoffeeNFT {
   public func isApprovedForAll(contractAddress: EthereumAddress, owner: EthereumAddress, `operator`: EthereumAddress,  completionHandler: @escaping (Result<Bool, Error>) -> Void) {
     Task {
         do {
-            let isApprovedForAll = try await isApprovedForAll(contractAddress: contractAddress , owner: owner, `operator`: `operator`)
+            let isApprovedForAll = try await isApprovedForAll(contractAddress: contractAddress , owner: owner, operator: `operator`)
             completionHandler(.success(isApprovedForAll))
         } catch {
             completionHandler(.failure(error))

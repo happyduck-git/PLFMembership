@@ -33,6 +33,18 @@ final class LoginViewController: BaseViewController {
         return label
     }()
     
+    private lazy var demoBtn: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("DEMO ACOOUNT", for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        btn.setTitleColor(.black, for: .normal)
+        btn.backgroundColor = UIColor(hex: 0x7FE8FF)
+        btn.clipsToBounds = true
+        btn.layer.cornerRadius = UIConstant.buttonRadius
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
     private lazy var metaMaskLoginBtn: UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: ImageAssets.metamaskLogo), for: .normal)
@@ -79,6 +91,19 @@ extension LoginViewController {
     
     private func bind() {
         func bindViewToViewModel() {
+            
+            self.demoBtn.tapPublisher
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] _ in
+                    guard let `self` = self else { return }
+                    
+                    let vm = MainViewViewModel()
+                    let vc = MainViewController(vm: vm)
+                    
+                    self.show(vc, sender: self)
+                }
+                .store(in: &bindings)
+            
             self.metaMaskLoginBtn.tapPublisher
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in
@@ -138,6 +163,7 @@ extension LoginViewController {
 extension LoginViewController {
     private func setUI() {
         self.view.addSubviews(self.titleLabel,
+                              self.demoBtn,
                               self.metaMaskLoginBtn)
     }
     
@@ -149,7 +175,14 @@ extension LoginViewController {
             $0.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-5)
         }
         
+        self.demoBtn.snp.makeConstraints {
+            $0.centerX.equalTo(self.view)
+            $0.width.equalTo(self.view).offset(-200)
+            $0.height.equalTo(60)
+        }
+        
         self.metaMaskLoginBtn.snp.makeConstraints {
+            $0.top.equalTo(self.demoBtn.snp.bottom).offset(20)
             $0.centerX.equalTo(self.view)
             $0.width.equalTo(self.view).offset(-100)
             $0.height.equalTo(60)

@@ -320,7 +320,7 @@ extension MyCouponDetailViewController: BaseViewControllerDelegate {
     func cancelTapped() {
         
         Task {
-            let tokenId = Int64(self.vm.nft.id.tokenId.dropFirst(2), radix: 16) ?? 0
+            let tokenId = Int64(self.vm.nft.id.tokenId.dropFirst(2)) ?? 0
             let result = await self.vm.reclaimCoupon(tokenId: tokenId)
             print("Result: \(result)")
         }

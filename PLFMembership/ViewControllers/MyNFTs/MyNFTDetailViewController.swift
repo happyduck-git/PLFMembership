@@ -42,8 +42,6 @@ final class MyNFTDetailViewController: BaseScrollViewController {
     private let badge: TitleBadgeView = {
         let view = TitleBadgeView()
         view.backgroundColor = PLFColor.gray01
-        view.title.text = MyNftsConstants.sbt
-        
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -126,7 +124,10 @@ final class MyNFTDetailViewController: BaseScrollViewController {
 extension MyNFTDetailViewController {
     private func configure() {
         let name = vm.nft.metadata.name ?? "Name"
-        self.nftNameLabel.text = name
+        self.badge.title.text = name
+        
+        let tokenId = vm.nft.id.tokenId
+        self.nftNameLabel.text = tokenId
         
         self.vm.detailInfoList.forEach { info in
             

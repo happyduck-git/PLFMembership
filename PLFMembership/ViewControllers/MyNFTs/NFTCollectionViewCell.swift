@@ -11,6 +11,11 @@ import Nuke
 
 final class NFTCollectionViewCell: UICollectionViewCell {
     
+    enum NFTType {
+        case idCard
+        case coupon
+    }
+    
     // MARK: - UI Elements
     private let nftImageView: UIImageView = {
         let imageView = UIImageView()
@@ -25,7 +30,6 @@ final class NFTCollectionViewCell: UICollectionViewCell {
         let stack = UIStackView()
         stack.alignment = .leading
         stack.axis = .vertical
-        stack.spacing = 5.0
         stack.distribution = .fillProportionally
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
@@ -33,7 +37,7 @@ final class NFTCollectionViewCell: UICollectionViewCell {
     
     private let nftType: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.font = .systemFont(ofSize: 14, weight: .regular)
         label.textColor = .darkGray
         return label
     }()
@@ -61,15 +65,20 @@ final class NFTCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Configure
 extension NFTCollectionViewCell {
-    func configure(with nft: OwnedNFT) {
+    func configure(cellType: NFTType, with nft: OwnedNFT) {
         self.nftType.text = nft.metadata.name ?? "Nft Name"
         
         var name: String = ""
-        nft.metadata.attributes?.forEach({ att in
-            if AttributeTraitType(rawValue: att.traitType) == .name {
-                name = att.value
-            }
-        })
+        switch cellType {
+        case .idCard:
+            nft.metadata.attributes?.forEach({ att in
+                if AttributeTraitType(rawValue: att.traitType) == .name {
+                    name = att.value
+                }
+            })
+        case .coupon:
+            name = "#" + self.removeHexPrefixAndLeadingZeros(from: nft.id.tokenId)
+        }
         
         self.title.text = name
         
@@ -109,9 +118,22 @@ extension NFTCollectionViewCell {
         }
         
         self.titleStack.snp.makeConstraints {
-            $0.top.equalTo(self.nftImageView.snp.bottom).offset(12)
+            $0.top.equalTo(self.nftImageView.snp.bottom).offset(10)
             $0.leading.trailing.equalTo(self.nftImageView)
             $0.bottom.equalTo(self.contentView.snp.bottom).offset(-10)
         }
+    }
+}
+
+// MARK: - Private
+extension NFTCollectionViewCell {
+    func removeHexPrefixAndLeadingZeros(from hexString: String) -> String {
+        // Remove the "0x" prefix if it exists
+        let stringWithoutPrefix = hexString.hasPrefix("0x") ? String(hexString.dropFirst(2)) : hexString
+        
+        // Remove leading zeros
+        let result = stringWithoutPrefix.trimmingCharacters(in: CharacterSet(charactersIn: "0"))
+        
+        return result.isEmpty ? "0" : result
     }
 }

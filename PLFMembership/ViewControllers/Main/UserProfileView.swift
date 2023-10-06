@@ -83,7 +83,7 @@ final class UserProfileView: UIView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13, weight: .regular)
         label.textColor = .black
-        label.text = "TEST"
+        label.text = " "
         return label
     }()
     
@@ -91,7 +91,7 @@ final class UserProfileView: UIView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .bold)
         label.textColor = .black
-        label.text = "TEST"
+        label.text = " "
         return label
     }()
     
@@ -99,7 +99,7 @@ final class UserProfileView: UIView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13, weight: .regular)
         label.textColor = .black
-        label.text = "TEST"
+        label.text = " "
         return label
     }()
     

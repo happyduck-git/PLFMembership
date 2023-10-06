@@ -20,6 +20,9 @@ final class MainViewController: BaseViewController {
     private var bindings = Set<AnyCancellable>()
     
     // MARK: - UI Elements
+    
+    private let loadingVC = LoadingViewController()
+    
     private let backgroundImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -62,7 +65,8 @@ final class MainViewController: BaseViewController {
         super.viewDidLoad()
 
         self.profileView.delegate = self
-        
+
+        self.addChildViewController(self.loadingVC)
         self.view.backgroundColor = .white
         
         self.setNavigationItem()
@@ -101,6 +105,7 @@ extension MainViewController {
                     
                     Task {
                         do {
+                            self.loadingVC.removeViewController()
                             // BackgroundView
                             self.addBlurToImageView(self.backgroundImage)
                             let profileImage = try await ImagePipeline.shared.image(for: imageUrl)

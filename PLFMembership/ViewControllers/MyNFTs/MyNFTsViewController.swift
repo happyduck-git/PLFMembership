@@ -169,7 +169,7 @@ extension MyNFTsViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
         
         let nft = self.vm.idCardNft[indexPath.item]
-        cell.configure(with: nft)
+        cell.configure(cellType: .idCard, with: nft)
         
         return cell
     }
@@ -184,7 +184,7 @@ extension MyNFTsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = (self.nftCollection.frame.width - 20) / 2
-        let height = (self.nftCollection.frame.height - 10) / 2
+        let height = (self.nftCollection.frame.height - 10) / 2.3
         return CGSize(width: width, height: height)
     }
 }

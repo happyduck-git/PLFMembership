@@ -42,6 +42,15 @@ final class MyCouponsViewController: BaseViewController {
         return view
     }()
     
+    private let titleStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fillProportionally
+        stack.spacing = 10.0
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
     private let iconImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(resource: .bell)
@@ -57,12 +66,31 @@ final class MyCouponsViewController: BaseViewController {
         return label
     }()
     
-    private let infoDesc: TraitDetailView = {
-       let view = TraitDetailView()
-        view.configure(title: "사용방법", value: "쿠폰 사용 후 \"사용완료\" 버튼을 눌러주세요.")
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    private let descStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fillProportionally
+        stack.spacing = 10.0
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
     }()
+    
+    private let descTitle: UILabel = {
+        let label = UILabel()
+        label.text = "사용방법"
+        label.textColor = PLFColor.gray02
+        label.font = .systemFont(ofSize: 14)
+        return label
+    }()
+    
+    private let descDetail: UILabel = {
+        let label = UILabel()
+        label.textColor = PLFColor.mint04
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.text = "쿠폰 사용 후 \"사용완료\" 버튼을 눌러주세요."
+        return label
+    }()
+    
     
     // MARK: - Init
     init(vm: MyCouponsViewViewModel) {
@@ -127,6 +155,16 @@ extension MyCouponsViewController {
         self.view.addSubviews(self.numberOfNftsLabel,
                               self.nftCollection,
                               self.infoContainer)
+        
+        self.infoContainer.addSubviews(self.titleStack,
+                                       self.descStack)
+        
+        self.titleStack.addArrangedSubviews(self.iconImage,
+                                            self.infoTitle)
+        
+        self.descStack.addArrangedSubviews(self.descTitle,
+                                            self.descDetail)
+        
     }
     
     private func setLayout() {
@@ -145,6 +183,23 @@ extension MyCouponsViewController {
             $0.top.equalTo(self.nftCollection.snp.bottom).offset(10)
             $0.leading.trailing.bottom.equalTo(self.view)
             $0.height.equalTo(150)
+        }
+        
+        self.titleStack.snp.makeConstraints {
+            $0.top.equalTo(self.infoContainer.snp.top).offset(35)
+            $0.leading.equalTo(self.infoContainer.snp.leading).offset(20)
+            $0.width.equalTo(200)
+        }
+        
+        self.iconImage.snp.makeConstraints {
+            $0.width.height.equalTo(24)
+        }
+        
+        self.descStack.snp.makeConstraints {
+            $0.top.equalTo(self.titleStack.snp.bottom).offset(16)
+            $0.leading.equalTo(self.titleStack)
+            $0.bottom.equalTo(self.infoContainer.snp.bottom).offset(-20)
+            $0.trailing.equalTo(self.infoContainer.snp.trailing).offset(-20)
         }
     }
     
@@ -167,7 +222,7 @@ extension MyCouponsViewController: UICollectionViewDelegate, UICollectionViewDat
         }
         
         let nft = self.vm.couponNft[indexPath.item]
-        cell.configure(with: nft)
+        cell.configure(cellType: .coupon, with: nft)
         
         return cell
     }
@@ -175,7 +230,7 @@ extension MyCouponsViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = (self.nftCollection.frame.width - 20) / 2
-        let height = (self.nftCollection.frame.height - 10) / 2
+        let height = (self.nftCollection.frame.height - 10) / 2.3
         
         return CGSize(width: width, height: height)
     }
