@@ -62,7 +62,14 @@ final class NFTCollectionViewCell: UICollectionViewCell {
 // MARK: - Configure
 extension NFTCollectionViewCell {
     func configure(with nft: OwnedNFT) {
-        self.nftType.text = nft.metadata.name ?? "Nft Type"
+        self.nftType.text = nft.metadata.name ?? "Nft Name"
+        
+        var name: String = ""
+        nft.metadata.attributes?.forEach({ att in
+            if AttributeTraitType(rawValue: att.traitType) == .name {
+                
+            }
+        })
         self.title.text = nft.metadata.description ?? "Title"
         
         guard let imageUrlString = nft.metadata.image,

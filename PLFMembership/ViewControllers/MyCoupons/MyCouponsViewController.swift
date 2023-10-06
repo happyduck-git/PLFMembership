@@ -80,7 +80,7 @@ extension MyCouponsViewController {
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] in
                     guard let `self` = self else { return }
-                    
+      
                     self.numberOfNftsLabel.text = String(format: MyNftsConstants.totalNumber, $0.count)
                     self.nftCollection.reloadData()
                 }

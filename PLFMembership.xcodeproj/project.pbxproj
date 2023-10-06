@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		24AED3D62ACF0ED000B0D75A /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AED3D52ACF0ED000B0D75A /* UIImage+Extension.swift */; };
 		930D4C432ACE8BCB002A49DD /* CoffeeCoupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930D4C422ACE8BCB002A49DD /* CoffeeCoupon.swift */; };
+		9310E0122ACF986700BDC5B6 /* TransferInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E0112ACF986700BDC5B6 /* TransferInfo.swift */; };
+		9310E0142ACFBEBB00BDC5B6 /* NFTServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E0132ACFBEBB00BDC5B6 /* NFTServiceManager.swift */; };
+		9310E0162ACFC1EE00BDC5B6 /* NFTTransferResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E0152ACFC1EE00BDC5B6 /* NFTTransferResponse.swift */; };
+		9310E01B2ACFD0E100BDC5B6 /* CoffeeNFTFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E0182ACFD0E100BDC5B6 /* CoffeeNFTFunctions.swift */; };
+		9310E01C2ACFD0E100BDC5B6 /* CoffeeNFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E0192ACFD0E100BDC5B6 /* CoffeeNFT.swift */; };
+		9310E01D2ACFD0E100BDC5B6 /* CoffeeNFTResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E01A2ACFD0E100BDC5B6 /* CoffeeNFTResponses.swift */; };
 		932EE3A02AC3B3E000D2E132 /* AlChemyServiceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE39F2AC3B3E000D2E132 /* AlChemyServiceManagerTests.swift */; };
 		932EE3A82AC3B50500D2E132 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 932EE3A72AC3B50500D2E132 /* FirebaseMessaging */; };
 		932EE3AA2AC3BAA600D2E132 /* NetworkServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3A92AC3BAA600D2E132 /* NetworkServiceManager.swift */; };
@@ -31,9 +37,6 @@
 		932EE3EA2ACE53FC00D2E132 /* BaseScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3E92ACE53FC00D2E132 /* BaseScrollViewController.swift */; };
 		932EE3EC2ACE54C500D2E132 /* MyNFTDetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3EB2ACE54C500D2E132 /* MyNFTDetailViewViewModel.swift */; };
 		932EE3EE2ACE562300D2E132 /* TraitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3ED2ACE562300D2E132 /* TraitDetailView.swift */; };
-		932EE3F32ACE81F100D2E132 /* CoffeeNFTFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3F02ACE81F100D2E132 /* CoffeeNFTFunctions.swift */; };
-		932EE3F42ACE81F100D2E132 /* CoffeeNFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3F12ACE81F100D2E132 /* CoffeeNFT.swift */; };
-		932EE3F52ACE81F100D2E132 /* CoffeeNFTResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3F22ACE81F100D2E132 /* CoffeeNFTResponses.swift */; };
 		932EE3F82ACE825300D2E132 /* MyCouponDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3F72ACE825300D2E132 /* MyCouponDetailViewController.swift */; };
 		932EE3FA2ACE858500D2E132 /* MyCouponDetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE3F92ACE858500D2E132 /* MyCouponDetailViewViewModel.swift */; };
 		933584672ACE9BBE003911A5 /* TxHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933584662ACE9BBE003911A5 /* TxHistoryViewController.swift */; };
@@ -94,6 +97,12 @@
 /* Begin PBXFileReference section */
 		24AED3D52ACF0ED000B0D75A /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		930D4C422ACE8BCB002A49DD /* CoffeeCoupon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeCoupon.swift; sourceTree = "<group>"; };
+		9310E0112ACF986700BDC5B6 /* TransferInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferInfo.swift; sourceTree = "<group>"; };
+		9310E0132ACFBEBB00BDC5B6 /* NFTServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTServiceManager.swift; sourceTree = "<group>"; };
+		9310E0152ACFC1EE00BDC5B6 /* NFTTransferResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTTransferResponse.swift; sourceTree = "<group>"; };
+		9310E0182ACFD0E100BDC5B6 /* CoffeeNFTFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoffeeNFTFunctions.swift; sourceTree = "<group>"; };
+		9310E0192ACFD0E100BDC5B6 /* CoffeeNFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoffeeNFT.swift; sourceTree = "<group>"; };
+		9310E01A2ACFD0E100BDC5B6 /* CoffeeNFTResponses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoffeeNFTResponses.swift; sourceTree = "<group>"; };
 		932EE39D2AC3B3E000D2E132 /* PLFMembershipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PLFMembershipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		932EE39F2AC3B3E000D2E132 /* AlChemyServiceManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlChemyServiceManagerTests.swift; sourceTree = "<group>"; };
 		932EE3A92AC3BAA600D2E132 /* NetworkServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceManager.swift; sourceTree = "<group>"; };
@@ -114,9 +123,6 @@
 		932EE3E92ACE53FC00D2E132 /* BaseScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollViewController.swift; sourceTree = "<group>"; };
 		932EE3EB2ACE54C500D2E132 /* MyNFTDetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNFTDetailViewViewModel.swift; sourceTree = "<group>"; };
 		932EE3ED2ACE562300D2E132 /* TraitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraitDetailView.swift; sourceTree = "<group>"; };
-		932EE3F02ACE81F100D2E132 /* CoffeeNFTFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoffeeNFTFunctions.swift; sourceTree = "<group>"; };
-		932EE3F12ACE81F100D2E132 /* CoffeeNFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoffeeNFT.swift; sourceTree = "<group>"; };
-		932EE3F22ACE81F100D2E132 /* CoffeeNFTResponses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoffeeNFTResponses.swift; sourceTree = "<group>"; };
 		932EE3F72ACE825300D2E132 /* MyCouponDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCouponDetailViewController.swift; sourceTree = "<group>"; };
 		932EE3F92ACE858500D2E132 /* MyCouponDetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCouponDetailViewViewModel.swift; sourceTree = "<group>"; };
 		933584662ACE9BBE003911A5 /* TxHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxHistoryViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +195,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9310E0172ACFD0E100BDC5B6 /* CoffeeNFT */ = {
+			isa = PBXGroup;
+			children = (
+				9310E0182ACFD0E100BDC5B6 /* CoffeeNFTFunctions.swift */,
+				9310E0192ACFD0E100BDC5B6 /* CoffeeNFT.swift */,
+				9310E01A2ACFD0E100BDC5B6 /* CoffeeNFTResponses.swift */,
+			);
+			path = CoffeeNFT;
+			sourceTree = "<group>";
+		};
 		932EE39E2AC3B3E000D2E132 /* PLFMembershipTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +226,8 @@
 				932EE3AC2AC3D33000D2E132 /* AlchemyTransfer.swift */,
 				932EE3CC2ACD03D700D2E132 /* OwnedNFTs.swift */,
 				930D4C422ACE8BCB002A49DD /* CoffeeCoupon.swift */,
+				9310E0112ACF986700BDC5B6 /* TransferInfo.swift */,
+				9310E0152ACFC1EE00BDC5B6 /* NFTTransferResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -217,7 +235,7 @@
 		932EE3B32ACCE49800D2E132 /* CustomAbi */ = {
 			isa = PBXGroup;
 			children = (
-				932EE3EF2ACE81F100D2E132 /* CoffeeNFT */,
+				9310E0172ACFD0E100BDC5B6 /* CoffeeNFT */,
 			);
 			path = CustomAbi;
 			sourceTree = "<group>";
@@ -241,16 +259,6 @@
 				933584682ACE9C27003911A5 /* TxHistoryTableViewCell.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		932EE3EF2ACE81F100D2E132 /* CoffeeNFT */ = {
-			isa = PBXGroup;
-			children = (
-				932EE3F02ACE81F100D2E132 /* CoffeeNFTFunctions.swift */,
-				932EE3F12ACE81F100D2E132 /* CoffeeNFT.swift */,
-				932EE3F22ACE81F100D2E132 /* CoffeeNFTResponses.swift */,
-			);
-			path = CoffeeNFT;
 			sourceTree = "<group>";
 		};
 		933584652ACE9BA2003911A5 /* TransactionHistory */ = {
@@ -405,6 +413,7 @@
 				93AE505C2AC2C99C008327B4 /* AlchemyServiceManager.swift */,
 				932EE3A92AC3BAA600D2E132 /* NetworkServiceManager.swift */,
 				932EE3B12AC41AAC00D2E132 /* Web3Manager.swift */,
+				9310E0132ACFBEBB00BDC5B6 /* NFTServiceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -551,19 +560,19 @@
 				93AE50482AC2A79D008327B4 /* SideMenuPresentationManager.swift in Sources */,
 				93AE503A2AC167FE008327B4 /* UIControl+Extensions.swift in Sources */,
 				93AE50452AC29CB2008327B4 /* MainViewViewModel.swift in Sources */,
+				9310E0142ACFBEBB00BDC5B6 /* NFTServiceManager.swift in Sources */,
+				9310E01B2ACFD0E100BDC5B6 /* CoffeeNFTFunctions.swift in Sources */,
 				932EE3EE2ACE562300D2E132 /* TraitDetailView.swift in Sources */,
 				9335846B2ACE9CD3003911A5 /* TxHistoryViewViewModel.swift in Sources */,
 				932EE3EA2ACE53FC00D2E132 /* BaseScrollViewController.swift in Sources */,
 				93AE505D2AC2C99C008327B4 /* AlchemyServiceManager.swift in Sources */,
 				93AE502A2AC151AF008327B4 /* Constants.swift in Sources */,
 				932EE3CF2ACD2C7E00D2E132 /* UserProfileView.swift in Sources */,
-				932EE3F42ACE81F100D2E132 /* CoffeeNFT.swift in Sources */,
 				93AE503E2AC16A4E008327B4 /* BaseViewController.swift in Sources */,
 				932EE3D12ACD2D0D00D2E132 /* PassThroughView.swift in Sources */,
 				93AE503C2AC169C3008327B4 /* UIViewController+Extensions.swift in Sources */,
 				932EE3E02ACE2FC900D2E132 /* MyNFTsViewViewModel.swift in Sources */,
 				93AE50542AC2BF4B008327B4 /* UITableViewCell+Extension.swift in Sources */,
-				932EE3F32ACE81F100D2E132 /* CoffeeNFTFunctions.swift in Sources */,
 				93AE50522AC2BF29008327B4 /* UICollectionReusableView+Extension.swift in Sources */,
 				93AE504C2AC2A862008327B4 /* SideMenuPresentAnimator.swift in Sources */,
 				933584692ACE9C27003911A5 /* TxHistoryTableViewCell.swift in Sources */,
@@ -575,21 +584,24 @@
 				93AE50422AC299EB008327B4 /* LoginViewViewModel.swift in Sources */,
 				933584672ACE9BBE003911A5 /* TxHistoryViewController.swift in Sources */,
 				932EE3B22AC41AAC00D2E132 /* Web3Manager.swift in Sources */,
+				9310E01C2ACFD0E100BDC5B6 /* CoffeeNFT.swift in Sources */,
 				930D4C432ACE8BCB002A49DD /* CoffeeCoupon.swift in Sources */,
 				932EE3DE2ACD586300D2E132 /* MyNFTDetailViewController.swift in Sources */,
 				24AED3D62ACF0ED000B0D75A /* UIImage+Extension.swift in Sources */,
 				932EE3AD2AC3D33000D2E132 /* AlchemyTransfer.swift in Sources */,
 				93AE504A2AC2A823008327B4 /* SideMenuPresentationController.swift in Sources */,
+				9310E01D2ACFD0E100BDC5B6 /* CoffeeNFTResponses.swift in Sources */,
 				93AE50302AC154FC008327B4 /* UIColor+Extensions.swift in Sources */,
 				93AE50272AC15024008327B4 /* LoginViewController.swift in Sources */,
 				932EE3CD2ACD03D700D2E132 /* OwnedNFTs.swift in Sources */,
 				93AE50502AC2A9AA008327B4 /* SideMenuViewViewModel.swift in Sources */,
 				93AE4FFD2ABC2E15008327B4 /* MainViewController.swift in Sources */,
 				93AE50362AC166B5008327B4 /* LoadingViewController.swift in Sources */,
+				9310E0122ACF986700BDC5B6 /* TransferInfo.swift in Sources */,
 				93AE4FF92ABC2E15008327B4 /* AppDelegate.swift in Sources */,
 				932EE3E82ACE510800D2E132 /* TitleBadgeView.swift in Sources */,
 				93AE505F2AC2CC1B008327B4 /* EnvironmentConfig.swift in Sources */,
-				932EE3F52ACE81F100D2E132 /* CoffeeNFTResponses.swift in Sources */,
+				9310E0162ACFC1EE00BDC5B6 /* NFTTransferResponse.swift in Sources */,
 				932EE3E32ACE457B00D2E132 /* MyCouponsViewController.swift in Sources */,
 				93AE504E2AC2A8C7008327B4 /* SideMenuViewController.swift in Sources */,
 				932EE3DA2ACD51B700D2E132 /* RightArrowButton.swift in Sources */,

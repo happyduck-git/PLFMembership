@@ -13,8 +13,8 @@ final class TraitDetailView: UIView {
     private let stack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.distribution = .equalSpacing
-        stack.spacing = 10.0
+        stack.distribution = .fillEqually
+        stack.spacing = 5.0
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -81,6 +81,8 @@ extension TraitDetailView {
         self.stack.snp.makeConstraints {
             $0.top.leading.bottom.trailing.equalTo(self)
         }
+        
+        self.title.setContentHuggingPriority(.defaultLow, for: .horizontal)
     }
     
 }

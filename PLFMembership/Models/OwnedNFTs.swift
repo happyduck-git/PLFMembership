@@ -10,6 +10,7 @@ import Foundation
 enum AttributeTraitType: String {
     case position
     case yearOfEntry = "year of entry"
+    case name
 }
 
 struct OwnedNFTs: Codable {

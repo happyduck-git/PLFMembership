@@ -127,8 +127,19 @@ final class MyCouponDetailViewController: BaseScrollViewController {
 extension MyCouponDetailViewController {
     private func bind() {
         func bindViewToViewModel() {
-            
+            self.usedButton.tapPublisher
+                .sink { [weak self] _ in
+                    guard let `self` = self else { return }
+                    Task {
+                        let tokenId = Int64(self.vm.nft.id.tokenId.dropFirst(2), radix: 16) ?? 0
+                        let result = await self.vm.reclaimCoupon(tokenId: tokenId)
+                        print("Result: \(result)")
+                    }
+                    
+                }
+                .store(in: &bindings)
         }
+        
         func bindViewModelToView() {
             self.vm.$coupon
                 .receive(on: DispatchQueue.main)
@@ -188,7 +199,7 @@ extension MyCouponDetailViewController {
             
             switch info {
             case .tokenId:
-                value = "\(vm.nft.metadata.tokenId ?? 0)"
+                value = vm.nft.id.tokenId
             case .contractAddress:
                 value = vm.nft.contract.address
             case .tokenStandard:

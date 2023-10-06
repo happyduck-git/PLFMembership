@@ -15,6 +15,8 @@ struct ImageAssets {
     static let g3Logo: String = "g3_logo"
     static let g3LogoBig: String = "g3_logo_big"
     static let arrowRight: String = "arrowright"
+    static let arrowBiDirection: String = "bidirection_arrow"
+    static let sparkles: String = "sparkles"
 }
 
 struct UIConstant {

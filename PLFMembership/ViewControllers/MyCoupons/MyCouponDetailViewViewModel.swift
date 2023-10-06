@@ -12,6 +12,8 @@ import Combine
 
 final class MyCouponDetailViewViewModel {
     
+    private let nftServiceManager = NFTServiceManager.shared
+    
     private(set) var nft: OwnedNFT
     @Published var coupon: CoffeeCoupon?
     
@@ -51,9 +53,27 @@ final class MyCouponDetailViewViewModel {
         self.nft = nft
         
         Task {
-            self.coupon = await self.getCoffeeCoupon(tokenId: Int64(nft.metadata.tokenId ?? 0))
+            self.coupon = await self.getCoffeeCoupon(tokenId: Int64(nft.id.tokenId.dropFirst(2), radix: 16) ?? 0)
         }
     }
+}
+
+extension MyCouponDetailViewViewModel {
+    
+    func reclaimCoupon(tokenId: Int64) async -> Bool {
+        do {
+            let results = try await nftServiceManager.reclaimCoupon(from: UserDefaultsConst.walletAddress,
+                                                                    tokenId: tokenId)
+            print("Transfer status code: \(results.statusCode)")
+            return results.success
+            
+        }
+        catch {
+            PLFLogger.logger.error("Error request to reclaim a coupon. -- \(String(describing: error))")
+            return false
+        }
+    }
+    
 }
 
 extension MyCouponDetailViewViewModel {

@@ -6,26 +6,53 @@
 //
 
 import Foundation
+import Combine
 
 final class TxHistoryViewViewModel {
     
     private let alchemyManager = AlchemyServiceManager.shared
     
+    @Published var nftButtonTapped: Bool = true
+    @Published var couponButtonTapped: Bool = false
+    
+    @Published var nftTransferHistoryList: [Transfer] = []
+    @Published var couponTransferHistoryList: [Transfer] = []
+    
+    // MARK: - Init
     init() {
+        self.getTransferHistory()
+    }
+    
+}
+
+extension TxHistoryViewViewModel {
+    
+    private func getTransferHistory() {
         Task {
             do {
-                let rlt = try await alchemyManager.requestSBTTransfers()
-                print("Tx result: \(rlt)")
+                async let sbtTransfers = self.alchemyManager.requestSBTTransfers()
+                async let couponTransfers = self.alchemyManager.requestCouponTransfers()
+                
+                self.nftTransferHistoryList = try await sbtTransfers.result.transfers
+                self.couponTransferHistoryList = try await couponTransfers.result.transfers
+                print("CouponsTx: \(self.couponTransferHistoryList)")
+                
+                
+                let combvined = try await self.alchemyManager.requestCouponTransfersCombined()
+                print("Results combined \(combvined.count): \(combvined)")
+                
+//                await withTaskGroup(of: TransferInfo.self, body: { tg in
+//                    tg.addTask {
+//                        try await self.alchemyManager.builUrlString(chain: <#T##AlchemyServiceManager.Chain#>, network: <#T##AlchemyServiceManager.Network#>, api: <#T##AlchemyServiceManager.AlchemyAPI#>)
+//                    }
+//                })
+             
+                
             }
             catch {
                 PLFLogger.logger.error("Error requesting SBT Transfer history -- \(String(describing: error))")
             }
             
         }
-        
     }
-}
-
-extension TxHistoryViewViewModel {
-    
 }

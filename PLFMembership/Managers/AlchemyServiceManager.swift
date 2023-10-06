@@ -71,6 +71,19 @@ extension AlchemyServiceManager {
         }
     }
     
+//    func requestNftMetadata() async throws -> NFTMetadata {
+//        let urlRequest = try self.buildUrlRequest(method: .get,
+//                                                  chain: .polygon,
+//                                                  network: .mumbai,
+//                                                  api: .singleNftMetaData,
+//                                                  queryParameters: [
+//                                                    URLQueryItem(name: "contractAddress", value: <#T##String?#>),
+//                                                    URLQueryItem(name: "tokenId", value: <#T##String?#>)
+//                                                  ])
+//        
+//        
+//    }
+    
 }
 
 // NFT Transfer Related
@@ -124,6 +137,7 @@ extension AlchemyServiceManager {
                                                                     TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
                                                                     TransferBodyParam.toBlock: TransferBodyParam.latest,
                                                                     TransferBodyParam.toAddress: MainConstants.userAddress,
+                                                                    TransferBodyParam.withMetadata: true,
                                                                     TransferBodyParam.category: [TransferBodyParam.erc721],
                                                                     TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress]
                                                                 ] as [String : Any]
@@ -134,6 +148,64 @@ extension AlchemyServiceManager {
                 expecting: AlchemyTransfer.self,
                 request: urlRequest
             )
+        }
+        catch {
+            PLFLogger.logger.error("Error requesting Alchemy Service -- \(String(describing: error))")
+            throw AlchemyServiceError.wrongRequest
+        }
+    }
+    
+    func requestCouponTransfersCombined() async throws -> [Transfer] {
+        
+        let urlRequest1 = try self.buildUrlRequest(method: .post,
+                                                  chain: .polygon,
+                                                  network: .mumbai,
+                                                  api: .transfers,
+                                                  requestBody: [TransferBodyParam.id: TransferBodyParam.idValue,
+                                                                TransferBodyParam.method: TransferBodyParam.getTransferMethod,
+                                                                TransferBodyParam.params: [
+                                                                    TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
+                                                                    TransferBodyParam.toBlock: TransferBodyParam.latest,
+                                                                    TransferBodyParam.toAddress: MainConstants.userAddress,
+                                                                    TransferBodyParam.withMetadata: true,
+                                                                    TransferBodyParam.category: [TransferBodyParam.erc721],
+                                                                    TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress]
+                                                                ] as [String : Any]
+                                                               ])
+        
+        let urlRequest2 = try self.buildUrlRequest(method: .post,
+                                                  chain: .polygon,
+                                                  network: .mumbai,
+                                                  api: .transfers,
+                                                  requestBody: [TransferBodyParam.id: TransferBodyParam.idValue,
+                                                                TransferBodyParam.method: TransferBodyParam.getTransferMethod,
+                                                                TransferBodyParam.params: [
+                                                                    TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
+                                                                    TransferBodyParam.toBlock: TransferBodyParam.latest,
+                                                                    TransferBodyParam.fromAddress: MainConstants.userAddress,
+                                                                    TransferBodyParam.withMetadata: true,
+                                                                    TransferBodyParam.category: [TransferBodyParam.erc721],
+                                                                    TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress]
+                                                                ] as [String : Any]
+                                                               ])
+        
+        do {
+            var result: [Transfer] = []
+            
+            async let received = try NetworkServiceManager.execute(
+                expecting: AlchemyTransfer.self,
+                request: urlRequest1
+            )
+            
+            async let sent = try NetworkServiceManager.execute(
+                expecting: AlchemyTransfer.self,
+                request: urlRequest2
+            )
+            
+            result.append(contentsOf: try await received.result.transfers)
+            result.append(contentsOf: try await sent.result.transfers)
+            
+            return result
         }
         catch {
             PLFLogger.logger.error("Error requesting Alchemy Service -- \(String(describing: error))")
@@ -250,7 +322,7 @@ extension AlchemyServiceManager {
             
             urlString += argumentString
         }
-        PLFLogger.logger.info("URLString: \(String(describing: urlString))")
+
         return urlString
     }
 }

@@ -136,7 +136,7 @@ extension MyNFTDetailViewController {
             
             switch info {
             case .tokenId:
-                value = "\(vm.nft.metadata.tokenId ?? 0)"
+                value = vm.nft.id.tokenId
             case .contractAddress:                
                 value = String(vm.nft.contract.address.prefix(10))
             case .tokenStandard:
