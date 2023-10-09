@@ -65,8 +65,6 @@ final class MainViewController: BaseViewController {
         super.viewDidLoad()
 
         self.profileView.delegate = self
-
-        self.addChildViewController(self.loadingVC)
         self.view.backgroundColor = .white
         
         self.setNavigationItem()
@@ -75,6 +73,7 @@ final class MainViewController: BaseViewController {
         
         self.bind()
 
+        self.addChildViewController(self.loadingVC)
     }
     
     override func viewWillAppear(_ animated: Bool) {

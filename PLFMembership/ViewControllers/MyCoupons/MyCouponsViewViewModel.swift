@@ -10,10 +10,12 @@ import Foundation
 final class MyCouponsViewViewModel {
     
     @Published var couponNft: [OwnedNFT] = []
+    @Published var isLoaded: Bool = false
     
     init() {
         Task {
             await self.getCoupons()
+            self.isLoaded = true
         }
     }
 }

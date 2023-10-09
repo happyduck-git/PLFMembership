@@ -10,6 +10,15 @@ import SnapKit
 
 final class LoadingViewController: UIViewController {
 
+    private let spinnerBackground: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 8.0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
         spinner.color = .white
@@ -38,12 +47,18 @@ final class LoadingViewController: UIViewController {
 
 extension LoadingViewController {
     private func setUI() {
-        self.view.addSubview(self.spinner)
+        self.view.addSubview(self.spinnerBackground)
+        self.spinnerBackground.addSubview(self.spinner)
     }
     
     private func setLayout() {
-        self.spinner.snp.makeConstraints {
+        self.spinnerBackground.snp.makeConstraints {
             $0.center.equalTo(self.view)
+            $0.width.height.equalTo(80)
+        }
+        
+        self.spinner.snp.makeConstraints {
+            $0.center.equalTo(self.spinnerBackground)
         }
     }
 }

@@ -20,6 +20,8 @@ final class MyCouponDetailViewController: BaseScrollViewController {
     private var bindings = Set<AnyCancellable>()
     
     // MARK: - UI Elements
+    private let loadingVC = LoadingViewController()
+    
     private var detailViews: [TraitDetailView] = []
     
     private let nftImageView: UIImageView = {
@@ -116,6 +118,8 @@ final class MyCouponDetailViewController: BaseScrollViewController {
         self.baseDelegate = self
         
         self.bind()
+        
+        self.addChildViewController(self.loadingVC)
     }
     
     override func viewDidLayoutSubviews() {
@@ -173,6 +177,17 @@ extension MyCouponDetailViewController {
                     }
                     self.barcodeImageView.image = barcodeImage
                     
+                }
+                .store(in: &bindings)
+            
+            self.vm.$isLoaded
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] loaded in
+                    guard let `self` = self else { return }
+                    
+                    if loaded {
+                        self.loadingVC.removeViewController()
+                    }
                 }
                 .store(in: &bindings)
         }
@@ -318,14 +333,18 @@ extension MyCouponDetailViewController {
 
 extension MyCouponDetailViewController: BaseViewControllerDelegate {
     func cancelTapped() {
+        self.addChildViewController(self.loadingVC)
         
         Task {
             let tokenId = Int64(self.vm.nft.id.tokenId.dropFirst(2)) ?? 0
             let result = await self.vm.reclaimCoupon(tokenId: tokenId)
             print("Result: \(result)")
         }
-      
-        DispatchQueue.main.async {
+    
+        DispatchQueue.main.async { [weak self] in
+            guard let `self` = self else { return }
+            
+            self.loadingVC.removeViewController()
             self.navigationController?.popViewController(animated: true)
         }
         

@@ -16,6 +16,7 @@ final class MyCouponDetailViewViewModel {
     
     private(set) var nft: OwnedNFT
     @Published var coupon: CoffeeCoupon?
+    @Published var isLoaded: Bool = false
     
     let detailInfoList: [DetailInfo] = DetailInfo.allCases
     
@@ -54,6 +55,7 @@ final class MyCouponDetailViewViewModel {
         
         Task {
             self.coupon = await self.getCoffeeCoupon(tokenId: Int64(nft.id.tokenId.dropFirst(2)) ?? 0)
+            self.isLoaded = true
         }
     }
 }

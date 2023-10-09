@@ -17,6 +17,9 @@ final class TxHistoryViewController: BaseViewController {
     private var bindings = Set<AnyCancellable>()
     
     // MARK: - UI Elements
+    
+    private let loadingVC = LoadingViewController()
+    
     private let menuButtonStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
@@ -52,6 +55,8 @@ final class TxHistoryViewController: BaseViewController {
         table.register(TxHistoryTableViewCell.self, forCellReuseIdentifier: TxHistoryTableViewCell.identifier)
         table.showsVerticalScrollIndicator = false
         table.separatorStyle = .none
+        table.rowHeight = UITableView.automaticDimension
+        table.estimatedRowHeight = 150.0 // or some average height
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -64,6 +69,9 @@ final class TxHistoryViewController: BaseViewController {
         table.showsVerticalScrollIndicator = false
         table.separatorStyle = .none
         table.isHidden = true
+        table.rowHeight = UITableView.automaticDimension
+        table.estimatedRowHeight = 150.0 // or some average height
+
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -89,6 +97,8 @@ final class TxHistoryViewController: BaseViewController {
         self.setDelegate()
         
         self.bind()
+        
+        self.addChildViewController(self.loadingVC)
     }
 
 }
@@ -166,6 +176,17 @@ extension TxHistoryViewController {
                     }
                 }
                 .store(in: &bindings)
+            
+            self.vm.$isLoaded
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] loaded in
+                    guard let `self` = self else { return }
+                    
+                    if loaded {
+                        self.loadingVC.removeViewController()
+                    }
+                }
+                .store(in: &bindings)
         }
         
         bindViewToViewModel()
@@ -231,11 +252,10 @@ extension TxHistoryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let defaultCell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier, for: indexPath)
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TxHistoryTableViewCell.identifier, for: indexPath) as? TxHistoryTableViewCell else {
-            fatalError() // TODO:
+            return UITableViewCell()
         }
+        
         
         if tableView == self.nftHistoryTable {
             cell.configure(with: self.vm.nftTransferHistoryList[indexPath.row])
@@ -245,9 +265,12 @@ extension TxHistoryViewController: UITableViewDelegate, UITableViewDataSource {
             
             return cell
         } else {
-            return defaultCell
+            return UITableViewCell()
         }
 
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
 }

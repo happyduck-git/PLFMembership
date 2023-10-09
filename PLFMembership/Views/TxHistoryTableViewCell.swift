@@ -18,8 +18,7 @@ enum TransferType: String {
         case .mint:
             return PLFColor.backgroundMint
         case .transferFrom:
-//            return PLFColor.backgroundBlue
-            return .systemYellow
+            return PLFColor.backgroundBlue
         case .transferTo:
             return PLFColor.backgroundMint
         }
@@ -31,6 +30,15 @@ enum TransferType: String {
             return ImageAssets.sparkles
         case .transferFrom, .transferTo:
             return ImageAssets.arrowBiDirection
+        }
+    }
+    
+    var decription: String {
+        switch self {
+        case .mint:
+            return "Mint"
+        default:
+            return "Transfer"
         }
     }
 }
@@ -51,7 +59,7 @@ final class TxHistoryTableViewCell: UITableViewCell {
     
     private let leftColumnItems: [LeftColumnItem] = LeftColumnItem.allCases
     private let rightColumnItems: [RightColumnItem] = RightColumnItem.allCases
-    private var infoViews: [TraitDetailView] = []
+    private var infoViews: [UIView] = []
     
     // MARK: - UI Elements
     private let wholeStack: UIStackView = {
@@ -127,20 +135,15 @@ extension TxHistoryTableViewCell {
 
 // MARK: - Configure
 extension TxHistoryTableViewCell {
-    func configure(with transfer: Transfer) {
+    func configure(with info: TransferInfo) {
         
         var type: TransferType = .mint
-        print("Transfer from: \(transfer.from)")
-        print("Transfer to: \(transfer.to)")
-      
-        if transfer.from == "0x0000000000000000000000000000000000000000" {
-            print("Mint")
+
+        if info.transfer.from == "0x0000000000000000000000000000000000000000" {
             type = .mint
-        } else if transfer.from == MainConstants.userAddress {
-            print("From: ")
+        } else if info.transfer.from.lowercased() == MainConstants.userAddress.lowercased() {
             type = .transferFrom
-        } else if transfer.to == MainConstants.userAddress {
-            print("To: ")
+        } else if info.transfer.to.lowercased() == MainConstants.userAddress.lowercased() {
             type = .transferTo
         }
         
@@ -152,21 +155,30 @@ extension TxHistoryTableViewCell {
             
             switch view.tag {
             case 0:
-                value = transfer.category
+                value = info.name
             case 1:
-                value = "n/a"
+                break
             case 2:
-                value = transfer.from
+                value = info.transfer.from
             case 3:
-                value = transfer.to
+                value = info.transfer.to
             case 4:
-                value = transfer.erc721TokenId ?? "0x000"
+                value = info.transfer.erc721TokenId ?? "0x000"
             case 5:
-                value = self.convertDateToString(dateString: transfer.metadata.blockTimestamp) 
+                value = self.convertDateToString(dateString: info.transfer.metadata.blockTimestamp)
             default:
                 break
             }
-            view.configureValue(value: value)
+            
+            if let traitView = view as? TraitDetailView {
+                traitView.configureValue(value: value)
+            }
+            
+            if let traitImageView = view as? ImageLabelView {
+                traitImageView.configure(image: UIImage(named: type.iconName),
+                                         text: type.decription)
+            }
+            
         }
 
     }
@@ -188,7 +200,6 @@ extension TxHistoryTableViewCell {
             
             // Convert the Date object back to a string in the desired format
             let formattedDate = dateFormatter.string(from: date)
-            print(formattedDate)  // Outputs: 2023.10.06
             return formattedDate
             
         } else {
@@ -208,8 +219,12 @@ extension TxHistoryTableViewCell {
         
         self.leftColumnItems.forEach { item in
             switch item {
-//            case .transferType:
-                //TODO: Image - Label view 이용하기
+            case .transferType:
+                let view = ImageLabelView()
+                view.tag = tag
+                
+                self.infoViews.append(view)
+                self.leftStack.addArrangedSubview(view)
                 
             default:
                 let view = TraitDetailView()

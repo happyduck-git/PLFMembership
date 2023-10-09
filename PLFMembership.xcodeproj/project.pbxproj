@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		24AED3D62ACF0ED000B0D75A /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AED3D52ACF0ED000B0D75A /* UIImage+Extension.swift */; };
+		24EF636B2AD2F88000D071C5 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EF636A2AD2F88000D071C5 /* TestViewController.swift */; };
+		24EF636D2AD3FD5300D071C5 /* ImageLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EF636C2AD3FD5300D071C5 /* ImageLabelView.swift */; };
 		930D4C432ACE8BCB002A49DD /* CoffeeCoupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930D4C422ACE8BCB002A49DD /* CoffeeCoupon.swift */; };
 		9310E0122ACF986700BDC5B6 /* TransferInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E0112ACF986700BDC5B6 /* TransferInfo.swift */; };
 		9310E0142ACFBEBB00BDC5B6 /* NFTServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E0132ACFBEBB00BDC5B6 /* NFTServiceManager.swift */; };
@@ -96,6 +98,8 @@
 
 /* Begin PBXFileReference section */
 		24AED3D52ACF0ED000B0D75A /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		24EF636A2AD2F88000D071C5 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		24EF636C2AD3FD5300D071C5 /* ImageLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLabelView.swift; sourceTree = "<group>"; };
 		930D4C422ACE8BCB002A49DD /* CoffeeCoupon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeCoupon.swift; sourceTree = "<group>"; };
 		9310E0112ACF986700BDC5B6 /* TransferInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferInfo.swift; sourceTree = "<group>"; };
 		9310E0132ACFBEBB00BDC5B6 /* NFTServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTServiceManager.swift; sourceTree = "<group>"; };
@@ -257,6 +261,7 @@
 				932EE3E72ACE510800D2E132 /* TitleBadgeView.swift */,
 				932EE3ED2ACE562300D2E132 /* TraitDetailView.swift */,
 				933584682ACE9C27003911A5 /* TxHistoryTableViewCell.swift */,
+				24EF636C2AD3FD5300D071C5 /* ImageLabelView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -321,6 +326,7 @@
 				93AE50432AC29CA2008327B4 /* Main */,
 				93AE50342AC166AA008327B4 /* Base */,
 				93AE50252AC14E73008327B4 /* Login */,
+				24EF636A2AD2F88000D071C5 /* TestViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -554,6 +560,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				932EE3FA2ACE858500D2E132 /* MyCouponDetailViewViewModel.swift in Sources */,
+				24EF636B2AD2F88000D071C5 /* TestViewController.swift in Sources */,
 				93AE50562AC2BFF4008327B4 /* UIView+Extension.swift in Sources */,
 				932EE3D82ACD4ABB00D2E132 /* NFTCollectionViewCell.swift in Sources */,
 				93AE50402AC26692008327B4 /* PLFLogger.swift in Sources */,
@@ -579,6 +586,7 @@
 				93AE50592AC2C85B008327B4 /* MyNFTsViewController.swift in Sources */,
 				93AE50382AC167A1008327B4 /* UIButton+Extensions.swift in Sources */,
 				932EE3AA2AC3BAA600D2E132 /* NetworkServiceManager.swift in Sources */,
+				24EF636D2AD3FD5300D071C5 /* ImageLabelView.swift in Sources */,
 				932EE3E52ACE477A00D2E132 /* MyCouponsViewViewModel.swift in Sources */,
 				932EE3EC2ACE54C500D2E132 /* MyNFTDetailViewViewModel.swift in Sources */,
 				93AE50422AC299EB008327B4 /* LoginViewViewModel.swift in Sources */,

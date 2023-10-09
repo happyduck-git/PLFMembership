@@ -17,6 +17,8 @@ final class MyCouponsViewController: BaseViewController {
     private var bindings = Set<AnyCancellable>()
     
     // MARK: - UI Elements
+    private let loadingVC = LoadingViewController()
+    
     private let numberOfNftsLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
@@ -114,6 +116,8 @@ final class MyCouponsViewController: BaseViewController {
         self.setNavigationBar()
         
         self.bind()
+        
+        self.addChildViewController(self.loadingVC)
     }
     
 }
@@ -133,6 +137,17 @@ extension MyCouponsViewController {
       
                     self.numberOfNftsLabel.text = String(format: MyNftsConstants.totalNumber, $0.count)
                     self.nftCollection.reloadData()
+                }
+                .store(in: &bindings)
+            
+            self.vm.$isLoaded
+                .receive(on: DispatchQueue.main)
+                .sink {  [weak self] loaded in
+                    guard let `self` = self else { return }
+                    
+                    if loaded {
+                        self.loadingVC.removeViewController()
+                    }
                 }
                 .store(in: &bindings)
         }

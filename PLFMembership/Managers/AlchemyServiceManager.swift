@@ -71,18 +71,28 @@ extension AlchemyServiceManager {
         }
     }
     
-//    func requestNftMetadata() async throws -> NFTMetadata {
-//        let urlRequest = try self.buildUrlRequest(method: .get,
-//                                                  chain: .polygon,
-//                                                  network: .mumbai,
-//                                                  api: .singleNftMetaData,
-//                                                  queryParameters: [
-//                                                    URLQueryItem(name: "contractAddress", value: <#T##String?#>),
-//                                                    URLQueryItem(name: "tokenId", value: <#T##String?#>)
-//                                                  ])
-//        
-//        
-//    }
+    func requestNftMetadata(contractAddress: String, tokenId: String) async throws -> OwnedNFT {
+        let urlRequest = try self.buildUrlRequest(method: .get,
+                                                  chain: .polygon,
+                                                  network: .mumbai,
+                                                  api: .singleNftMetaData,
+                                                  queryParameters: [
+                                                    URLQueryItem(name: "contractAddress", value: contractAddress),
+                                                    URLQueryItem(name: "tokenId", value: tokenId)
+                                                  ])
+        
+        
+        do {
+            return try await NetworkServiceManager.execute(
+                expecting: OwnedNFT.self,
+                request: urlRequest
+            )
+        }
+        catch {
+            PLFLogger.logger.error("Error requesting Alchemy Service -- \(String(describing: error))")
+            throw AlchemyServiceError.wrongRequest
+        }
+    }
     
 }
 
