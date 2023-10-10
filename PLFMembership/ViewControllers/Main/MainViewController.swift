@@ -93,18 +93,24 @@ extension MainViewController {
         }
         
         func bindViewModelToView() {
-            self.vm.$idCardNft
-                .receive(on: DispatchQueue.main)
+            self.vm.$ownedNFTs
                 .sink { nfts in
-                    guard let nft = nfts.first, // TODO: ID card nft가 first가 아닐 수 있으므로 다른 구분 방식 VM에 적용 필요.
-                          let imageUrlString = nft.metadata.image,
+                    guard let nft = nfts.first else { return }
+                    self.vm.ownedIdCard = nft
+                }
+                .store(in: &bindings)
+            
+            self.vm.idCardInfo
+                .receive(on: DispatchQueue.main)
+                .sink { info in
+                    
+                    guard let imageUrlString = info.idCard.metadata.image,
                           let imageUrl = URL(string: imageUrlString),
-                          let attributes = nft.metadata.attributes
+                          let attributes = info.idCard.metadata.attributes
                     else { return }
                     
                     Task {
                         do {
-                            self.loadingVC.removeViewController()
                             // BackgroundView
                             self.addBlurToImageView(self.backgroundImage)
                             let profileImage = try await ImagePipeline.shared.image(for: imageUrl)
@@ -132,13 +138,25 @@ extension MainViewController {
                                                        position: position,
                                                        department: department,
                                                        username: username,
-                                                       joined: joined)
+                                                       joined: joined,
+                                                       tier: info.tier)
                         }
                         catch {
                             PLFLogger.logger.error("Error loading image -- \(String(describing: error))")
                         }
                     }
                     
+                }
+                .store(in: &bindings)
+     
+            self.vm.$isLoaded
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] loaded in
+                    guard let `self` = self else { return }
+                    
+                    if loaded {
+                        self.loadingVC.removeViewController()
+                    }
                 }
                 .store(in: &bindings)
         }
@@ -223,7 +241,7 @@ extension MainViewController {
 extension MainViewController: SideMenuViewControllerDelegate {
     
     func menuTableViewController(controller: SideMenuViewController, didSelectRow selectedRow: Int) {
-        // TODO: Go To the Selected Menu's VC
+        
         for child in self.children {
             child.removeViewController()
         }
@@ -248,7 +266,11 @@ extension MainViewController: SideMenuViewControllerDelegate {
 
 extension MainViewController: UserProfileViewDelegate {
     func g3LogoDidTap() {
-        // TODO: Open G3 WebView VC
+        for child in self.children {
+            child.removeViewController()
+        }
+
+        self.addChildViewController(G3ViewController())
     }
 }
 

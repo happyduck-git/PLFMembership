@@ -103,6 +103,14 @@ final class UserProfileView: UIView {
         return label
     }()
     
+    private let tierLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 13, weight: .regular)
+        label.textColor = .black
+        label.text = " "
+        return label
+    }()
+    
     //MARK: - Life Cycle
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -119,7 +127,8 @@ extension UserProfileView {
                    position: String,
                    department: String,
                    username: String,
-                   joined: String) {
+                   joined: String,
+                   tier: Int64) {
         
         self.profileImage.image = image
         self.jobLabel.text = position
@@ -127,6 +136,8 @@ extension UserProfileView {
         
         let attributedString = colorAfterPrefix(in: "Platfarm과 함께한지 " + joined, with: PLFColor.mint05)
         self.joinedLabel.attributedText = attributedString
+        
+        self.tierLabel.text = "Tier#\(tier)"
     }
 }
 
@@ -138,11 +149,13 @@ extension UserProfileView {
         
         self.profileContainer.addSubviews(self.profileImage,
                                           self.g3Button,
-                                          self.labelStack)
+                                          self.labelStack,
+                                          self.tierLabel)
         
         self.labelStack.addArrangedSubviews(self.jobLabel,
                                             self.usernameLabel,
                                             self.joinedLabel)
+        
     }
     
     private func setLayout() {
@@ -168,6 +181,11 @@ extension UserProfileView {
             $0.bottom.equalTo(self.profileContainer.snp.bottom).offset(-20)
         }
 
+        self.tierLabel.snp.makeConstraints {
+            $0.top.equalTo(self.labelStack.snp.top)
+            $0.trailing.equalTo(self.profileContainer).offset(-16)
+        }
+        
         self.jobLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         self.joinedLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
     }
@@ -194,3 +212,4 @@ extension UserProfileView {
         self.delegate?.g3LogoDidTap()
     }
 }
+

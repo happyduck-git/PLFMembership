@@ -155,7 +155,15 @@ extension TxHistoryTableViewCell {
             
             switch view.tag {
             case 0:
-                value = info.name
+                switch type {
+                case .mint:
+                    value = info.name
+                case .transferFrom:
+                    value = "사용완료"
+                case .transferTo:
+                    value = "쿠폰수령"
+                }
+                
             case 1:
                 break
             case 2:

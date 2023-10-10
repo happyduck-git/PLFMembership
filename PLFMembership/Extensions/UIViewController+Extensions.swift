@@ -27,6 +27,8 @@ extension UIViewController {
         self.addChild(child)
         self.view.addSubview(child.view)
         child.didMove(toParent: self)
+        
+        print("Frame: \(child.view.frame)")
     }
     
     /// Extension: Remove a view controller from its parent view controller.

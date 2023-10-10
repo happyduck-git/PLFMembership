@@ -7,24 +7,43 @@
 
 import UIKit
 import Combine
+import web3
+import BigInt
 
 final class MainViewViewModel {
     
     // MARK: - Property
-    @Published var idCardNft: [OwnedNFT] = []
+    @Published var ownedNFTs: [OwnedNFT] = []
+    @Published var ownedIdCard: OwnedNFT?
+    @Published var tier: BigUInt = 0
+    @Published var isLoaded: Bool = false
+    
+    private(set) lazy var idCardInfo = Publishers.CombineLatest($tier, $ownedIdCard)
+        .compactMap { tier, idCard -> IdCardInfo? in
+            guard let unwrappedIdCard = idCard else { return nil }
+            
+            return IdCardInfo(tier: Int64(tier), idCard: unwrappedIdCard)
+        }.eraseToAnyPublisher()
+    
     private var bindings = Set<AnyCancellable>()
     
     // MARK: - Init
     init() {
         Task {
-            try await self.getIdCardNft()
-        }
+            async let ownedNfts = self.getIdCardNft()
+            async let tier = self.getUserTier(address: MainConstants.userAddress)
+            
+            self.ownedNFTs = await ownedNfts
+            self.tier = await tier
+            
+            self.isLoaded = true
+        }   
     }
     
 }
 
 extension MainViewViewModel {
-    private func getIdCardNft() async throws {
+    private func getIdCardNft() async -> [OwnedNFT] {
         do {
             let result = try await AlchemyServiceManager
                 .shared
@@ -33,15 +52,43 @@ extension MainViewViewModel {
                     contractAddresses: EnvironmentConfig.sbtContractAddress
                 )
             
-            self.idCardNft = result.ownedNfts
+            return result.ownedNfts
         }
         catch {
             PLFLogger.logger.error("Error getting owned id card nft -- \(String(describing: error))")
+            return []
         }
 
     }
 }
 
+extension MainViewViewModel {
+    /// Get SBT tier Infomation.
+    /// - Parameter address: Owner's wallet address.
+    private func getUserTier(address: String) async -> BigUInt {
+        do {
+            let urlString = await AlchemyServiceManager.shared.builUrlString(chain: .polygon,
+                                                                             network: .mumbai,
+                                                                             api: .transfers)
+            guard let url = URL(string: urlString) else {
+                PLFLogger.logger.error("Error converting url string to url.)")
+                return 0
+            }
+            
+            let client = EthereumHttpClient(url: url)
+            let contract = IdCardNFTContract(contract: EnvironmentConfig.sbtContractAddress, client: client)
+            
+            return try await contract.getCurrentUserTier(user: EthereumAddress(address))
+        }
+        catch {
+            PLFLogger.logger.error("Error get coffee function -- \(String(describing: error))")
+            return 0
+        }
+        
+    }
+}
+
+// MARK: - Utility
 extension MainViewViewModel {
     func yearsAndMonthsPassed(from dateString: String) -> String? {
         let dateFormatter = DateFormatter()

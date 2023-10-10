@@ -18,7 +18,7 @@ final class MyNFTsViewViewModel {
     // MARK: - Init
     init(mainViewModel: MainViewViewModel) {
         
-        mainViewModel.$idCardNft
+        mainViewModel.$ownedNFTs
             .assign(to: &self.$idCardNft)
 
     }

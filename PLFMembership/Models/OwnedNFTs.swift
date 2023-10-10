@@ -54,3 +54,8 @@ struct ContractMetadata: Codable {
     let symbol: String
     let tokenType: String
 }
+
+struct IdCardInfo: Codable {
+    let tier: Int64
+    let idCard: OwnedNFT
+}
