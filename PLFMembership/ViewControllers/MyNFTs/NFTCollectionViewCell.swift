@@ -77,7 +77,7 @@ extension NFTCollectionViewCell {
                 }
             })
         case .coupon:
-            name = "#" + self.removeHexPrefixAndLeadingZeros(from: nft.id.tokenId)
+            name = "# \(nft.id.tokenId.hexStringToInt64() ?? 0)"
         }
         
         self.title.text = name

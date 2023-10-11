@@ -54,7 +54,9 @@ final class MyCouponDetailViewViewModel {
         self.nft = nft
         
         Task {
-            self.coupon = await self.getCoffeeCoupon(tokenId: Int64(nft.id.tokenId.dropFirst(2)) ?? 0)
+            guard let tokenId = nft.id.tokenId.hexStringToInt64() else { return }
+            self.coupon = await self.getCoffeeCoupon(tokenId: tokenId)
+            
             self.isLoaded = true
         }
     }

@@ -137,6 +137,8 @@ extension MyCouponsViewController {
       
                     self.numberOfNftsLabel.text = String(format: MyNftsConstants.totalNumber, $0.count)
                     self.nftCollection.reloadData()
+                    
+                    print($0)
                 }
                 .store(in: &bindings)
             
