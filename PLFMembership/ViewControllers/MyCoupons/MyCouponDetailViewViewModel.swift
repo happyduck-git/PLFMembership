@@ -13,6 +13,7 @@ import Combine
 final class MyCouponDetailViewViewModel {
     
     private let nftServiceManager = NFTServiceManager.shared
+    private let web3Manager = Web3Manager.shared
     
     private(set) var nft: OwnedNFT
     @Published var coupon: CoffeeCoupon?
@@ -55,7 +56,7 @@ final class MyCouponDetailViewViewModel {
         
         Task {
             guard let tokenId = nft.id.tokenId.hexStringToInt64() else { return }
-            self.coupon = await self.getCoffeeCoupon(tokenId: tokenId)
+            self.coupon = await self.web3Manager.getCoffeeCoupon(tokenId: tokenId)
             
             self.isLoaded = true
         }
@@ -78,52 +79,6 @@ extension MyCouponDetailViewViewModel {
         }
     }
     
-}
-
-extension MyCouponDetailViewViewModel {
-    
-    /// Get Coffee Coupon Infomation.
-    /// - Parameter tokenId: Token id of the coffee coupon nft.
-    private func getCoffeeCoupon(tokenId: Int64) async -> CoffeeCoupon? {
-        do {
-            let urlString = await AlchemyServiceManager.shared.builUrlString(chain: .polygon,
-                                                                             network: .mumbai,
-                                                                             api: .transfers)
-            guard let url = URL(string: urlString) else {
-                PLFLogger.logger.error("Error converting url string to url.)")
-                return nil
-            }
-            
-            let client = EthereumHttpClient(url: url)
-            let contract = CoffeeNFTContract(contract: EnvironmentConfig.coffeeCouponContractAddress, client: client)
-            
-            let result = try await contract.getCoffeeCoupon(tokenId: BigUInt(tokenId))
-            
-            return self.decodeJSON(from: result)
-        }
-        catch {
-            PLFLogger.logger.error("Error get coffee function -- \(String(describing: error))")
-            return nil
-        }
-        
-    }
-    
-    private func decodeJSON(from jsonString: String) -> CoffeeCoupon? {
-
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
-        if let jsonData = jsonString.data(using: .utf8) {
-            do {
-                let coupon = try decoder.decode(CoffeeCoupon.self, from: jsonData)
-                return coupon
-            } catch {
-                PLFLogger.logger.error("Error decoding JSON: \(String(describing: error))")
-            }
-        }
-        return nil
-    }
-
 }
 
 extension MyCouponDetailViewViewModel {

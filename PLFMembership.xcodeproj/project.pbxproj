@@ -44,6 +44,7 @@
 		933584672ACE9BBE003911A5 /* TxHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933584662ACE9BBE003911A5 /* TxHistoryViewController.swift */; };
 		933584692ACE9C27003911A5 /* TxHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933584682ACE9C27003911A5 /* TxHistoryTableViewCell.swift */; };
 		9335846B2ACE9CD3003911A5 /* TxHistoryViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9335846A2ACE9CD3003911A5 /* TxHistoryViewViewModel.swift */; };
+		9390252D2AD7840F00578757 /* DiscoverTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9390252C2AD7840F00578757 /* DiscoverTableViewCellViewModel.swift */; };
 		93A441D32AD4D0CF00108FAC /* G3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A441D22AD4D0CF00108FAC /* G3ViewController.swift */; };
 		93A441D82AD4EECB00108FAC /* IdCardNFTResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A441D52AD4EECB00108FAC /* IdCardNFTResponses.swift */; };
 		93A441D92AD4EECB00108FAC /* IdCardNFTFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A441D62AD4EECB00108FAC /* IdCardNFTFunctions.swift */; };
@@ -52,6 +53,8 @@
 		93AADEE62AD67D94005B8EFB /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AADEE52AD67D94005B8EFB /* DiscoverViewController.swift */; };
 		93AADEE82AD67DDC005B8EFB /* DiscoverTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AADEE72AD67DDC005B8EFB /* DiscoverTableViewCell.swift */; };
 		93AADEEB2AD689E2005B8EFB /* DiscoverButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AADEEA2AD689E2005B8EFB /* DiscoverButtonView.swift */; };
+		93AADEED2AD76D4A005B8EFB /* DiscoverUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AADEEC2AD76D4A005B8EFB /* DiscoverUserProfileView.swift */; };
+		93AADEEF2AD774A7005B8EFB /* DiscoverViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AADEEE2AD774A7005B8EFB /* DiscoverViewViewModel.swift */; };
 		93AE4FF92ABC2E15008327B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AE4FF82ABC2E15008327B4 /* AppDelegate.swift */; };
 		93AE4FFB2ABC2E15008327B4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AE4FFA2ABC2E15008327B4 /* SceneDelegate.swift */; };
 		93AE4FFD2ABC2E15008327B4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AE4FFC2ABC2E15008327B4 /* MainViewController.swift */; };
@@ -140,6 +143,7 @@
 		933584662ACE9BBE003911A5 /* TxHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxHistoryViewController.swift; sourceTree = "<group>"; };
 		933584682ACE9C27003911A5 /* TxHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		9335846A2ACE9CD3003911A5 /* TxHistoryViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxHistoryViewViewModel.swift; sourceTree = "<group>"; };
+		9390252C2AD7840F00578757 /* DiscoverTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		93A441D22AD4D0CF00108FAC /* G3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = G3ViewController.swift; sourceTree = "<group>"; };
 		93A441D52AD4EECB00108FAC /* IdCardNFTResponses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdCardNFTResponses.swift; sourceTree = "<group>"; };
 		93A441D62AD4EECB00108FAC /* IdCardNFTFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdCardNFTFunctions.swift; sourceTree = "<group>"; };
@@ -148,6 +152,8 @@
 		93AADEE52AD67D94005B8EFB /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		93AADEE72AD67DDC005B8EFB /* DiscoverTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewCell.swift; sourceTree = "<group>"; };
 		93AADEEA2AD689E2005B8EFB /* DiscoverButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverButtonView.swift; sourceTree = "<group>"; };
+		93AADEEC2AD76D4A005B8EFB /* DiscoverUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverUserProfileView.swift; sourceTree = "<group>"; };
+		93AADEEE2AD774A7005B8EFB /* DiscoverViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewViewModel.swift; sourceTree = "<group>"; };
 		93AE4FF52ABC2E15008327B4 /* PLFMembership.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PLFMembership.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AE4FF82ABC2E15008327B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93AE4FFA2ABC2E15008327B4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -315,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				93AADEE52AD67D94005B8EFB /* DiscoverViewController.swift */,
+				93AADEEE2AD774A7005B8EFB /* DiscoverViewViewModel.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -324,6 +331,8 @@
 			children = (
 				93AADEE72AD67DDC005B8EFB /* DiscoverTableViewCell.swift */,
 				93AADEEA2AD689E2005B8EFB /* DiscoverButtonView.swift */,
+				93AADEEC2AD76D4A005B8EFB /* DiscoverUserProfileView.swift */,
+				9390252C2AD7840F00578757 /* DiscoverTableViewCellViewModel.swift */,
 			);
 			path = DiscoverView;
 			sourceTree = "<group>";
@@ -631,6 +640,7 @@
 				9335846B2ACE9CD3003911A5 /* TxHistoryViewViewModel.swift in Sources */,
 				932EE3EA2ACE53FC00D2E132 /* BaseScrollViewController.swift in Sources */,
 				93AE505D2AC2C99C008327B4 /* AlchemyServiceManager.swift in Sources */,
+				93AADEEF2AD774A7005B8EFB /* DiscoverViewViewModel.swift in Sources */,
 				93AE502A2AC151AF008327B4 /* Constants.swift in Sources */,
 				932EE3CF2ACD2C7E00D2E132 /* UserProfileView.swift in Sources */,
 				93AE503E2AC16A4E008327B4 /* BaseViewController.swift in Sources */,
@@ -668,7 +678,9 @@
 				93AE4FFD2ABC2E15008327B4 /* MainViewController.swift in Sources */,
 				93AE50362AC166B5008327B4 /* LoadingViewController.swift in Sources */,
 				9310E0122ACF986700BDC5B6 /* TransferInfo.swift in Sources */,
+				93AADEED2AD76D4A005B8EFB /* DiscoverUserProfileView.swift in Sources */,
 				93AE4FF92ABC2E15008327B4 /* AppDelegate.swift in Sources */,
+				9390252D2AD7840F00578757 /* DiscoverTableViewCellViewModel.swift in Sources */,
 				932EE3E82ACE510800D2E132 /* TitleBadgeView.swift in Sources */,
 				93AADEE62AD67D94005B8EFB /* DiscoverViewController.swift in Sources */,
 				93AE505F2AC2CC1B008327B4 /* EnvironmentConfig.swift in Sources */,

@@ -8,6 +8,8 @@
 import Foundation
 
 struct TransferInfo {
+    let type: NFTType
     let name: String
+    let image: String
     let transfer: Transfer
 }

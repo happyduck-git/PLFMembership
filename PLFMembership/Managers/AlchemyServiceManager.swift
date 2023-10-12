@@ -96,12 +96,12 @@ extension AlchemyServiceManager {
     
 }
 
-// NFT Transfer Related
+// Get Current User's NFT Transfer Related
 extension AlchemyServiceManager {
     
     /// Request SBT Token Transfer History
     /// - Returns: AlchemyTransfer type object of SBT.
-    func requestSBTTransfers() async throws -> AlchemyTransfer {
+    func requestCurrentOwnerSBTTransfers() async throws -> AlchemyTransfer {
         
         do {
             let urlRequest = try self.buildUrlRequest(method: .post,
@@ -115,7 +115,6 @@ extension AlchemyServiceManager {
                                                                         TransferBodyParam.toBlock: TransferBodyParam.latest,
                                                                         TransferBodyParam.withMetadata: true,
                                                                         TransferBodyParam.toAddress: MainConstants.userAddress,
-//                                                                        "fromAddress": MainConstants.userAddress,
                                                                         TransferBodyParam.category: [TransferBodyParam.erc721],
                                                                         TransferBodyParam.contractAddresses: [EnvironmentConfig.sbtContractAddress]
                                                                     ] as [String : Any]
@@ -132,12 +131,10 @@ extension AlchemyServiceManager {
             throw AlchemyServiceError.wrongRequest
         }
     }
-    
-    /// Request SBT Token Transfer History
-    /// - Returns: AlchemyTransfer type object of coffee coupon.
-    func requestCouponTransfers() async throws -> AlchemyTransfer {
+   
+    func requestCurrentOwnerCouponTransfers() async throws -> [Transfer] {
         
-        let urlRequest = try self.buildUrlRequest(method: .post,
+        let receivedTokensRequest = try self.buildUrlRequest(method: .post,
                                                   chain: .polygon,
                                                   network: .mumbai,
                                                   api: .transfers,
@@ -153,37 +150,7 @@ extension AlchemyServiceManager {
                                                                 ] as [String : Any]
                                                                ])
         
-        do {
-            return try await NetworkServiceManager.execute(
-                expecting: AlchemyTransfer.self,
-                request: urlRequest
-            )
-        }
-        catch {
-            PLFLogger.logger.error("Error requesting Alchemy Service -- \(String(describing: error))")
-            throw AlchemyServiceError.wrongRequest
-        }
-    }
-    
-    func requestCouponTransfersCombined() async throws -> [Transfer] {
-        
-        let urlRequest1 = try self.buildUrlRequest(method: .post,
-                                                  chain: .polygon,
-                                                  network: .mumbai,
-                                                  api: .transfers,
-                                                  requestBody: [TransferBodyParam.id: TransferBodyParam.idValue,
-                                                                TransferBodyParam.method: TransferBodyParam.getTransferMethod,
-                                                                TransferBodyParam.params: [
-                                                                    TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
-                                                                    TransferBodyParam.toBlock: TransferBodyParam.latest,
-                                                                    TransferBodyParam.toAddress: MainConstants.userAddress,
-                                                                    TransferBodyParam.withMetadata: true,
-                                                                    TransferBodyParam.category: [TransferBodyParam.erc721],
-                                                                    TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress]
-                                                                ] as [String : Any]
-                                                               ])
-        
-        let urlRequest2 = try self.buildUrlRequest(method: .post,
+        let sentTokensRequest = try self.buildUrlRequest(method: .post,
                                                   chain: .polygon,
                                                   network: .mumbai,
                                                   api: .transfers,
@@ -204,12 +171,104 @@ extension AlchemyServiceManager {
             
             async let received = try NetworkServiceManager.execute(
                 expecting: AlchemyTransfer.self,
-                request: urlRequest1
+                request: receivedTokensRequest
             )
             
             async let sent = try NetworkServiceManager.execute(
                 expecting: AlchemyTransfer.self,
-                request: urlRequest2
+                request: sentTokensRequest
+            )
+            
+            result.append(contentsOf: try await received.result.transfers)
+            result.append(contentsOf: try await sent.result.transfers)
+            
+            return result
+        }
+        catch {
+            PLFLogger.logger.error("Error requesting Alchemy Service -- \(String(describing: error))")
+            throw AlchemyServiceError.wrongRequest
+        }
+    }
+}
+
+// Get Contracts Transfer Related
+extension AlchemyServiceManager {
+    
+    /// Request SBT Token Transfer History
+    /// - Returns: AlchemyTransfer type object of SBT.
+    func requestSBTContractTransfers() async throws -> AlchemyTransfer {
+        
+        do {
+            let urlRequest = try self.buildUrlRequest(method: .post,
+                                                      chain: .polygon,
+                                                      network: .mumbai,
+                                                      api: .transfers,
+                                                      requestBody: [TransferBodyParam.id: TransferBodyParam.idValue,
+                                                                    TransferBodyParam.method: TransferBodyParam.getTransferMethod,
+                                                                    TransferBodyParam.params: [
+                                                                        TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
+                                                                        TransferBodyParam.toBlock: TransferBodyParam.latest,
+                                                                        TransferBodyParam.withMetadata: true,
+                                                                        TransferBodyParam.category: [TransferBodyParam.erc721],
+                                                                        TransferBodyParam.contractAddresses: [EnvironmentConfig.sbtContractAddress]
+                                                                    ] as [String : Any]
+                                                                   ])
+            
+            
+            return try await NetworkServiceManager.execute(
+                expecting: AlchemyTransfer.self,
+                request: urlRequest
+            )
+        }
+        catch {
+            PLFLogger.logger.error("Error requesting Alchemy Service -- \(String(describing: error))")
+            throw AlchemyServiceError.wrongRequest
+        }
+    }
+   
+    func requestCouponContractTransfers() async throws -> [Transfer] {
+        
+        let receivedTokensRequest = try self.buildUrlRequest(method: .post,
+                                                  chain: .polygon,
+                                                  network: .mumbai,
+                                                  api: .transfers,
+                                                  requestBody: [TransferBodyParam.id: TransferBodyParam.idValue,
+                                                                TransferBodyParam.method: TransferBodyParam.getTransferMethod,
+                                                                TransferBodyParam.params: [
+                                                                    TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
+                                                                    TransferBodyParam.toBlock: TransferBodyParam.latest,
+                                                                    TransferBodyParam.withMetadata: true,
+                                                                    TransferBodyParam.category: [TransferBodyParam.erc721],
+                                                                    TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress], "maxCount": "0xA"
+                                                                ] as [String : Any]
+                                                               ])
+        
+        let sentTokensRequest = try self.buildUrlRequest(method: .post,
+                                                  chain: .polygon,
+                                                  network: .mumbai,
+                                                  api: .transfers,
+                                                  requestBody: [TransferBodyParam.id: TransferBodyParam.idValue,
+                                                                TransferBodyParam.method: TransferBodyParam.getTransferMethod,
+                                                                TransferBodyParam.params: [
+                                                                    TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
+                                                                    TransferBodyParam.toBlock: TransferBodyParam.latest,
+                                                                    TransferBodyParam.withMetadata: true,
+                                                                    TransferBodyParam.category: [TransferBodyParam.erc721],
+                                                                    TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress]
+                                                                ] as [String : Any]
+                                                               ])
+        
+        do {
+            var result: [Transfer] = []
+            
+            async let received = try NetworkServiceManager.execute(
+                expecting: AlchemyTransfer.self,
+                request: receivedTokensRequest
+            )
+            
+            async let sent = try NetworkServiceManager.execute(
+                expecting: AlchemyTransfer.self,
+                request: sentTokensRequest
             )
             
             result.append(contentsOf: try await received.result.transfers)

@@ -255,6 +255,11 @@ extension MainViewController: SideMenuViewControllerDelegate {
             let vc = MyNFTsViewController(vm: vm)
             self.addChildViewController(vc)
         
+        case 2:
+            let vm = DiscoverViewViewModel()
+            let vc = DiscoverViewController(vm: vm)
+            self.addChildViewController(vc)
+            
         default:
             break
         }

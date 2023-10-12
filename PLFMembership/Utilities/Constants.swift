@@ -30,6 +30,7 @@ struct LoginConstant {
 struct SideMenuConstants {
     static let home: String = "메인 화면"
     static let myNfts: String = "나의 NFTs"
+    static let discover: String = "Discover"
 }
 
 struct MainConstants {

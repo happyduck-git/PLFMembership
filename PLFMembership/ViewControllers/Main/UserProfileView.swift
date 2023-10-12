@@ -73,7 +73,7 @@ final class UserProfileView: UIView {
     private let labelStack: UIStackView = {
        let stack = UIStackView()
         stack.axis = .vertical
-        stack.distribution = .equalSpacing
+        stack.distribution = .fillProportionally
         stack.spacing = 8.0
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack

@@ -16,3 +16,15 @@ extension String {
         return Int64(cleanString, radix: 16)
     }
 }
+
+extension String {
+    func removeHexPrefixAndLeadingZeros() -> String {
+        // Remove the "0x" prefix if it exists
+        let stringWithoutPrefix = self.hasPrefix("0x") ? String(self.dropFirst(2)) : self
+        
+        // Remove leading zeros
+        let result = stringWithoutPrefix.trimmingCharacters(in: CharacterSet(charactersIn: "0"))
+        
+        return result.isEmpty ? "0" : result
+    }
+}

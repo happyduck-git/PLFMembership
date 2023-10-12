@@ -12,6 +12,8 @@ import BigInt
 
 final class MainViewViewModel {
     
+    private let web3Manager = Web3Manager.shared
+    
     // MARK: - Property
     @Published var ownedNFTs: [OwnedNFT] = []
     @Published var ownedIdCard: OwnedNFT?
@@ -31,7 +33,7 @@ final class MainViewViewModel {
     init() {
         Task {
             async let ownedNfts = self.getIdCardNft()
-            async let tier = self.getUserTier(address: MainConstants.userAddress)
+            async let tier = self.web3Manager.getUserTier(address: MainConstants.userAddress)
             
             self.ownedNFTs = await ownedNfts
             self.tier = await tier
@@ -59,32 +61,6 @@ extension MainViewViewModel {
             return []
         }
 
-    }
-}
-
-extension MainViewViewModel {
-    /// Get SBT tier Infomation.
-    /// - Parameter address: Owner's wallet address.
-    private func getUserTier(address: String) async -> BigUInt {
-        do {
-            let urlString = await AlchemyServiceManager.shared.builUrlString(chain: .polygon,
-                                                                             network: .mumbai,
-                                                                             api: .transfers)
-            guard let url = URL(string: urlString) else {
-                PLFLogger.logger.error("Error converting url string to url.)")
-                return 0
-            }
-            
-            let client = EthereumHttpClient(url: url)
-            let contract = IdCardNFTContract(contract: EnvironmentConfig.sbtContractAddress, client: client)
-            
-            return try await contract.getCurrentUserTier(user: EthereumAddress(address))
-        }
-        catch {
-            PLFLogger.logger.error("Error get coffee function -- \(String(describing: error))")
-            return 0
-        }
-        
     }
 }
 

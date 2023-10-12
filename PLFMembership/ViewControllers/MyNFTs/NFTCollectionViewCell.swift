@@ -11,11 +11,6 @@ import Nuke
 
 final class NFTCollectionViewCell: UICollectionViewCell {
     
-    enum NFTType {
-        case idCard
-        case coupon
-    }
-    
     // MARK: - UI Elements
     private let nftImageView: UIImageView = {
         let imageView = UIImageView()

@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum NFTType {
+    case idCard
+    case coupon
+}
+
 enum AttributeTraitType: String {
     case position
     case yearOfEntry = "year of entry"

@@ -12,11 +12,13 @@ final class SideMenuViewViewModel {
     enum MenuType: Int, CaseIterable {
         case home
         case myNfts
+        case discover
     }
     
     private let menuList: [MenuType: String] = [
         .home: ImageAssets.starFill,
-        .myNfts: ImageAssets.starFill
+        .myNfts: ImageAssets.starFill,
+        .discover: ImageAssets.starFill
     ]
     
     func numberOfMenu() -> Int {
@@ -39,6 +41,8 @@ final class SideMenuViewViewModel {
             key = SideMenuConstants.home
         case .myNfts:
             key = SideMenuConstants.myNfts
+        case .discover:
+            key = SideMenuConstants.discover
         default:
             key = SideMenuConstants.myNfts
         }
