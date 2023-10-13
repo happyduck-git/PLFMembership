@@ -239,7 +239,7 @@ extension AlchemyServiceManager {
                                                                     TransferBodyParam.toBlock: TransferBodyParam.latest,
                                                                     TransferBodyParam.withMetadata: true,
                                                                     TransferBodyParam.category: [TransferBodyParam.erc721],
-                                                                    TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress], "maxCount": "0xA"
+                                                                    TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress], "maxCount": "0x3"
                                                                 ] as [String : Any]
                                                                ])
         
@@ -254,7 +254,8 @@ extension AlchemyServiceManager {
                                                                     TransferBodyParam.toBlock: TransferBodyParam.latest,
                                                                     TransferBodyParam.withMetadata: true,
                                                                     TransferBodyParam.category: [TransferBodyParam.erc721],
-                                                                    TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress]
+                                                                    TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress],
+                                                                    "maxCount": "0x3"
                                                                 ] as [String : Any]
                                                                ])
         

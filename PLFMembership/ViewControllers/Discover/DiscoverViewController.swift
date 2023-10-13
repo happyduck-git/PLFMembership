@@ -60,7 +60,7 @@ extension DiscoverViewController {
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] result in
                     guard let `self` = self else { return }
-                    
+                    print("Result: \(result.count)")
                     self.vm.transferHistoryData = result
                     self.feedTableView.reloadData()
                 }
