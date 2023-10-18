@@ -64,3 +64,8 @@ struct IdCardInfo: Codable {
     let tier: Int64
     let idCard: OwnedNFT
 }
+
+struct IdCardInfoMetadata: Codable {
+    let tier: Int64
+    let idCard: NFTMetadata?
+}

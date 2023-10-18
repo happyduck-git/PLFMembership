@@ -17,6 +17,31 @@ final actor Web3Manager {
     
 }
 
+extension Web3Manager {
+    
+    func getTokenUri(of tokenId: BigUInt) async -> String? {
+        do {
+            let urlString = await AlchemyServiceManager.shared.builUrlString(chain: .polygon,
+                                                                             network: .mumbai,
+                                                                             api: .transfers)
+            guard let url = URL(string: urlString) else {
+                PLFLogger.logger.error("Error converting url string to url.)")
+                return nil
+            }
+            
+            let client = EthereumHttpClient(url: url)
+            let contract = IdCardNFTContract(contract: EnvironmentConfig.sbtContractAddress, client: client)
+            
+            return try await contract.tokenURI(tokenId: tokenId)
+        }
+        catch {
+            PLFLogger.logger.error("Error getting token uri -- \(String(describing: error))")
+            return nil
+        }
+    }
+    
+}
+
 // MARK: - Get Employee SBT Input Data
 extension Web3Manager {
     
@@ -38,7 +63,7 @@ extension Web3Manager {
             return try await contract.getCurrentUserTier(user: EthereumAddress(address))
         }
         catch {
-            PLFLogger.logger.error("Error get coffee function -- \(String(describing: error))")
+            PLFLogger.logger.error("Error getting user tier -- \(String(describing: error))")
             return 0
         }
     }
@@ -68,7 +93,7 @@ extension Web3Manager {
             return self.decodeJSON(from: result)
         }
         catch {
-            PLFLogger.logger.error("Error get coffee function -- \(String(describing: error))")
+            PLFLogger.logger.error("Error getting coffee -- \(String(describing: error))")
             return nil
         }
         

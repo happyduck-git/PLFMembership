@@ -10,7 +10,7 @@ import SnapKit
 import Combine
 import Nuke
 
-final class MainViewController: BaseViewController {
+final class MainViewController: BaseScrollViewController {
     
     private let vm: MainViewViewModel
     
@@ -93,24 +93,40 @@ extension MainViewController {
         }
         
         func bindViewModelToView() {
-            self.vm.$ownedNFTs
-                .sink { nfts in
-                    guard let nft = nfts.first else { return }
-                    self.vm.ownedIdCard = nft
+            
+            self.vm.ownedIdCard
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] card in
+                    guard let `self` = self else { return }
+                    
+                    self.vm.idCardTokenId = card?.id.tokenId
                 }
                 .store(in: &bindings)
             
-            self.vm.idCardInfo
+            self.vm.$idCardTokenId
                 .receive(on: DispatchQueue.main)
-                .sink { info in
-                    
-                    guard let imageUrlString = info.idCard.metadata.image,
-                          let imageUrl = URL(string: imageUrlString),
-                          let attributes = info.idCard.metadata.attributes
-                    else { return }
+                .sink { [weak self] id in
+                    guard let `self` = self,
+                          let tokenId = id else { return }
                     
                     Task {
+                        self.vm.sbtMetadata = await self.vm.getMetadata(of: tokenId)
+                    }
+                }
+                .store(in: &bindings)
+            
+            // idCardMetadata from web3 tokenUri call.
+            self.vm.idCardMetadata
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] info in
+                    guard let `self` = self,
+                          let imageUrlString = info.idCard?.image,
+                          let imageUrl = URL(string: imageUrlString),
+                          let attributes = info.idCard?.attributes
+                    else { return }
+                    Task {
                         do {
+             
                             // BackgroundView
                             self.addBlurToImageView(self.backgroundImage)
                             let profileImage = try await ImagePipeline.shared.image(for: imageUrl)
@@ -148,7 +164,59 @@ extension MainViewController {
                     
                 }
                 .store(in: &bindings)
-     
+            
+            // idCardinfo from Alchemy API call
+            /*
+            self.vm.idCardInfo
+                .receive(on: DispatchQueue.main)
+                .sink { info in
+                    
+                    guard let imageUrlString = info.idCard.metadata.image,
+                          let imageUrl = URL(string: imageUrlString),
+                          let attributes = info.idCard.metadata.attributes
+                    else { return }
+                    
+                    Task {
+                        do {
+             
+                            // BackgroundView
+                            self.addBlurToImageView(self.backgroundImage)
+                            let profileImage = try await ImagePipeline.shared.image(for: imageUrl)
+                            self.backgroundImage.image = profileImage
+                            
+                            // UserProfileView
+                            var position: String = ""
+                            let department: String = "Mobile" // temp
+                            let username: String = "GG" // temp
+                            var joined: String = ""
+                            
+                            attributes.forEach {
+                                let traitType = AttributeTraitType(rawValue: $0.traitType)
+                                switch traitType {
+                                case .position:
+                                    position = $0.value
+                                case .yearOfEntry:
+                                    
+                                    joined = self.vm.yearsAndMonthsPassed(from: $0.value) ?? "0개월"
+                                default:
+                                    break
+                                }
+                            }
+                            self.profileView.configure(image: profileImage,
+                                                       position: position,
+                                                       department: department,
+                                                       username: username,
+                                                       joined: joined,
+                                                       tier: info.tier)
+                        }
+                        catch {
+                            PLFLogger.logger.error("Error loading image -- \(String(describing: error))")
+                        }
+                    }
+                    
+                }
+                .store(in: &bindings)
+     */
             self.vm.$isLoaded
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] loaded in
@@ -167,11 +235,17 @@ extension MainViewController {
 
 }
 
+extension MainViewController: UIScrollViewDelegate {
+    
+}
+
 // MARK: - Set UI
 extension MainViewController {
     
+    
+    
     private func setUI() {
-        self.view.addSubviews(self.backgroundImage,
+        self.canvasView.addSubviews(self.backgroundImage,
                               self.welcomeLabel,
                               self.profileView)
     }
@@ -182,14 +256,14 @@ extension MainViewController {
         }
         
         self.welcomeLabel.snp.makeConstraints {
-            $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(18)
-            $0.leading.equalTo(self.view.safeAreaLayoutGuide).offset(21)
-            $0.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-21)
+            $0.top.equalTo(self.canvasView).offset(18)
+            $0.leading.equalTo(self.canvasView).offset(21)
+            $0.trailing.equalTo(self.canvasView).offset(-21)
         }
         
         self.profileView.snp.makeConstraints {
             $0.top.equalTo(self.welcomeLabel.snp.bottom).offset(68)
-            $0.centerX.equalTo(self.view)
+            $0.centerX.equalTo(canvasView)
             $0.height.equalTo(383)
             $0.width.equalTo(268)
         }

@@ -16,11 +16,24 @@ final class MainViewViewModel {
     
     // MARK: - Property
     @Published var ownedNFTs: [OwnedNFT] = []
-    @Published var ownedIdCard: OwnedNFT?
     @Published var tier: BigUInt = 0
     @Published var isLoaded: Bool = false
+    @Published var sbtMetadata: NFTMetadata?
+    @Published var idCardTokenId: String?
     
-    private(set) lazy var idCardInfo = Publishers.CombineLatest($tier, $ownedIdCard)
+    private(set) lazy var ownedIdCard = Publishers.Map(upstream: $ownedNFTs) { [weak self] nfts -> OwnedNFT? in
+        guard let `self` = self else { return nil }
+        return nfts.first
+    }.eraseToAnyPublisher()
+    
+    private(set) lazy var idCardMetadata = Publishers.CombineLatest($tier, $sbtMetadata)
+        .compactMap { tier, metadata -> IdCardInfoMetadata? in
+            
+            return IdCardInfoMetadata(tier: Int64(tier), idCard: metadata)
+        }.eraseToAnyPublisher()
+    
+    /* Currently Not In Use */
+    private(set) lazy var idCardInfo = Publishers.CombineLatest($tier, ownedIdCard)
         .compactMap { tier, idCard -> IdCardInfo? in
             guard let unwrappedIdCard = idCard else { return nil }
             
@@ -40,6 +53,40 @@ final class MainViewViewModel {
             
             self.isLoaded = true
         }   
+    }
+    
+}
+
+
+extension MainViewViewModel {
+    
+}
+
+extension MainViewViewModel {
+    
+    // MARK: - Get Metadata of a certain tokenId.
+    func getMetadata(of tokenId: String) async -> NFTMetadata? {
+        
+        guard let tokenUri = await self.getTokenUri(of: tokenId),
+              let url = URL(string: tokenUri)
+        else { return nil }
+        
+        do {
+            return try await NetworkServiceManager.execute(expecting: NFTMetadata.self,
+                                                           request: URLRequest(url: url))
+        }
+        catch {
+            return nil
+        }
+        
+    }
+    
+    // MARK: - Get Token uri.
+    private func getTokenUri(of tokenId: String) async -> String? {
+        guard let uint = BigUInt(hex: tokenId) else {
+            return nil
+        }
+        return await self.web3Manager.getTokenUri(of: uint)
     }
     
 }
