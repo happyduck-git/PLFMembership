@@ -31,7 +31,7 @@ final class MainViewController: BaseScrollViewController {
     
     private let welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = "GG님\n안녕하세요!" // temp
+        label.text = String(localized: "GG님\n안녕하세요!") // temp
         label.numberOfLines = 2
         label.font = .systemFont(ofSize: 30, weight: .bold)
         label.textAlignment = .left

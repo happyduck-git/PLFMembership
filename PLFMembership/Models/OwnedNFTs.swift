@@ -10,6 +10,7 @@ import Foundation
 enum NFTType {
     case idCard
     case coupon
+    case poap
 }
 
 enum AttributeTraitType: String {

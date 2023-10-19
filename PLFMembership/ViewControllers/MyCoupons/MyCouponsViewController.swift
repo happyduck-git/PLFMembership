@@ -22,7 +22,7 @@ final class MyCouponsViewController: BaseViewController {
     private let numberOfNftsLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
-        label.text = "총 0개"
+        label.text = String(localized: "총 0개")
         label.font = .systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -62,8 +62,9 @@ final class MyCouponsViewController: BaseViewController {
     
     private let infoTitle: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.font = .systemFont(ofSize: 18, weight: .regular)
-        label.text = "쿠폰 사용 안내"
+        label.text = String(localized: "쿠폰 사용 안내")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -79,7 +80,8 @@ final class MyCouponsViewController: BaseViewController {
     
     private let descTitle: UILabel = {
         let label = UILabel()
-        label.text = "사용방법"
+        label.numberOfLines = 0
+        label.text = String(localized: "사용방법")
         label.textColor = PLFColor.gray02
         label.font = .systemFont(ofSize: 14)
         return label
@@ -88,8 +90,9 @@ final class MyCouponsViewController: BaseViewController {
     private let descDetail: UILabel = {
         let label = UILabel()
         label.textColor = PLFColor.mint04
+        label.numberOfLines = 0
         label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.text = "쿠폰 사용 후 \"사용완료\" 버튼을 눌러주세요."
+        label.text = String(localized: "쿠폰 사용 후 \"사용완료\" 버튼을 눌러주세요.")
         return label
     }()
     
@@ -204,6 +207,7 @@ extension MyCouponsViewController {
         self.titleStack.snp.makeConstraints {
             $0.top.equalTo(self.infoContainer.snp.top).offset(35)
             $0.leading.equalTo(self.infoContainer.snp.leading).offset(20)
+            $0.trailing.equalTo(self.infoContainer.snp.trailing).offset(-20)
             $0.width.equalTo(200)
         }
         
@@ -220,7 +224,7 @@ extension MyCouponsViewController {
     }
     
     private func setNavigationBar() {
-        self.title = "보유 쿠폰"
+        self.title = String(localized: "보유 쿠폰")
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     

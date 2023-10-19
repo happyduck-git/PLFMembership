@@ -137,9 +137,9 @@ extension MainViewViewModel {
         let months = dateComponents.month ?? 0
 
         if years == 0 {
-            return "\(months)개월"
+            return String(localized: "\(months)개월")
         } else {
-            return "\(years)년 \(months)개월"
+            return String(localized: "\(years)년 \(months)개월") 
         }
         
     }

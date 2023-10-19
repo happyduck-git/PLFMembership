@@ -50,6 +50,8 @@ final class MyNFTDetailViewController: BaseScrollViewController {
     private let nftNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
+        label.numberOfLines = 1
+        label.lineBreakMode = .byTruncatingMiddle
         label.font = .systemFont(ofSize: 24, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -224,6 +226,7 @@ extension MyNFTDetailViewController {
         self.nftNameLabel.snp.makeConstraints {
             $0.top.equalTo(self.badge.snp.bottom).offset(4)
             $0.leading.equalTo(self.badge)
+            $0.trailing.equalTo(self.view).offset(-10)
             $0.bottom.equalTo(self.titleContainer).offset(-20)
         }
         

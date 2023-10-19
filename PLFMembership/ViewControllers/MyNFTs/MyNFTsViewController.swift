@@ -29,7 +29,7 @@ final class MyNFTsViewController: BaseViewController {
     private let numberOfNftsLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
-        label.text = "총 0개"
+        label.text = String(localized: "총 0개")
         label.font = .systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -40,6 +40,7 @@ final class MyNFTsViewController: BaseViewController {
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(NFTCollectionViewCell.self, forCellWithReuseIdentifier: NFTCollectionViewCell.identifier)
+        collection.isScrollEnabled = true
         collection.translatesAutoresizingMaskIntoConstraints = false
         return collection
     }()
@@ -169,6 +170,7 @@ extension MyNFTsViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
         
         let nft = self.vm.idCardNft[indexPath.item]
+        print("NFT: \(nft)")
         cell.configure(cellType: .idCard, with: nft)
         
         return cell

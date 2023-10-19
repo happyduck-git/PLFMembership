@@ -10,27 +10,30 @@ import Nuke
 import SnapKit
 import Combine
 
-//PCN
-//PES
-
 enum DiscoverType: String {
     case used
     case newMember
     case newCoupon
+    case poap
     
     var description: String {
         switch self {
         case .used:
-            return "Special coffee in Gangnam XXCafe."
+            return "Special coffee in Gangnam Blue Bottle Cafe."
         case .newMember:
             return "🎉 New member just joined!"
         case .newCoupon:
             return "Coffee coupon just got delivered!"
+        case .poap:
+            return "Celebrate your new poap!"
         }
     }
 }
 
 final class DiscoverTableViewCell: UITableViewCell {
+    
+    @Published var likeCount: Int = 0
+    @Published var isLiked: Bool = false
     
     private var bindings = Set<AnyCancellable>()
     
@@ -58,7 +61,7 @@ final class DiscoverTableViewCell: UITableViewCell {
     
     private let contentsContainerView: UIView = {
        let view = UIView()
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -96,6 +99,7 @@ final class DiscoverTableViewCell: UITableViewCell {
     
     private let filledHeartImage: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(resource: .heartRed)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -158,7 +162,7 @@ extension DiscoverTableViewCell {
         switch type {
         case .used:
             self.discoverButtonView.configure(image: UIImage(resource: .demoCoffee))
-        case .newMember, .newCoupon:
+        case .newMember, .newCoupon, .poap:
             nftImage = vm.image
         }
         
@@ -180,7 +184,7 @@ extension DiscoverTableViewCell {
                     self.nftImageView.isHidden = true
                     self.discoverButtonView.configure(image: image)
                     
-                case .newMember, .newCoupon:
+                case .newMember, .newCoupon, .poap:
                     self.discoverButtonView.isHidden = true
                     self.nftImageView.isHidden = false
                     self.nftImageView.image = image
@@ -196,23 +200,23 @@ extension DiscoverTableViewCell {
         
     }
     
-    func bind(with vm: DiscoverTableViewCellViewModel) {
+    func bind() {
         
         self.bindings.forEach { $0.cancel() }
         self.bindings.removeAll()
         
         func bindViewToViewModel() {
             self.likeButton.tapPublisher
-                .sink { _ in
-                
-                    vm.likeCount += vm.isLiked ? -1 : 1
-                    vm.isLiked.toggle()
+                .sink { [weak self] _ in
+                    guard let `self` = self else { return }
+                    self.likeCount += self.isLiked ? -1 : 1
+                    self.isLiked.toggle()
                 }
                 .store(in: &bindings)
         }
         
         func bindViewModelToView() {
-            vm.$likeCount
+            self.$likeCount
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] in
                     guard let `self` = self else { return }

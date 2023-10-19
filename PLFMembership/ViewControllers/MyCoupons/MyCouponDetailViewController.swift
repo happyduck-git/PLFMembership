@@ -69,7 +69,7 @@ final class MyCouponDetailViewController: BaseScrollViewController {
     
     private let detailTitle: UILabel = {
         let label = UILabel()
-        label.text = "상세 정보"
+        label.text = String(localized: "상세 정보")
         label.textColor = PLFColor.darkGray
         label.font = .systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +87,7 @@ final class MyCouponDetailViewController: BaseScrollViewController {
     
     private let usedButton: UIButton = {
         let btn = UIButton()
-        btn.setTitle("사용 완료", for: .normal)
+        btn.setTitle(String(localized: "사용 완료"), for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.backgroundColor = PLFColor.mint03
         btn.clipsToBounds = true
@@ -138,12 +138,12 @@ extension MyCouponDetailViewController {
                 .sink { [weak self] _ in
                     guard let `self` = self else { return }
                     
-                    self.showAlert(alertTitle: "사용 완료 보내기",
-                                   alertMessage: "쿠폰 사용 완료 하시겠습니까?",
+                    self.showAlert(alertTitle: String(localized: "사용 완료 보내기"),
+                                   alertMessage: String(localized: "쿠폰 사용 완료 하시겠습니까?"),
                                    alertStyle: .alert,
-                                   actionTitle1: "확인",
+                                   actionTitle1: String(localized: "확인"),
                                    actionStyle1: .cancel,
-                                   actionTitle2: "취소",
+                                   actionTitle2: String(localized: "취소"),
                                    actionStyle2: .default)
                     
                 }

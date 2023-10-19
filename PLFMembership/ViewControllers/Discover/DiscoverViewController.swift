@@ -14,9 +14,10 @@ final class DiscoverViewController: BaseViewController {
     
     // MARK: - View Model
     private let vm: DiscoverViewViewModel
-    private let tempCellVM: DiscoverTableViewCellViewModel = DiscoverTableViewCellViewModel()
     
     // MARK: - UI Elements
+    private let loadingVC = LoadingViewController()
+    
     private let feedTableView: UITableView = {
         let table = UITableView()
         table.register(DiscoverTableViewCell.self, forCellReuseIdentifier: DiscoverTableViewCell.identifier)
@@ -45,6 +46,7 @@ final class DiscoverViewController: BaseViewController {
         self.setDelegate()
         
         self.bind()
+        self.addChildViewController(self.loadingVC)
     }
 
 }
@@ -63,6 +65,17 @@ extension DiscoverViewController {
                     print("Result: \(result.count)")
                     self.vm.transferHistoryData = result
                     self.feedTableView.reloadData()
+                }
+                .store(in: &bindings)
+            
+            self.vm.$isLoaded
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] loaded in
+                    guard let `self` = self else { return }
+                    
+                    if loaded {
+                        self.loadingVC.removeViewController()
+                    }
                 }
                 .store(in: &bindings)
         }
@@ -107,9 +120,12 @@ extension DiscoverViewController: UITableViewDelegate, UITableViewDataSource {
             
         case .idCard:
             cell.configure(type: .newMember, vm: data)
+            
+        case .poap:
+            cell.configure(type: .poap, vm: data)
         }
         
-//        cell.bind(with: tempCellVM)
+        cell.bind()
         return cell
     }
     

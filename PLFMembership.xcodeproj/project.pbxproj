@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		240532802AE180F3002D804B /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2405327F2AE180F3002D804B /* Localizable.xcstrings */; };
 		24AED3D62ACF0ED000B0D75A /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AED3D52ACF0ED000B0D75A /* UIImage+Extension.swift */; };
 		24EF636B2AD2F88000D071C5 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EF636A2AD2F88000D071C5 /* TestViewController.swift */; };
 		24EF636D2AD3FD5300D071C5 /* ImageLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EF636C2AD3FD5300D071C5 /* ImageLabelView.swift */; };
@@ -108,6 +109,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2405327F2AE180F3002D804B /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		24AED3D52ACF0ED000B0D75A /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		24EF636A2AD2F88000D071C5 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		24EF636C2AD3FD5300D071C5 /* ImageLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLabelView.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				93AE50032ABC2E16008327B4 /* LaunchScreen.storyboard */,
 				93AE50062ABC2E16008327B4 /* Info.plist */,
 				93AE505A2AC2C8B3008327B4 /* Config.xcconfig */,
+				2405327F2AE180F3002D804B /* Localizable.xcstrings */,
 			);
 			path = PLFMembership;
 			sourceTree = "<group>";
@@ -567,11 +570,13 @@
 			};
 			buildConfigurationList = 93AE4FF02ABC2E15008327B4 /* Build configuration list for PBXProject "PLFMembership" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ko,
+				vi,
 			);
 			mainGroup = 93AE4FEC2ABC2E15008327B4;
 			packageReferences = (
@@ -605,6 +610,7 @@
 			files = (
 				93AE50052ABC2E16008327B4 /* LaunchScreen.storyboard in Resources */,
 				935BE9632AE0BD7F009A7F7A /* GoogleService-Info.plist in Resources */,
+				240532802AE180F3002D804B /* Localizable.xcstrings in Resources */,
 				93AE50022ABC2E16008327B4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

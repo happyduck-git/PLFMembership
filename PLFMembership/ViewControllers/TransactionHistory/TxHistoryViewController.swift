@@ -37,7 +37,7 @@ final class TxHistoryViewController: BaseViewController {
     
     private let couponMenuButton: UIButton = {
         let btn = UIButton()
-        btn.setTitle("쿠폰", for: .normal)
+        btn.setTitle(String(localized: "쿠폰"), for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         return btn
     }()

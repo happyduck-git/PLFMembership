@@ -21,7 +21,27 @@ final class MyNFTsViewViewModel {
         mainViewModel.$ownedNFTs
             .assign(to: &self.$idCardNft)
 
+        Task {
+            self.idCardNft.append(contentsOf: await getOtherNft())
+        }
     }
     
+    private func getOtherNft() async -> [OwnedNFT] {
+        do {
+            let result = try await AlchemyServiceManager
+                .shared
+                .requestOwnedNFTs(
+                    ownerAddress: MainConstants.userAddress,
+                    contractAddresses: EnvironmentConfig.poapCouponContractAddress
+                )
+            print("\(result.ownedNfts.count) -- \(result.ownedNfts)")
+            return result.ownedNfts
+        }
+        catch {
+            PLFLogger.logger.error("Error getting owned id card nft -- \(String(describing: error))")
+            return []
+        }
+
+    }
 }
 

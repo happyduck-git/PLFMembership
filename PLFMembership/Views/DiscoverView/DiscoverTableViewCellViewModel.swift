@@ -9,6 +9,5 @@ import Foundation
 import Combine
 
 final class DiscoverTableViewCellViewModel {
-    @Published var likeCount: Int = 0
-    @Published var isLiked: Bool = false
+    
 }

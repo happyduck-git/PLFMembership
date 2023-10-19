@@ -24,12 +24,12 @@ struct UIConstant {
 }
 
 struct LoginConstant {
-    static let metamaskLogin: String = "Metamask 로그인하기"
+    static let metamaskLogin: String = String(localized: "Metamask 로그인하기")
 }
 
 struct SideMenuConstants {
-    static let home: String = "메인 화면"
-    static let myNfts: String = "나의 NFTs"
+    static let home: String = String(localized: "메인 화면")
+    static let myNfts: String = String(localized: "나의 NFTs")
     static let discover: String = "Discover"
 }
 
@@ -38,8 +38,8 @@ struct MainConstants {
 }
 
 struct MyNftsConstants {
-    static let totalNumber: String = "총 %d개"
-    static let ownedCoupons: String = "보유한 쿠폰 보기"
+    static let totalNumber: String = String(localized: "총 %d개")
+    static let ownedCoupons: String = String(localized: "보유한 쿠폰 보기")
     static let sbt: String = "SBT"
 }
 

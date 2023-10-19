@@ -134,7 +134,7 @@ extension UserProfileView {
         self.jobLabel.text = position
         self.usernameLabel.text = username
         
-        let attributedString = colorAfterPrefix(in: "Platfarm과 함께한지 " + joined, with: PLFColor.mint05)
+        let attributedString = colorAfterPrefix(in: String(localized: "Platfarm과 함께한지 ") + joined, with: PLFColor.mint05)
         self.joinedLabel.attributedText = attributedString
         
         self.tierLabel.text = "Tier#\(tier)"
@@ -193,7 +193,7 @@ extension UserProfileView {
 
 extension UserProfileView {
     func colorAfterPrefix(in text: String, with color: UIColor) -> NSAttributedString {
-        let prefix = "Platfarm과 함께한지 "
+        let prefix = String(localized: "Platfarm과 함께한지 ")
         
         let attributedString = NSMutableAttributedString(string: text)
         

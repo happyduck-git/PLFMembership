@@ -14,6 +14,8 @@
 	<string>$(SBT_CONTRACT_ADDRESS_VALUE)</string>
 	<key>TBA_CONTRACT_ADDRESS_VALUE</key>
 	<string>$(TBA_CONTRACT_ADDRESS_VALUE)</string>
+	<key>POAP_CONTRACT_ADDRESS_VALUE</key>
+	<string>$(POAP_CONTRACT_ADDRESS_VALUE)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -13,6 +13,7 @@ public enum EnvironmentConfig {
         case sbtContractAddress = "SBT_CONTRACT_ADDRESS_VALUE"
         case tbaContractAddress = "TBA_CONTRACT_ADDRESS_VALUE"
         case coffeeCouponContractAddress = "COFFEE_CONTRACT_ADDRESS_VALUE"
+        case poapContractAddress = "POAP_CONTRACT_ADDRESS_VALUE"
     }
     
     private static let infoDictionary: [String: Any] = {
@@ -24,7 +25,7 @@ public enum EnvironmentConfig {
     
     static let alchemyAPIKey: String = {
         guard let value = EnvironmentConfig.infoDictionary[Keys.alchemyAPIKey.rawValue] as? String else {
-            fatalError("uplusContractAddress not set in plist for this environment")
+            fatalError("Alchemy API key not set in plist for this environment")
         }
         
         return value
@@ -40,7 +41,7 @@ public enum EnvironmentConfig {
     
     static let tbaContractAddress: String = {
         guard let value = EnvironmentConfig.infoDictionary[Keys.tbaContractAddress.rawValue] as? String else {
-            fatalError("coffeeCouponContractAddress not set in plist for this environment")
+            fatalError("tbaContractAddress not set in plist for this environment")
         }
         
         return value
@@ -49,6 +50,14 @@ public enum EnvironmentConfig {
     static let coffeeCouponContractAddress: String = {
         guard let value = EnvironmentConfig.infoDictionary[Keys.coffeeCouponContractAddress.rawValue] as? String else {
             fatalError("coffeeCouponContractAddress not set in plist for this environment")
+        }
+        
+        return value
+    }()
+    
+    static let poapCouponContractAddress: String = {
+        guard let value = EnvironmentConfig.infoDictionary[Keys.poapContractAddress.rawValue] as? String else {
+            fatalError("poapContractAddress not set in plist for this environment")
         }
         
         return value
