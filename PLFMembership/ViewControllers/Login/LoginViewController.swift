@@ -203,7 +203,7 @@ extension LoginViewController {
         self.showAlert(alertTitle: "지갑 연결 실패",
                        alertMessage: "다시 한번 시도해주세요.",
                        alertStyle: .alert,
-                       actionTitle: "확인",
-                       actionStyle: .cancel)
+                       actionTitle1: "확인",
+                       actionStyle1: .cancel)
     }
 }

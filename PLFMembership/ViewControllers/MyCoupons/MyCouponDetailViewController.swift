@@ -141,7 +141,10 @@ extension MyCouponDetailViewController {
                     self.showAlert(alertTitle: "사용 완료 보내기",
                                    alertMessage: "쿠폰 사용 완료 하시겠습니까?",
                                    alertStyle: .alert,
-                                   actionTitle: "확인", actionStyle: .cancel)
+                                   actionTitle1: "확인",
+                                   actionStyle1: .cancel,
+                                   actionTitle2: "취소",
+                                   actionStyle2: .default)
                     
                 }
                 .store(in: &bindings)
@@ -332,7 +335,7 @@ extension MyCouponDetailViewController {
 }
 
 extension MyCouponDetailViewController: BaseViewControllerDelegate {
-    func cancelTapped() {
+    func firstBtnTapped() {
         self.addChildViewController(self.loadingVC)
         
         Task {
@@ -347,6 +350,10 @@ extension MyCouponDetailViewController: BaseViewControllerDelegate {
             self.loadingVC.removeViewController()
             self.navigationController?.popViewController(animated: true)
         }
+        
+    }
+    
+    func secondBtnTapped() {
         
     }
 }

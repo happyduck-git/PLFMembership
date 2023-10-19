@@ -15,9 +15,11 @@ final class MainViewViewModel {
     private let web3Manager = Web3Manager.shared
     
     // MARK: - Property
+    
     @Published var ownedNFTs: [OwnedNFT] = []
     @Published var tier: BigUInt = 0
     @Published var isLoaded: Bool = false
+    var isLoading: Bool = false
     @Published var sbtMetadata: NFTMetadata?
     @Published var idCardTokenId: String?
     
@@ -45,12 +47,11 @@ final class MainViewViewModel {
     // MARK: - Init
     init() {
         Task {
-            async let ownedNfts = self.getIdCardNft()
-            async let tier = self.web3Manager.getUserTier(address: MainConstants.userAddress)
+            self.isLoading = true
             
-            self.ownedNFTs = await ownedNfts
-            self.tier = await tier
+            await self.getUserInfoData(of: MainConstants.userAddress)
             
+            self.isLoading = false
             self.isLoaded = true
         }   
     }
@@ -59,7 +60,13 @@ final class MainViewViewModel {
 
 
 extension MainViewViewModel {
-    
+    func getUserInfoData(of address: String) async {
+        async let ownedNfts = self.getIdCardNft()
+        async let tier = self.web3Manager.getUserTier(address: address)
+        
+        self.ownedNFTs = await ownedNfts
+        self.tier = await tier
+    }
 }
 
 extension MainViewViewModel {

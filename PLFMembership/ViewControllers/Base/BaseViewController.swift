@@ -9,7 +9,8 @@ import UIKit
 import SnapKit
 
 protocol BaseViewControllerDelegate: AnyObject {
-    func cancelTapped()
+    func firstBtnTapped()
+    func secondBtnTapped()
 }
 
 class BaseViewController: UIViewController {
@@ -30,24 +31,41 @@ extension BaseViewController {
     func showAlert(alertTitle: String?,
                    alertMessage: String?,
                    alertStyle: UIAlertController.Style,
-                   actionTitle: String?,
-                   actionStyle: UIAlertAction.Style) {
+                   actionTitle1: String?,
+                   actionStyle1: UIAlertAction.Style,
+                   actionTitle2: String? = nil,
+                   actionStyle2: UIAlertAction.Style? = nil
+    ) {
         let alert = UIAlertController(
             title: alertTitle,
             message: alertMessage,
             preferredStyle: alertStyle
         )
         
-        let action = UIAlertAction(
-            title: actionTitle,
-            style: actionStyle
+        if let title2 = actionTitle2,
+           let action2 = actionStyle2 {
+            let action2 = UIAlertAction(
+                title: title2,
+                style: action2
+            ) { [weak self] _ in
+                guard let `self` = self else { return }
+                
+                self.baseDelegate?.secondBtnTapped()
+            }
+            
+            alert.addAction(action2)
+        }
+
+        let action1 = UIAlertAction(
+            title: actionTitle1,
+            style: actionStyle1
         ) { [weak self] _ in
             guard let `self` = self else { return }
             
-            self.baseDelegate?.cancelTapped()
+            self.baseDelegate?.firstBtnTapped()
         }
         
-        alert.addAction(action)
+        alert.addAction(action1)
         
         self.present(alert, animated: true)
     }

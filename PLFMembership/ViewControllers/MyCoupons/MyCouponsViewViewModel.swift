@@ -27,7 +27,7 @@ extension MyCouponsViewViewModel {
             let result = try await AlchemyServiceManager
                 .shared
                 .requestOwnedNFTs(
-                    ownerAddress: MainConstants.userAddress,
+                    ownerAddress: EnvironmentConfig.tbaContractAddress,
                     contractAddresses: EnvironmentConfig.coffeeCouponContractAddress
                 )
             

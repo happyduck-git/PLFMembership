@@ -67,7 +67,7 @@ extension MyCouponDetailViewViewModel {
     
     func reclaimCoupon(tokenId: Int64) async -> Bool {
         do {
-            let results = try await nftServiceManager.reclaimCoupon(from: MainConstants.userAddress,
+            let results = try await nftServiceManager.reclaimCoupon(from: EnvironmentConfig.tbaContractAddress,
                                                                     tokenId: tokenId)
             print("Transfer status code: \(results.statusCode)")
             return results.success

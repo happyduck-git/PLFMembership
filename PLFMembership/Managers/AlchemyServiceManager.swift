@@ -143,7 +143,7 @@ extension AlchemyServiceManager {
                                                                 TransferBodyParam.params: [
                                                                     TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
                                                                     TransferBodyParam.toBlock: TransferBodyParam.latest,
-                                                                    TransferBodyParam.toAddress: MainConstants.userAddress,
+                                                                    TransferBodyParam.toAddress: EnvironmentConfig.tbaContractAddress,
                                                                     TransferBodyParam.withMetadata: true,
                                                                     TransferBodyParam.category: [TransferBodyParam.erc721],
                                                                     TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress]
@@ -159,7 +159,7 @@ extension AlchemyServiceManager {
                                                                 TransferBodyParam.params: [
                                                                     TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
                                                                     TransferBodyParam.toBlock: TransferBodyParam.latest,
-                                                                    TransferBodyParam.fromAddress: MainConstants.userAddress,
+                                                                    TransferBodyParam.fromAddress: EnvironmentConfig.tbaContractAddress,
                                                                     TransferBodyParam.withMetadata: true,
                                                                     TransferBodyParam.category: [TransferBodyParam.erc721],
                                                                     TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress]

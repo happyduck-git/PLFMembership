@@ -20,7 +20,6 @@ final class MainViewController: BaseScrollViewController {
     private var bindings = Set<AnyCancellable>()
     
     // MARK: - UI Elements
-    
     private let loadingVC = LoadingViewController()
     
     private let backgroundImage: UIImageView = {
@@ -70,6 +69,8 @@ final class MainViewController: BaseScrollViewController {
         self.setNavigationItem()
         self.setUI()
         self.setLayout()
+        self.setDelegate()
+        self.configureRefreshControl()
         
         self.bind()
 
@@ -128,7 +129,6 @@ extension MainViewController {
                         do {
              
                             // BackgroundView
-                            self.addBlurToImageView(self.backgroundImage)
                             let profileImage = try await ImagePipeline.shared.image(for: imageUrl)
                             self.backgroundImage.image = profileImage
                             
@@ -237,17 +237,54 @@ extension MainViewController {
 
 extension MainViewController: UIScrollViewDelegate {
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.y <= -150 &&
+            !(self.scrollView.refreshControl?.isRefreshing ?? true) {
+            
+//            self.vm.isLoading = true
+            self.scrollView.refreshControl?.beginRefreshing()
+            
+            Task {
+                await self.vm.getUserInfoData(of: MainConstants.userAddress)
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    self.scrollView.refreshControl?.endRefreshing()
+                }
+                print("End refreshing")
+            }
+            
+            
+            /*
+            Task {
+                await self.vm.getUserInfoData(of: MainConstants.userAddress)
+                self.vm.isLoading = false
+            }
+             */
+            
+        }
+        
+    }
+    
 }
 
 // MARK: - Set UI
 extension MainViewController {
     
-    
+    private func setDelegate() {
+        self.scrollView.delegate = self
+    }
     
     private func setUI() {
+        self.addBlurToImageView(self.backgroundImage)
+        
+        self.canvasView.snp.makeConstraints {
+            $0.height.equalTo(self.view.snp.height).offset(1)
+        }
+        
         self.canvasView.addSubviews(self.backgroundImage,
-                              self.welcomeLabel,
-                              self.profileView)
+                                    self.welcomeLabel,
+                                    self.profileView)
     }
     
     private func setLayout() {
@@ -284,6 +321,10 @@ extension MainViewController {
         self.navigationItem.setRightBarButton(clockItem, animated: true)
         
         self.navigationItem.hidesBackButton = true
+    }
+    
+    private func configureRefreshControl() {
+        self.scrollView.refreshControl = UIRefreshControl()
     }
 }
 
