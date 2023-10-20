@@ -75,11 +75,11 @@ extension NFTCollectionViewCell {
             name = "# \(nft.id.tokenId.hexStringToInt64() ?? 0)"
             
         case .poap:
-            name = "# \(nft.metadata.name ?? "Nft Name")"
+            name = "\(nft.metadata.name ?? "Nft Name")"
         }
         
         self.title.text = name
-        print("Image: \(nft.metadata.image)")
+    
         guard let imageUrlString = nft.metadata.image,
               let imageUrl = URL(string: imageUrlString) else {
             

@@ -41,6 +41,7 @@ struct MyNftsConstants {
     static let totalNumber: String = String(localized: "총 %d개")
     static let ownedCoupons: String = String(localized: "보유한 쿠폰 보기")
     static let sbt: String = "SBT"
+    static let coffee: String = "Coffee"
 }
 
 struct UserDefaultsConst {

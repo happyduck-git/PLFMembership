@@ -38,7 +38,7 @@ extension TxHistoryViewViewModel {
                 async let couponTransfers = self.alchemyManager.requestCurrentOwnerCouponTransfers()
                 
                 let nftTransferList = try await sbtTransfers.result.transfers
-                let coupontTransferList = try await couponTransfers
+                let couponTransferList = try await couponTransfers
                 
                 //SBT Metadata
                 self.nftTransferHistoryList = try await withThrowingTaskGroup(of: TransferInfo.self, returning: [TransferInfo].self, body: { tg in
@@ -67,7 +67,7 @@ extension TxHistoryViewViewModel {
                 
                 //NFT Metadata
                 self.couponTransferHistoryList = try await withThrowingTaskGroup(of: TransferInfo.self, returning: [TransferInfo].self, body: { tg in
-                    for transfer in coupontTransferList {
+                    for transfer in couponTransferList {
                         tg.addTask {
                             let nft = try await self.alchemyManager.requestNftMetadata(contractAddress: EnvironmentConfig.coffeeCouponContractAddress, tokenId: transfer.erc721TokenId ?? "0")
                             let nftName = nft.metadata.name ?? "no-name"

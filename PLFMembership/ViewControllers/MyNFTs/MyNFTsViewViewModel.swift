@@ -12,7 +12,7 @@ final class MyNFTsViewViewModel {
     
     // MARK: - Property
     @Published var idCardNft: [OwnedNFT] = []
-    
+    @Published var isLoaded: Bool = false
     private var bindings = Set<AnyCancellable>()
     
     // MARK: - Init
@@ -22,16 +22,23 @@ final class MyNFTsViewViewModel {
             .assign(to: &self.$idCardNft)
 
         Task {
-            self.idCardNft.append(contentsOf: await getOtherNft())
+            self.idCardNft.append(contentsOf: await getOtherNfts())
+            self.isLoaded = true
         }
     }
     
-    private func getOtherNft() async -> [OwnedNFT] {
+}
+
+extension MyNFTsViewViewModel {
+    
+    /// Fetch NFTs from TBA contracts.
+    /// - Returns: Owned NFT array by the owner.
+    private func getOtherNfts() async -> [OwnedNFT] {
         do {
             let result = try await AlchemyServiceManager
                 .shared
                 .requestOwnedNFTs(
-                    ownerAddress: MainConstants.userAddress,
+                    ownerAddress: EnvironmentConfig.tbaContractAddress,
                     contractAddresses: EnvironmentConfig.poapCouponContractAddress
                 )
             print("\(result.ownedNfts.count) -- \(result.ownedNfts)")
@@ -44,4 +51,3 @@ final class MyNFTsViewViewModel {
 
     }
 }
-

@@ -37,7 +37,7 @@ final class MyCouponDetailViewController: BaseScrollViewController {
     private let badge: TitleBadgeView = {
         let view = TitleBadgeView()
         view.backgroundColor = PLFColor.gray01
-        view.title.text = MyNftsConstants.sbt
+        view.title.text = MyNftsConstants.coffee
         
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false

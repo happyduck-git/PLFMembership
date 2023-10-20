@@ -14,7 +14,7 @@ final class RightArrowButton: UIButton {
         let label = UILabel()
         label.text = MyNftsConstants.ownedCoupons
         label.textColor = .black
-        label.font = .systemFont(ofSize: 16, weight: .light)
+        label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

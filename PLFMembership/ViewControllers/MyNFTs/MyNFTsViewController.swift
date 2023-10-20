@@ -17,6 +17,8 @@ final class MyNFTsViewController: BaseViewController {
     private var bindings = Set<AnyCancellable>()
     
     // MARK: - UI Elements
+    private let loadingVC = LoadingViewController()
+    
     private let viewTitle: UILabel = {
         let label = UILabel()
         label.text = SideMenuConstants.myNfts
@@ -75,6 +77,7 @@ final class MyNFTsViewController: BaseViewController {
         self.setDelegate()
         
         self.bind()
+        self.addChildViewController(self.loadingVC)
     }
     
 }
@@ -96,7 +99,17 @@ extension MyNFTsViewController {
                     self.nftCollection.reloadData()
                 }
                 .store(in: &bindings)
-
+            
+            self.vm.$isLoaded
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] loaded in
+                    guard let `self` = self else { return }
+                    
+                    if loaded {
+                        self.loadingVC.removeViewController()
+                    }
+                }
+                .store(in: &bindings)
         }
         
         bindViewToViewModel()
@@ -170,8 +183,11 @@ extension MyNFTsViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
         
         let nft = self.vm.idCardNft[indexPath.item]
-        print("NFT: \(nft)")
-        cell.configure(cellType: .idCard, with: nft)
+        if nft.contract.address == EnvironmentConfig.sbtContractAddress.lowercased() {
+            cell.configure(cellType: .idCard, with: nft)
+        } else {
+            cell.configure(cellType: .poap, with: nft)
+        }
         
         return cell
     }
