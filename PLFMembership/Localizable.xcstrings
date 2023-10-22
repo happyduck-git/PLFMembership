@@ -228,6 +228,16 @@
         }
       }
     },
+    "커피 쿠폰을 확인하고 있습니다." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checking your coupons!"
+          }
+        }
+      }
+    },
     "쿠폰" : {
       "localizations" : {
         "en" : {

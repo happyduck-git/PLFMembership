@@ -65,7 +65,8 @@ extension DiscoverViewViewModel {
                 self.nftTransferHistoryList = try await withThrowingTaskGroup(of: TransferInfo.self, returning: [TransferInfo].self, body: { tg in
                     for transfer in nftTransferList {
                         tg.addTask {
-                            let nft = try await self.alchemyManager.requestNftMetadata(contractAddress: EnvironmentConfig.sbtContractAddress, tokenId: transfer.erc721TokenId ?? "0")
+                            let nft = try await self.alchemyManager.requestNftMetadata(contractAddress: EnvironmentConfig.sbtContractAddress,
+                                                                                       tokenId: transfer.erc721TokenId ?? "0")
                             let nftName = nft.metadata.name ?? "no-name"
                             let imageUrl = nft.metadata.image ?? "no-image"
                             

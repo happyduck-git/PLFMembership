@@ -32,6 +32,7 @@ final class MyCouponsViewController: BaseViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.showsVerticalScrollIndicator = false
         collection.register(NFTCollectionViewCell.self, forCellWithReuseIdentifier: NFTCollectionViewCell.identifier)
         collection.translatesAutoresizingMaskIntoConstraints = false
         return collection
@@ -117,6 +118,7 @@ final class MyCouponsViewController: BaseViewController {
         self.setUI()
         self.setLayout()
         self.setNavigationBar()
+        self.setRefreshControl()
         
         self.bind()
         
@@ -228,6 +230,12 @@ extension MyCouponsViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
+    private func setRefreshControl() {
+        self.nftCollection.refreshControl = UIRefreshControl()
+        self.nftCollection.refreshControl?.tintColor = .gray
+        self.nftCollection.refreshControl?.attributedTitle = NSAttributedString(string: String(localized: "커피 쿠폰을 확인하고 있습니다."))
+    }
+
 }
 
 extension MyCouponsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -262,3 +270,27 @@ extension MyCouponsViewController: UICollectionViewDelegate, UICollectionViewDat
         self.show(vc, sender: self)
     }
 }
+
+extension MyCouponsViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y <= -100 && self.vm.isLoaded {
+            self.nftCollection.refreshControl?.beginRefreshing()
+            
+            if self.vm.isLoaded {
+                self.vm.isLoaded = false
+                Task {
+                    await self.vm.getCoupons()
+                    self.vm.isLoaded = true
+                    DispatchQueue.main.async { [weak self] in
+                        guard let `self` = self else { return }
+                        self.nftCollection.refreshControl?.endRefreshing()
+                    }
+                }
+            }
+            
+        }
+    }
+    
+}
+

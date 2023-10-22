@@ -9,7 +9,7 @@ import UIKit
 import Nuke
 import Combine
 import CoreImage.CIFilterBuiltins
-
+import Lottie
 
 final class MyCouponDetailViewController: BaseScrollViewController {
     
@@ -21,6 +21,7 @@ final class MyCouponDetailViewController: BaseScrollViewController {
     
     // MARK: - UI Elements
     private let loadingVC = LoadingViewController()
+    private let loadingCheckVC = CheckerLottieLoadingViewController()
     
     private var detailViews: [TraitDetailView] = []
     
@@ -250,6 +251,7 @@ extension MyCouponDetailViewController {
 }
 
 extension MyCouponDetailViewController {
+    
     private func setUI() {
         self.canvasView.addSubviews(self.nftImageView,
                                     self.badge,
@@ -336,7 +338,7 @@ extension MyCouponDetailViewController {
 
 extension MyCouponDetailViewController: BaseViewControllerDelegate {
     func firstBtnTapped() {
-        self.addChildViewController(self.loadingVC)
+        self.addChildViewController(self.loadingCheckVC)
         
         Task {
             let tokenId = Int64(self.vm.nft.id.tokenId.dropFirst(2)) ?? 0
@@ -347,7 +349,7 @@ extension MyCouponDetailViewController: BaseViewControllerDelegate {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
             
-            self.loadingVC.removeViewController()
+            self.loadingCheckVC.removeViewController()
             self.navigationController?.popViewController(animated: true)
         }
         

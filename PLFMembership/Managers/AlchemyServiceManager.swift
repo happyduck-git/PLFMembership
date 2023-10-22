@@ -26,12 +26,12 @@ final actor AlchemyServiceManager {
         static let params = "params"
         static let fromBlock = "fromBlock"
         static let toBlock = "toBlock"
+        static let fromAddress = "fromAddress"
         static let toAddress = "toAddress"
         static let category = "category"
         static let contractAddresses = "contractAddresses"
         static let getTransferMethod = "alchemy_getAssetTransfers"
         static let withMetadata = "withMetadata"
-        static let fromAddress = "fromAddress"
         static let erc721 = "erc721"
         static let latest = "latest"
         static let initalBlock = "0x0"
@@ -238,6 +238,7 @@ extension AlchemyServiceManager {
                                                                 TransferBodyParam.params: [
                                                                     TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
                                                                     TransferBodyParam.toBlock: TransferBodyParam.latest,
+                                                                    TransferBodyParam.toAddress: EnvironmentConfig.tbaContractAddress,
                                                                     TransferBodyParam.withMetadata: true,
                                                                     TransferBodyParam.category: [TransferBodyParam.erc721],
                                                                     TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress], "maxCount": "0x3"
@@ -253,6 +254,7 @@ extension AlchemyServiceManager {
                                                                 TransferBodyParam.params: [
                                                                     TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
                                                                     TransferBodyParam.toBlock: TransferBodyParam.latest,
+                                                                    TransferBodyParam.fromAddress: EnvironmentConfig.tbaContractAddress,
                                                                     TransferBodyParam.withMetadata: true,
                                                                     TransferBodyParam.category: [TransferBodyParam.erc721],
                                                                     TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress],

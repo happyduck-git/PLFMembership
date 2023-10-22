@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		240532802AE180F3002D804B /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2405327F2AE180F3002D804B /* Localizable.xcstrings */; };
+		246FBB4B2AE4213D00AFDD2E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 246FBB4A2AE4213D00AFDD2E /* Lottie */; };
+		246FBB4D2AE4221E00AFDD2E /* CheckerLottieLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246FBB4C2AE4221E00AFDD2E /* CheckerLottieLoadingViewController.swift */; };
+		246FBB502AE4234A00AFDD2E /* check-mark.json in Resources */ = {isa = PBXBuildFile; fileRef = 246FBB4F2AE4234A00AFDD2E /* check-mark.json */; };
 		24AED3D62ACF0ED000B0D75A /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AED3D52ACF0ED000B0D75A /* UIImage+Extension.swift */; };
 		24EF636B2AD2F88000D071C5 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EF636A2AD2F88000D071C5 /* TestViewController.swift */; };
 		24EF636D2AD3FD5300D071C5 /* ImageLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EF636C2AD3FD5300D071C5 /* ImageLabelView.swift */; };
@@ -110,6 +113,8 @@
 
 /* Begin PBXFileReference section */
 		2405327F2AE180F3002D804B /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		246FBB4C2AE4221E00AFDD2E /* CheckerLottieLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerLottieLoadingViewController.swift; sourceTree = "<group>"; };
+		246FBB4F2AE4234A00AFDD2E /* check-mark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "check-mark.json"; sourceTree = "<group>"; };
 		24AED3D52ACF0ED000B0D75A /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		24EF636A2AD2F88000D071C5 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		24EF636C2AD3FD5300D071C5 /* ImageLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLabelView.swift; sourceTree = "<group>"; };
@@ -208,6 +213,7 @@
 				93AE50332AC164BD008327B4 /* metamask-ios-sdk in Frameworks */,
 				93AE50222ABC2EE8008327B4 /* FirebaseStorageCombine-Community in Frameworks */,
 				93AE50202ABC2EE8008327B4 /* FirebaseStorage in Frameworks */,
+				246FBB4B2AE4213D00AFDD2E /* Lottie in Frameworks */,
 				93AE50102ABC2EE8008327B4 /* FirebaseAnalytics in Frameworks */,
 				93AE501C2ABC2EE8008327B4 /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
 				93AE50162ABC2EE8008327B4 /* FirebaseFirestoreCombine-Community in Frameworks */,
@@ -223,6 +229,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		246FBB4E2AE4231F00AFDD2E /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				246FBB4F2AE4234A00AFDD2E /* check-mark.json */,
+				93AE50012ABC2E16008327B4 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		9310E0172ACFD0E100BDC5B6 /* CoffeeNFT */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,6 +377,7 @@
 		93AE4FF72ABC2E15008327B4 /* PLFMembership */ = {
 			isa = PBXGroup;
 			children = (
+				246FBB4E2AE4231F00AFDD2E /* Assets */,
 				93AE502E2AC154E6008327B4 /* Extensions */,
 				93AE505B2AC2C95D008327B4 /* Managers */,
 				932EE3AB2AC3D31000D2E132 /* Models */,
@@ -371,7 +387,6 @@
 				93AE50232ABC2FC4008327B4 /* PLFMembership.entitlements */,
 				93AE4FF82ABC2E15008327B4 /* AppDelegate.swift */,
 				93AE4FFA2ABC2E15008327B4 /* SceneDelegate.swift */,
-				93AE50012ABC2E16008327B4 /* Assets.xcassets */,
 				935BE9622AE0BD7F009A7F7A /* GoogleService-Info.plist */,
 				93AE50032ABC2E16008327B4 /* LaunchScreen.storyboard */,
 				93AE50062ABC2E16008327B4 /* Info.plist */,
@@ -442,6 +457,7 @@
 				93AE50352AC166B5008327B4 /* LoadingViewController.swift */,
 				93AE503D2AC16A4E008327B4 /* BaseViewController.swift */,
 				932EE3E92ACE53FC00D2E132 /* BaseScrollViewController.swift */,
+				246FBB4C2AE4221E00AFDD2E /* CheckerLottieLoadingViewController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -544,6 +560,7 @@
 				93AE50322AC164BD008327B4 /* metamask-ios-sdk */,
 				932EE3AF2AC4186E00D2E132 /* web3.swift */,
 				932EE3D32ACD36B200D2E132 /* Nuke */,
+				246FBB4A2AE4213D00AFDD2E /* Lottie */,
 			);
 			productName = PLFMembership;
 			productReference = 93AE4FF52ABC2E15008327B4 /* PLFMembership.app */;
@@ -585,6 +602,7 @@
 				93AE50312AC164BD008327B4 /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */,
 				932EE3AE2AC4186E00D2E132 /* XCRemoteSwiftPackageReference "web3.swift" */,
 				932EE3D22ACD36B100D2E132 /* XCRemoteSwiftPackageReference "Nuke" */,
+				246FBB492AE4213D00AFDD2E /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 93AE4FF62ABC2E15008327B4 /* Products */;
 			projectDirPath = "";
@@ -608,6 +626,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				246FBB502AE4234A00AFDD2E /* check-mark.json in Resources */,
 				93AE50052ABC2E16008327B4 /* LaunchScreen.storyboard in Resources */,
 				935BE9632AE0BD7F009A7F7A /* GoogleService-Info.plist in Resources */,
 				240532802AE180F3002D804B /* Localizable.xcstrings in Resources */,
@@ -690,6 +709,7 @@
 				932EE3E82ACE510800D2E132 /* TitleBadgeView.swift in Sources */,
 				93AADEE62AD67D94005B8EFB /* DiscoverViewController.swift in Sources */,
 				93AE505F2AC2CC1B008327B4 /* EnvironmentConfig.swift in Sources */,
+				246FBB4D2AE4221E00AFDD2E /* CheckerLottieLoadingViewController.swift in Sources */,
 				9310E0162ACFC1EE00BDC5B6 /* NFTTransferResponse.swift in Sources */,
 				932EE3E32ACE457B00D2E132 /* MyCouponsViewController.swift in Sources */,
 				93AE504E2AC2A8C7008327B4 /* SideMenuViewController.swift in Sources */,
@@ -969,6 +989,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		246FBB492AE4213D00AFDD2E /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.3;
+			};
+		};
 		932EE3AE2AC4186E00D2E132 /* XCRemoteSwiftPackageReference "web3.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/argentlabs/web3.swift.git";
@@ -1012,6 +1040,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		246FBB4A2AE4213D00AFDD2E /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 246FBB492AE4213D00AFDD2E /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		932EE3A72AC3B50500D2E132 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 93AE500E2ABC2EE8008327B4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

@@ -152,52 +152,50 @@ final class DiscoverTableViewCell: UITableViewCell {
 
 // MARK: - Configure
 extension DiscoverTableViewCell {
-    func configure(type: DiscoverType, vm: TransferInfo) {
+    func configure(type: DiscoverType, vm: TransferInfo, at indexPath: IndexPath) {
         
         self.tokenIdLabel.text = "Token ID #\(String(describing: vm.transfer.erc721TokenId?.removeHexPrefixAndLeadingZeros() ?? "NAT"))"
         
         self.descriptionLabel.text = type.description
         
-        var nftImage: String = ""
         switch type {
         case .used:
-            self.discoverButtonView.configure(image: UIImage(resource: .demoCoffee))
+            self.discoverButtonView.isHidden = false
+            self.nftImageView.isHidden = true
+            self.discoverButtonView.configure(image: self.getCoffeeImage(at: indexPath.item))
+            
         case .newMember, .newCoupon, .poap:
-            nftImage = vm.image
-        }
-        
-        if let url = URL(string: vm.image) {
-            Task {
-                var image: UIImage?
-                
-                do {
-                    image = try await ImagePipeline.shared.image(for: url)
-                }
-                catch {
-                    image = UIImage(resource: .g3LogoBig)
-                    PLFLogger.logger.error("Error loading image using Nuke -- \(String(describing: error))")
-                }
-                
-                switch type {
-                case .used:
-                    self.discoverButtonView.isHidden = false
-                    self.nftImageView.isHidden = true
-                    self.discoverButtonView.configure(image: image)
+            if let url = URL(string: vm.image) {
+                Task {
+                    var image: UIImage?
                     
-                case .newMember, .newCoupon, .poap:
-                    self.discoverButtonView.isHidden = true
-                    self.nftImageView.isHidden = false
-                    self.nftImageView.image = image
+                    do {
+                        image = try await ImagePipeline.shared.image(for: url)
+                    }
+                    catch {
+                        image = UIImage(resource: .g3LogoBig)
+                        PLFLogger.logger.error("Error loading image using Nuke -- \(String(describing: error))")
+                    }
+                    
+                    switch type {
+                    case .used:
+                        break
+                        
+                    case .newMember, .newCoupon, .poap:
+                        self.discoverButtonView.isHidden = true
+                        self.nftImageView.isHidden = false
+                        self.nftImageView.image = image
+                    }
+     
+                    self.profileComponentsView.configure(image: image,
+                                                         username: vm.transfer.to,
+                                                         time: vm.transfer.metadata.blockTimestamp)
+                    
                 }
- 
-                self.profileComponentsView.configure(image: image,
-                                                     username: vm.transfer.to,
-                                                     time: vm.transfer.metadata.blockTimestamp)
                 
             }
-            
         }
-        
+          
     }
     
     func bind() {
@@ -315,5 +313,17 @@ extension DiscoverTableViewCell {
             $0.trailing.equalTo(self.contentsContainerView.snp.trailing).offset(-20)
             $0.bottom.equalTo(self.likesStack.snp.bottom)
         }
+    }
+}
+
+extension DiscoverTableViewCell {
+    private func getCoffeeImage(at item: Int) -> UIImage? {
+        let images: [UIImage] = [UIImage(resource: .demoCoffee1),
+                                 UIImage(resource: .demoCoffee2),
+                                 UIImage(resource: .demoCoffee3),
+                                 UIImage(resource: .demoCoffee4),
+                                 UIImage(resource: .demoCoffee5),
+                                 UIImage(resource: .demoCoffee6)]
+        return images[item % (images.count)]
     }
 }

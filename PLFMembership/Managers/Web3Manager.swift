@@ -59,11 +59,7 @@ extension Web3Manager {
             
             let client = EthereumHttpClient(url: url)
             let contract = IdCardNFTContract(contract: EnvironmentConfig.sbtContractAddress, client: client)
-            client.getEvents(addresses: <#T##[EthereumAddress]?#>,
-                             topics: <#T##[String?]?#>,
-                             fromBlock: <#T##EthereumBlock#>,
-                             ' toBlock: <#T##EthereumBlock#>,
-                             matching: <#T##[EventFilter]#>)
+      
             return try await contract.getCurrentUserTier(user: EthereumAddress(address))
         }
         catch {

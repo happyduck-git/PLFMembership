@@ -116,13 +116,18 @@ extension DiscoverViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch data.type {
         case .coupon:
-            cell.configure(type: .used, vm: data)
+            print("FROM: \(data.transfer.from.lowercased())")
+            if data.transfer.from.lowercased() == "0xC7904B3F9842F42E04e110aF90001748DF264880".lowercased() {
+                cell.configure(type: .newCoupon, vm: data, at: indexPath)
+            } else {
+                cell.configure(type: .used, vm: data, at: indexPath)
+            }
             
         case .idCard:
-            cell.configure(type: .newMember, vm: data)
+            cell.configure(type: .newMember, vm: data, at: indexPath)
             
         case .poap:
-            cell.configure(type: .poap, vm: data)
+            cell.configure(type: .poap, vm: data, at: indexPath)
         }
         
         cell.bind()

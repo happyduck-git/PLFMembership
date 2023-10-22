@@ -22,7 +22,7 @@ final class MyCouponsViewViewModel {
 
 extension MyCouponsViewViewModel {
     
-    private func getCoupons() async {
+    func getCoupons() async {
         do {
             let result = try await AlchemyServiceManager
                 .shared
