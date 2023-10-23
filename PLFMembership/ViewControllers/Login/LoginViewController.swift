@@ -121,12 +121,15 @@ extension LoginViewController {
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in
                     guard let `self` = self else { return }
-                    
-                    MainConstants.userAddress = "0x1f5F3bfDd93f6b0a626DaB250819A9f9273EAfed"
-                    let vm = MainViewViewModel()
-                    let vc = MainViewController(vm: vm)
-                    
-                    self.show(vc, sender: self)
+                    self.showAlert(alertTitle: "Inactive User.",
+                                   alertMessage: "Please use DEMO ACOOUNT1",
+                                   alertStyle: .alert,
+                                   actionTitle1: "Confirm",
+                                   actionStyle1: .cancel)
+//                    MainConstants.userAddress = "0x1f5F3bfDd93f6b0a626DaB250819A9f9273EAfed"
+//                    let vm = MainViewViewModel()
+//                    let vc = MainViewController(vm: vm)
+//                    self.show(vc, sender: self)
                 }
                 .store(in: &bindings)
             
