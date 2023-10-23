@@ -10,6 +10,7 @@ import Combine
 
 protocol SideMenuViewControllerDelegate: AnyObject {
     func menuTableViewController(controller: SideMenuViewController, didSelectRow selectedRow: Int)
+    func logoutButtonTapped()
 }
 
 final class SideMenuViewController: BaseViewController {
@@ -32,6 +33,15 @@ final class SideMenuViewController: BaseViewController {
         return table
     }()
    
+    private lazy var logoutBtn: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(logoutBtnTapped), for: .touchUpInside)
+        button.setTitle(String(localized: "로그아웃"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     // MARK: - Init
     init(vm: SideMenuViewViewModel) {
         self.vm = vm
@@ -73,17 +83,30 @@ extension SideMenuViewController {
     
 }
 
+extension SideMenuViewController {
+    @objc
+    private func logoutBtnTapped() {
+        self.delegate?.logoutButtonTapped()
+    }
+}
+
 // MARK: - TableView Delegate & DataSource
 extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {
     private func setUI() {
-        view.addSubviews(self.menuTable)
+        view.addSubviews(self.menuTable,
+                         self.logoutBtn)
     }
     
     private func setLayout() {
         self.menuTable.snp.makeConstraints {
-            $0.top.leading.bottom.trailing.equalTo(self.view)
+            $0.top.leading.trailing.equalTo(self.view)
+            $0.bottom.equalTo(self.logoutBtn.snp.top)
         }
-
+        self.logoutBtn.snp.makeConstraints {
+            $0.leading.trailing.equalTo(self.menuTable)
+            $0.height.equalTo(50)
+            $0.bottom.equalTo(self.view)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

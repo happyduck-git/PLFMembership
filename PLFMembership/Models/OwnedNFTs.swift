@@ -44,6 +44,7 @@ struct NFTId: Codable {
 struct NFTMetadata: Codable {
     let image: String?
     let name: String?
+    let tba: String?
     let description: String?
     let attributes: [NFTAttribute]?
     let tokenId: Int?

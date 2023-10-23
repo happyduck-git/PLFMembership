@@ -144,7 +144,7 @@ extension AlchemyServiceManager {
                                                                 TransferBodyParam.params: [
                                                                     TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
                                                                     TransferBodyParam.toBlock: TransferBodyParam.latest,
-                                                                    TransferBodyParam.toAddress: EnvironmentConfig.tbaContractAddress,
+                                                                    TransferBodyParam.toAddress: MainConstants.tbaAddress,
                                                                     TransferBodyParam.withMetadata: true,
                                                                     TransferBodyParam.category: [TransferBodyParam.erc721],
                                                                     TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress]
@@ -160,7 +160,7 @@ extension AlchemyServiceManager {
                                                                 TransferBodyParam.params: [
                                                                     TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
                                                                     TransferBodyParam.toBlock: TransferBodyParam.latest,
-                                                                    TransferBodyParam.fromAddress: EnvironmentConfig.tbaContractAddress,
+                                                                    TransferBodyParam.fromAddress: MainConstants.tbaAddress,
                                                                     TransferBodyParam.withMetadata: true,
                                                                     TransferBodyParam.category: [TransferBodyParam.erc721],
                                                                     TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress]
@@ -238,7 +238,7 @@ extension AlchemyServiceManager {
                                                                 TransferBodyParam.params: [
                                                                     TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
                                                                     TransferBodyParam.toBlock: TransferBodyParam.latest,
-                                                                    TransferBodyParam.toAddress: EnvironmentConfig.tbaContractAddress,
+                                                                    TransferBodyParam.toAddress: MainConstants.tbaAddress,
                                                                     TransferBodyParam.withMetadata: true,
                                                                     TransferBodyParam.category: [TransferBodyParam.erc721],
                                                                     TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress], "maxCount": "0x3"
@@ -254,7 +254,7 @@ extension AlchemyServiceManager {
                                                                 TransferBodyParam.params: [
                                                                     TransferBodyParam.fromBlock: TransferBodyParam.initalBlock,
                                                                     TransferBodyParam.toBlock: TransferBodyParam.latest,
-                                                                    TransferBodyParam.fromAddress: EnvironmentConfig.tbaContractAddress,
+                                                                    TransferBodyParam.fromAddress: MainConstants.tbaAddress,
                                                                     TransferBodyParam.withMetadata: true,
                                                                     TransferBodyParam.category: [TransferBodyParam.erc721],
                                                                     TransferBodyParam.contractAddresses: [EnvironmentConfig.coffeeCouponContractAddress],

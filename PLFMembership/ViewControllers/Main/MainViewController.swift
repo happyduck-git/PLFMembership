@@ -31,7 +31,6 @@ final class MainViewController: BaseScrollViewController {
     
     private let welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = String(localized: "GG님\n안녕하세요!") // temp
         label.numberOfLines = 2
         label.font = .systemFont(ofSize: 30, weight: .bold)
         label.textAlignment = .left
@@ -127,7 +126,8 @@ extension MainViewController {
                     else { return }
                     Task {
                         do {
-             
+                            print("tba: \(info.idCard?.tba)")
+                            self.saveTBAtoUserDefaults(address: info.idCard?.tba ?? "no-tba-found")
                             // BackgroundView
                             let profileImage = try await ImagePipeline.shared.image(for: imageUrl)
                             self.backgroundImage.image = profileImage
@@ -135,12 +135,14 @@ extension MainViewController {
                             // UserProfileView
                             var position: String = ""
                             let department: String = "Mobile" // temp
-                            let username: String = "GG" // temp
+                            var username: String = "" // temp
                             var joined: String = ""
                             
                             attributes.forEach {
                                 let traitType = AttributeTraitType(rawValue: $0.traitType)
                                 switch traitType {
+                                case .name:
+                                    username = $0.value
                                 case .position:
                                     position = $0.value
                                 case .yearOfEntry:
@@ -150,6 +152,8 @@ extension MainViewController {
                                     break
                                 }
                             }
+                            
+                            self.welcomeLabel.text = String(localized: "\(username) 님\n안녕하세요!")
                             self.profileView.configure(image: profileImage,
                                                        position: position,
                                                        department: department,
@@ -382,6 +386,10 @@ extension MainViewController: SideMenuViewControllerDelegate {
         self.sideMenuVC?.dismiss(animated: true)
     }
     
+    func logoutButtonTapped() {
+        self.sideMenuVC?.dismiss(animated: true)
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 
 extension MainViewController: UserProfileViewDelegate {
@@ -412,4 +420,13 @@ extension MainViewController {
         imageView.addSubview(blurEffectView)
     }
    
+}
+
+extension MainViewController {
+    private func saveTBAtoUserDefaults(address: String) {
+        UserDefaults.standard.setValue(address, forKey: UserDefaultsConst.tbaAddress)
+        MainConstants.tbaAddress = address
+        
+        print("TBA saved: \(MainConstants.tbaAddress)")
+    }
 }

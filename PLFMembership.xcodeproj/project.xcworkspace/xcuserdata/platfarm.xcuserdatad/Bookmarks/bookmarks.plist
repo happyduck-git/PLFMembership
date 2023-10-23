@@ -3,6 +3,52 @@
 <plist version="1.0">
 <dict>
 	<key>top-level-items</key>
-	<array/>
+	<array>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>114</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>113</string>
+					<key>Timestamp</key>
+					<string>719712359.285677</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>PLFMembership/ViewControllers/Login/LoginViewController.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>                    let vc = MainViewController(vm: vm)
+</string>
+				<key>leading</key>
+				<string>                    MainConstants.userAddress = "0x04dBF23edb725fe9C859908D76E9Ccf38BC80a13"
+                    let vm = MainViewViewModel()
+</string>
+				<key>trailing</key>
+				<string>                    
+                    self.show(vc, sender: self)
+                }
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+	</array>
 </dict>
 </plist>

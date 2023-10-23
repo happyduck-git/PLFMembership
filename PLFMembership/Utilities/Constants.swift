@@ -34,7 +34,8 @@ struct SideMenuConstants {
 }
 
 struct MainConstants {
-    static let userAddress: String = "0x04dBF23edb725fe9C859908D76E9Ccf38BC80a13" // for debug
+    static var userAddress: String = "0x04dBF23edb725fe9C859908D76E9Ccf38BC80a13" // for debug
+    static var tbaAddress: String = "0x37613A45c01e28C0FA36c84Cda6C4ef63e12cb59" // for debug
 }
 
 struct MyNftsConstants {
@@ -46,4 +47,5 @@ struct MyNftsConstants {
 
 struct UserDefaultsConst {
     static let walletAddress: String = "wallet-address"
+    static let tbaAddress: String = "tba-address"
 }

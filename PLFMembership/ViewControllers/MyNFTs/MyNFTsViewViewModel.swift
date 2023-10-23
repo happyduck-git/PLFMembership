@@ -38,7 +38,7 @@ extension MyNFTsViewViewModel {
             let result = try await AlchemyServiceManager
                 .shared
                 .requestOwnedNFTs(
-                    ownerAddress: EnvironmentConfig.tbaContractAddress,
+                    ownerAddress: MainConstants.tbaAddress,
                     contractAddresses: EnvironmentConfig.poapCouponContractAddress
                 )
             print("\(result.ownedNfts.count) -- \(result.ownedNfts)")
