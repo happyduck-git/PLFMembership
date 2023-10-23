@@ -127,7 +127,7 @@ extension MainViewController {
                     Task {
                         do {
                             print("tba: \(info.idCard?.tba)")
-                            self.saveTBAtoUserDefaults(address: info.idCard?.tba ?? "no-tba-found")
+                            self.setTbaValue(address: info.idCard?.tba ?? "no-tba-found")
                             // BackgroundView
                             let profileImage = try await ImagePipeline.shared.image(for: imageUrl)
                             self.backgroundImage.image = profileImage
@@ -423,10 +423,8 @@ extension MainViewController {
 }
 
 extension MainViewController {
-    private func saveTBAtoUserDefaults(address: String) {
-        UserDefaults.standard.setValue(address, forKey: UserDefaultsConst.tbaAddress)
+    private func setTbaValue(address: String) {
         MainConstants.tbaAddress = address
-        
         print("TBA saved: \(MainConstants.tbaAddress)")
     }
 }
